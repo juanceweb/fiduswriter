@@ -1,0 +1,8 @@
+[run]
+parallel = True
+relative_files = True
+omit =
+	*migrations*
+	venv/*
+	*virtualenv*
+    menu/*

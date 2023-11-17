@@ -1,0 +1,617 @@
+@font-face {
+    font-family: 'unq dingbats';
+    font-weight: 'normal';
+    font-style: 'normal';
+    src: url('../UNQdingbats_bl.woff') format('woff');
+  }
+  
+  /* No me gusta esto, pero no vi otra manera de hacer que al hacer click en el href, te dirija a la posicion correcta.
+      Tambien se puede poner en -todos- los bloques y ids con href que hay. */
+html {
+    scroll-padding-top: 150px;
+  }
+  
+body {
+    font-family: "Droid Serif", Georgia, "Times New Roman", Times, serif;
+    font-size: 16px;
+    line-height: 1.42857143;
+    color: #333;
+  }
+  
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 600;
+  }
+  
+.bg-light {
+    background-color: #407855 !important;
+  }
+  
+.bg-cyt {
+    background-color: #407855 !important;
+  }
+
+.bg-economia {
+    background-color: #407855 !important;
+  }
+
+.bg-artes {
+    background-color: #ff633c !important;
+  }
+
+.bg-sociales {
+    background-color: #854085 !important;
+  }
+  
+.logo-unq {
+    margin: 1%;
+    margin-left: 3%;
+  }
+  
+.footer-col {
+    text-align: left;
+  }
+  
+.footer-title {
+    color: white;
+    font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    margin-bottom:0px;
+    font-size: 12px;
+  }
+  
+#footer {
+    background-color: #407855;
+    padding: 1%;
+    z-index: 1000;
+    padding-left: 60px;
+    margin-top: 100px;
+  }
+  
+  
+  
+.separator {
+    border: 1px solid #407855;
+  }
+  
+#datos-institucionales {
+    font-size: 14px;
+    text-align: right;
+  }
+  
+#mdm-title {
+    margin-top: 4%;
+    color: #407855;
+  }
+  
+#autores {
+    margin-bottom: 2%;
+    margin-top: 2%;
+  }
+  
+#index-separator {
+    margin-top: 3%;
+    margin-bottom: 3%;
+  }
+  
+#datos-institucionales {
+    margin-top: 9%;
+    margin-bottom: 9%;
+  }
+  
+#verMasIcon {
+    cursor: pointer;
+    width: 4%;
+    margin-top: 3%;
+    margin-left: -2.5%;
+  }
+  
+#modalAutoresButton {
+    background-color: #407855;
+  }
+  
+#modalAutoresTitle {
+    color: #407855;
+  }
+  
+.icon {
+    font-family: 'unq dingbats';
+  }
+  
+#fuenteImg, #mapaConceptualImg {
+    width: 100%;
+  }
+  
+#legales {
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+  
+#legalesTitle {
+    margin-bottom: 7%;
+  }
+  
+#openAutorModalIcon {
+    font-size: 16px;
+    text-decoration: none;
+    color: #a6b172;
+  }
+
+#openAutorModalIcon:hover {
+    color: #407855;
+    text-decoration: underline;
+  }
+  
+.navbaricon {
+    font-size: 40px;
+    color: white !important;
+    margin-right: 6px;
+    margin-left: 6px;
+  }
+  
+.navbaricon:hover {
+    text-decoration:underline;
+  }
+  
+.modalBodyAutor {
+    margin-bottom: 5%;
+  }
+  
+.fotoAutorImg {
+    width: 100%;
+  }
+  
+#downloadCvButton {
+    margin-top: 2%;
+    background-color: #407855;
+    border-color: #407855;
+    color: white;
+  }
+  
+.logo-unq-img {
+    margin-right: 3%;
+  }
+  
+#introSection {
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+  
+#titleMdm {
+    margin-bottom: 2%;
+    color: #407855;
+  }
+  
+.bloqueTitle {
+    margin-bottom: 3%;
+  }
+  
+.navbar-unidad-icon {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-size: 22px;
+    margin-top: 10px;
+  }
+  
+#menu {
+    position: relative;
+    background-color: #a6b172 !important; 
+  }
+  
+#menu-short-title {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-right: 5%;
+    color: white;
+  }
+  
+#header {
+    z-index: 1000;
+  }
+  
+#header, #menu {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  
+.navbar-nav {
+    display: inherit;
+    flex-direction: inherit;
+    padding-right: 10%;
+  }
+  
+.navbar-nav > li > a:hover {
+    border: 1px solid #ddd;
+  }
+  
+.navbar-nav .nav-link {
+      padding-right: 0.2rem !important;
+      padding-left: 0.2rem !important;
+  }
+  
+#ref-bibliograficas {
+    margin-top: 4%;
+    margin-bottom: 4%;
+  }
+  
+#ref-bibliograficas-title {
+    margin-bottom: 3%;
+    color: #407855;
+  }
+  
+  
+#navbar-title {
+    color:white;
+  }
+  
+#navbar-brand-title {
+    margin-right: 4%;
+    margin-top: 1%;
+  }
+  
+.list-group-item.active {
+    border-left-style: solid !important;
+    border-left-width: 2px !important;
+    background-color: transparent !important;
+    border-color: #407855 !important;
+    border-radius: 0px;
+  }
+
+.list-group-item-action:focus, .list-group-item-action:hover {
+    color: inherit;
+    background-color: inherit;
+  }
+  
+.bloque {
+    margin-top: 3%;
+    border-top: 2px solid #407855;
+    border-bottom: 2px solid #407855;
+    background-color: #EBF2E7;
+    max-width: -webkit-fill-available;
+  }
+  
+.header-bloque{
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    color: #407855;
+  }
+  
+.bloque-icon {
+    font-size: 350%;
+    vertical-align: middle;
+  }
+  
+.bloque-type-title {
+    font-size: 20px;
+    padding-top: 8%;
+    margin-left: -5px;
+  }
+  
+.bloque-close-button {
+    text-align: right;
+  }
+  
+.bloque-content {
+    padding-left: 1.3%;
+    padding-right: 1.3%;
+    overflow-x: auto;
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  }
+  
+.bloque-content.anidado {
+    padding-left: 17px;
+  }
+  
+.bloque-texto {
+    margin-top: 4%;
+    margin-bottom: 4%;
+    margin-left: 2%;
+    margin-right: 2%;
+    overflow-x: auto;
+  }
+  
+.bloque-collapse-button {
+    font-size: 40px;
+    color: #407855;
+    transition: all .5s ease;
+    float: right;
+  }
+  
+.bloque-collapse-button.rotate[aria-expanded="true"] {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+  }
+  
+.collapse{
+      margin-bottom: 20px;
+  }
+  
+#main {
+    margin-top: 1%;
+    margin-left: 4%;
+    margin-right: 4%;
+    width: auto;
+    min-height: 300px;
+  }
+  
+#index-intro-title{
+    padding-left: 15px;
+    font-family:"Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #555;
+    font-size:20px;
+  }
+  
+.index-intro-general {
+    margin-top: 9%;
+    margin-bottom: 10%;
+  }
+  
+.index-intro-title {
+    font-weight: 100;
+    border-top: 2px solid #ccc;
+    border-left: 2px solid #ccc;
+    padding-top: 8px;
+    padding-left: 8px;
+    padding-bottom: 2px;
+    margin-bottom: 3%;
+    color: #407855;
+  }
+  
+.index-intro-title-font {
+    font-size: 16px;
+    font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  
+.index-title-font {
+    font-size: 15px;
+    font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+.index-font{
+    font-size: 14px;
+    font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  
+.index-intro-title:hover, .index-intro-title:focus  {
+    border-color: #eee;
+    background-color: #eee;
+  }
+  
+.indice-general .menu-header:hover {
+    border-color: #eee;
+  }
+  
+.index-item-intro, .index-item-unidad {
+    list-style-type: none;
+    color: #555;
+  }
+  
+.index-item-unidad.active > a{
+    color: #407855;
+  }
+  
+.index-item-intro {
+    margin-left: -6%;
+    font-weight: 500;
+  }
+  
+.index-item-intro:hover, .index-item-intro:focus {
+    background-color: #eee;
+  }
+  
+.index-item-unidad {
+    color: #407855;
+    margin-bottom: 3%;
+    padding-left: 15px;
+    font-weight: 300;
+  }
+  
+#main-content-unidad, #main-content-intro{
+    margin-right: 2%;
+    margin-left: 2%;
+    margin-bottom: 3%;
+    overflow-wrap: break-word;
+    z-index: 100;
+  }
+  
+#indice {
+    z-index: 100;
+    position: fixed;
+    height: 100%;
+    overflow-y:auto;
+    width:30%;
+  }
+  
+#index-unidad {
+    padding: 0px;
+    font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;;
+  }
+  
+.unidad-title, .intro-title {
+    color: #407855;
+    margin-bottom: 2%;
+  }
+  
+.inicio-unidad {
+    margin-top: 3%;
+  }
+  
+.index-item-unidad > a, .index-item-intro > a{
+    text-decoration: none;
+    color: #555;
+  }
+  
+.index-item-unidad > a:hover {
+    color: #a6b172;
+    background-color: #eee;
+    border-left-color: #407855;
+  }
+  
+.list-group li:nth-child(1){
+    border: none;
+  }
+
+.list-group-item {
+    border: none;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+  }
+  
+img.zoom {
+    cursor: move;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
+    
+th, td {
+    text-align: left;
+  }
+  
+.bloque.anidado {
+    border-top: 1px dotted #407855;
+    border-bottom: unset;
+    margin-left: 25px;
+    inline-size: fit-content;
+    min-width: -webkit-fill-available;
+  }
+  
+table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table > thead > tr > td, table > tbody > tr > td, table > tfoot > tr > td {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+  }
+  
+.index-href {
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    display: -webkit-inline-box;
+    overflow: hidden;
+  }
+  
+.lista-espaciada {
+    padding-bottom: 5px;
+  }
+  
+.video-responsive {
+    position:relative;
+    padding-bottom: 52%;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+  }
+
+.video-responsive iframe {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+iframe {
+      width: 100%;
+      min-height: 250px;
+  }
+  
+.fuente {
+    font-size: 0.8em;
+    margin-top: 5px;
+    color: #407855;
+    margin-left: 8px;
+  }
+  
+.tooltip-inner{
+    background-color: #407855;
+  }
+.tooltip-arrow::before{
+    border-bottom-color: #407855 !important;
+  }
+  
+.modal-title .icon{
+    color: #407855;
+  }
+
+.modal-title > h5{
+    color: #407855;
+  }
+
+.modal-header{
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    color: #407855;
+  }
+
+.pastilla{
+    color: #407855; 
+    text-decoration: none;
+  }
+
+.pastilla:hover {
+    color: #a6b172;
+  }
+  
+.btn-primary {
+    background-color: #407855;
+  }
+  
+.index-color {
+    font-weight: bold;
+    color:#407855;
+  }
+  
+.apartado {
+    margin-top: 80px;
+  }
+
+.subapartado {
+    margin-top: 80px;
+  }
+
+.introduccion-unidad {
+    margin-top: 80px;
+  }
+
+table > tbody > tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+  }
+  
+p.francesa { 
+    text-indent: -30px;
+    margin-left: 30px;
+  }
+
+.autor-cita {
+    text-align: right;
+  }
+
+mjx-math{
+    white-space:inherit;
+  }
+
+.navbaricon.active {
+    text-decoration:underline;
+  }
+
+li > p{
+      margin-bottom: 0;
+  }
+
+table{
+    max-width: fit-content;
+    border-spacing: 0;
+    border-collapse: collapse;
+    margin-bottom: 22px;
+    background-color: transparent;
+  }
+
+portada{
+      width: 100%;
+  }
