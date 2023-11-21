@@ -824,6 +824,14 @@ html[hc='a5'] #toolbar {
     position: relative;
 }
 
+.pepe {
+    border: 2px solid #e4197e !important;
+    border-radius: 5px;
+    padding: 10px 20px 10px 10px;
+    margin: 5px 0;
+    position: relative;
+}
+
 .article-part.titulo {
     border: 2px solid #7ae964 !important;
     border-radius: 5px;

@@ -1,8 +1,6 @@
 import {Dialog, escapeText, addAlert, get} from "../../common"
 import {SaveCopy} from "../../exporter/native"
 
-console.log("prueba")
-
 export class ModDocumentTemplate {
     constructor(editor) {
         editor.mod.documentTemplate = this
