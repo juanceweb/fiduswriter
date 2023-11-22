@@ -649,6 +649,32 @@ export const toolbarModel = () => ({
             action: editor => redo(editor.currentView.state, tr => editor.currentView.dispatch(tr.setMeta("inputType", "historyRedo"))),
             disabled: editor => redoDepth(editor.currentView.state) === 0,
             order: 17
-        }
+        },
+        {
+            type: "button",
+            title: "Actividades",
+            icon: "edit",
+        action: editor => {
+                console.log(editor.currentView.state.schema.nodes)
+                console.log("actividades")
+                console.log(editor.currentView.state.schema.nodes["actividades"])
+                console.log("bullet_list")
+                console.log(editor.currentView.state.schema.nodes["bullet_list"])
+                const node = editor.currentView.state.schema.nodes["actividades"]
+                const command = wrapInList(node)
+                command(editor.currentView.state, tr => editor.currentView.dispatch(tr))
+            }    ,
+            available: editor => elementAvailable(editor, "bullet_list"),
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    elementDisabled(editor, "bullet_list")
+                ) {
+                    return true
+                }
+            },
+            order: 18
+        },
     ]
 })
