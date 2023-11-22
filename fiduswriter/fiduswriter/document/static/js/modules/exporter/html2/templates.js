@@ -1,7 +1,7 @@
 import {escapeText} from "../../common"
 
 /** A template for HTML export of a document. */
-export const htmlExportTemplate = ({head, body, back, settings, lang, xhtml}) =>
+export const htmlExportTemplate = ({head, body, back, settings, lang, xhtml, indice}) =>
     `${
         xhtml ?
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" :
@@ -11,9 +11,8 @@ export const htmlExportTemplate = ({head, body, back, settings, lang, xhtml}) =>
     <head>
         <meta charset="UTF-8">
         ${settings.copyright && settings.copyright.holder ? `<meta name="copyright" content="© ${settings.copyright.year ? settings.copyright.year : new Date().getFullYear()} ${escapeText(settings.copyright.holder)}" />` : ""}
-        ${head}
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/css/document-unq.css">
+        <link rel="stylesheet" href="assets/css/economiaStyle.css">
         <link rel="stylesheet" media="print" href="assets/css/styles-print.css">
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media
         queries -->
@@ -33,7 +32,7 @@ export const htmlExportTemplate = ({head, body, back, settings, lang, xhtml}) =>
             <img class="logo-unq-img" src="assets/media/logo_unq.png" width="136" height="51" alt="logo_unq">
             </a>
             <a class="navbar-brand" id="navbar-brand-title" href="#">
-            <h3 id="navbar-title">Gestión de pymes</h3>
+            <h3 id="navbar-title">${head}</h3>
             <img id="logo-mdm-img" src="assets/media/logo_mdm_blanco.jpg" alt="logo_mdm_blanco">
             </a><nav class="navbar navbar-light bg-light justify-content-end" id="menu">
             <div class="collapse show navbar-collapse justify-content-end" id="menu-short">
@@ -57,7 +56,9 @@ export const htmlExportTemplate = ({head, body, back, settings, lang, xhtml}) =>
     </header>
         <section id="main" class="container-fluid">
             <div class="row">
-                <div class="col-md-4 d-none d-md-block" id="indice"><ul class="list-group" id="index-unidad"><li class="index-item-unidad list-group-item  list-group-item-action"><a class="index-href index-title-font" href="unidad-2.html#unidad-title"><span class="index-color">2.</span> La dirección en las pymes. Fundamentos del proceso gerencial</a><ul class="list-group"><li class="index-item-unidad list-group-item list-group-item-action list-hover"><a class="index-href index-font" href="unidad-2.html#apartado-1"><span class="index-color">2.1.</span> La administración operativa </a></li><li class="index-item-unidad list-group-item list-group-item-action list-hover"><a class="index-href index-font" href="unidad-2.html#apartado-2"><span class="index-color">2.2.</span> Las estructuras, funciones y roles gerenciales en las pymes</a><ul class="list-group collapse"><li class="index-item-unidad list-group-item list-group-item-action"><a class="index-href index-font" href="unidad-2.html#subapartado-2-1"><span class="index-color">2.2.1.</span> Estructuras</a></li><li class="index-item-unidad list-group-item list-group-item-action"><a class="index-href index-font" href="unidad-2.html#subapartado-2-2"><span class="index-color">2.2.2.</span> Las funciones gerenciales y las pymes</a></li></ul></li></ul></li></ul></div>
+                <div class="col-md-4 d-none d-md-block" id="indice">
+                ${indice}
+                </div> 
                 <div class="col-md-8 offset-md-4"><div id="main-content-unidad">            
                 ${body} 
                 ${back}

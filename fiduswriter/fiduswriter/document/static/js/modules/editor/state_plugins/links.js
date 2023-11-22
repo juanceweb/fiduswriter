@@ -524,9 +524,6 @@ ${
 
                         const attrs = Object.assign({}, node.attrs, {id})
 
-                        console.log(node)
-                        console.log(attrs)
-
                         // Because we only change attributes, positions should stay the
                         // the same throughout all our extra steps. We therefore do no
                         // mapping of positions through these steps.

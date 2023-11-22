@@ -42,6 +42,8 @@ export class HTMLExporterConvert {
         this.numeracion = 0
         this.apartado_num = 0
         this.subapartado_num = 0
+        this.apartado_num_index = 0
+        this.subapartado_num_index = 0
     }
 
     init(docContent) {
@@ -49,6 +51,7 @@ export class HTMLExporterConvert {
         this.findCitations(docContent)
         return this.exporter.citations.init(this.citInfos).then(() => {
             const body = this.assembleBody(docContent)
+            const indice = this.assebleIndice(docContent)
             const back = this.assembleBack()
             const head = this.assembleHead()
             const html = this.exporter.htmlExportTemplate({
@@ -57,7 +60,8 @@ export class HTMLExporterConvert {
                 back,
                 settings: this.exporter.doc.settings,
                 lang: this.exporter.doc.settings.language.split("-")[0],
-                xhtml: this.xhtml
+                xhtml: this.xhtml,
+                indice
             })
             return {
                 html,
@@ -139,7 +143,7 @@ export class HTMLExporterConvert {
     }
 
     assembleHead() {
-        let head = `<title>${escapeText(this.metaData.title)}</title>`
+        let head = `${escapeText(this.metaData.title)}`
         if (this.metaData.authors.length) {
             const authorString = this.metaData.authors.map(author => {
                 if (author.firstname || author.lastname) {
@@ -635,6 +639,116 @@ export class HTMLExporterConvert {
         return `<div id="body">${this.walkJson(docContent)}</div>`
     }
 
+    assebleIndice(docContent) {
+
+        let indice_principal, arreglo, primeraParte, nuevaCadena, last_node
+
+        let hay_apartado = false
+        let hay_subapartado = false
+
+        let indice_final = ""
+
+        docContent.content.forEach(node => {
+            if (node.type == "richtext_part" && node.attrs.title == "Titulo") {
+
+                last_node = node.attrs.title
+
+                indice_principal = ""
+
+                for (let index = 0; index < node.content.length; index++) {
+                    const element = node.content[index]
+                    indice_principal += element.content[0].text
+                }
+
+                arreglo = indice_principal.split('.');
+                primeraParte = arreglo.slice(0, 1).join('.');
+                nuevaCadena = indice_principal.substring(primeraParte.length + 1);
+
+                indice_final += '<ul class="list-group" id="index-unidad"><li class="index-item-unidad list-group-item  list-group-item-action"><a class="index-href index-title-font" href="" ><span class="index-color">'
+                indice_final += primeraParte
+                indice_final += '.</span>'
+                indice_final += nuevaCadena
+                indice_final += '</a>'
+                
+            }
+            else if (node.type == "richtext_part" && node.attrs.title == "Apartado" && node.content != undefined) {
+
+                hay_apartado = true
+
+                if (last_node == "Titulo" ) {
+                    indice_final += '<ul class="list-group">'
+                }
+                else if (last_node == "Apartado") {
+                    indice_final += '</li>'
+                }
+
+                // else if (last_node == "Subapartado") {
+                //     indice_final += '</ul>'
+                // }
+
+                last_node = node.attrs.title
+
+                indice_principal = ""
+
+                for (let index = 0; index < node.content.length; index++) {
+                    const element = node.content[index]
+                    indice_principal += element.content[0].text
+                }
+
+                this.apartado_num_index++
+
+                this.subapartado_num_index = 0
+
+                let apartado = this.numeracion + "." + this.apartado_num_index
+
+                indice_final += '<li class="index-item-unidad list-group-item list-group-item-action list-hover"><a class="index-href index-font" href="unidad-2.html#apartado-1"><span class="index-color">'
+                indice_final += apartado
+                indice_final += '.</span>'
+                indice_final += indice_principal
+                indice_final += '</a>'
+
+            }
+        })
+        //     else if (node.type == "richtext_part" && node.attrs.title == "Subapartado" && node.content != undefined) {
+
+        //         hay_subapartado = true
+
+        //         if (last_node == "Apartado" ) {
+        //             indice_final += '<ul class="list-group collapse">'
+        //         }
+
+        //         indice_principal = ""
+
+        //         for (let index = 0; index < node.content.length; index++) {
+        //             const element = node.content[index]
+        //             indice_principal += element.content[0].text
+        //         }
+
+        //         this.subapartado_num_index++
+
+        //         let subapartado = this.numeracion + "." + this.apartado_num_index + "." + this.subapartado_num_index
+
+        //         indice_final += '<li class="index-item-unidad list-group-item list-group-item-action"><a class="index-href index-font" href=""><span class="index-color">'
+        //         indice_final += subapartado
+        //         indice_final += '.</span>'
+        //         indice_final += indice_principal
+        //         indice_final += '</a></li>'
+        //     } 
+        // })
+
+        // if (hay_subapartado == true) {
+        //     indice_final += '</ul>'
+        // }
+
+        if (hay_apartado == true) {
+            indice_final += '</li></ul>'
+        }
+
+        indice_final += '</li></ul>'
+
+        return indice_final
+    }
+
     assembleBack() {
         let back = ""
         if (this.footnotes.length || this.exporter.citations.bibHTML.length || Object.keys(this.affiliations).length) {
@@ -656,7 +770,7 @@ export class HTMLExporterConvert {
         return back
     }
 
-    obtenerNumeroTitulo(node, options) {
+    obtenerNumeroTitulo(node, options = {}) {
 
         let title_content
 
