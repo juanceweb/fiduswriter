@@ -39,6 +39,26 @@ export function randomListId() {
 // A bullet list node spec, represented in the DOM as `<ul>`.
 export const bullet_list = {
     group: "block",
+    content: "list_item+",
+    attrs: {
+        id: {default: false},
+        track: {default: []}
+    },
+    parseDOM: [{tag: "ul", getAttrs(dom) {
+        return {
+            id: dom.id,
+            //track: parseTracks(dom.dataset.track)
+        }
+    }}],
+    toDOM(node) {
+        const attrs = {id: node.attrs.id}
+        addTracks(node, attrs)
+        return ["ul", attrs, 0]
+    }
+}
+
+export const actividades = {
+    group: "block",
     content: "blockquote+",
     attrs: {
         id: {default: false},
@@ -51,7 +71,7 @@ export const bullet_list = {
         }
     }}],
     toDOM(node) {
-        const attrs = {id: node.attrs.id, class: "pepe"}
+        const attrs = {id: node.attrs.id, class: "actividades_borde"}
         addTracks(node, attrs)
         return ["div", attrs, 0]
     }
