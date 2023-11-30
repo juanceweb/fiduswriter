@@ -185,6 +185,11 @@ export const mathDialogTemplate = () =>
         <p><span class="math-field" type="text" name="math" ></span></p>
     </div>`
 
+export const videoDialogTemplate = () =>
+    `<div title="URL Video">
+        <p><input class="video-field"/></p>
+    </div>`
+
 export const figureImageItemTemplate =  ({id, cats, image, thumbnail, title}) =>
     `<tr id="Image_${id}" class="${cats.map(cat => `cat_${escapeText(cat)} `)}" >
          <td class="type" style="width:100px;">

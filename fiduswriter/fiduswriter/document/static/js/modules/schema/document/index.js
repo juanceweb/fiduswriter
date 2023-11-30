@@ -35,7 +35,8 @@ import {
     table_row,
     table_cell,
     table_header,
-    actividades
+    actividades,
+    video
 } from "../common"
 import {
     contributor,
@@ -98,7 +99,7 @@ const specNodes = OrderedMap.from({
     table_row,
     table_cell,
     table_header,
-    actividades
+    actividades,
 })
 
 const spec = {
@@ -113,7 +114,8 @@ const spec = {
         anchor,
         deletion,
         insertion,
-        format_change
+        format_change,
+        video
     })
 }
 

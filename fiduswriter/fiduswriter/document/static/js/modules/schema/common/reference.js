@@ -1,3 +1,5 @@
+import {addTracks} from "./track";
+
 export const cross_reference = {
     inline: true,
     group: "inline",
@@ -51,6 +53,33 @@ export const link = {
         const {href, title} = node.attrs
         const attrs = title || href.charAt(0) !== "#" ? {href, title} : {href, title: gettext("Missing target"), class: "missing-target"}
         return ["a", attrs, 0]
+    }
+}
+
+export const video = {
+    group: "block",
+    content: "blockquote+",
+    attrs: {
+
+        urlVideo: {
+            default: null
+        }
+    },
+    inclusive: false,
+    parseDOM: [
+        {
+            getAttrs(dom) {
+                return {
+
+                    urlVideo: dom.getAttribute("urlVideo")
+                }
+            }
+        }
+    ],
+    toDOM(node) {
+        const attrs = {width:"630", height:"517", src:"https://www.youtube.com/embed/"+node.attrs.urlVideo ,id: node.attrs.id, class: "video_borde"}
+        addTracks(node, attrs)
+        return ["iframe", attrs, 0]
     }
 }
 
