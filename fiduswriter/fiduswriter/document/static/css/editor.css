@@ -592,6 +592,20 @@ span.delete {
     position: relative;
 }
 
+.video-field {
+    background-color: var(--cs-white-background);
+    margin: 9px 10px 7px;
+    padding-left: 5px;
+    font-size: 14px;
+    display: block;
+    width: 600px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: solid 1px var(--cs-white-border);
+    cursor: text;
+    position: relative;
+}
+
 .math-field .placeholder {
     position: absolute;
     top: 20px;
@@ -826,6 +840,15 @@ html[hc='a5'] #toolbar {
 
 .actividades_borde {
     border: 2px solid #e4197e !important;
+    border-radius: 5px;
+    padding: 10px 20px 10px 10px;
+    margin: 5px 0;
+    position: relative;
+}
+
+
+.video_borde {
+    border: 2px solid #e41919 !important;
     border-radius: 5px;
     padding: 10px 20px 10px 10px;
     margin: 5px 0;

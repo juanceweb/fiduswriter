@@ -2,7 +2,7 @@ import {wrapIn, toggleMark} from "prosemirror-commands"
 import {wrapInList} from "prosemirror-schema-list"
 import {undo, redo, undoDepth, redoDepth} from "prosemirror-history"
 
-import {CitationDialog, FigureDialog, LinkDialog, MathDialog, TableDialog} from "../../dialogs"
+import {CitationDialog, FigureDialog, LinkDialog, MathDialog, TableDialog,VideoDialog} from "../../dialogs"
 import {READ_ONLY_ROLES, COMMENT_ONLY_ROLES} from "../.."
 import {setBlockType} from "../../keymap"
 import {checkProtectedInSelection} from "../../state_plugins"
@@ -636,34 +636,15 @@ export const toolbarModel = () => ({
         },
         {
             type: "button",
-            title: gettext("Undo"),
-            icon: "undo",
-            action: editor => undo(editor.currentView.state, tr => editor.currentView.dispatch(tr.setMeta("inputType", "historyUndo"))),
-            disabled: editor => undoDepth(editor.currentView.state) === 0,
-            order: 16
-        },
-        {
-            type: "button",
-            title: gettext("Redo"),
-            icon: "redo",
-            action: editor => redo(editor.currentView.state, tr => editor.currentView.dispatch(tr.setMeta("inputType", "historyRedo"))),
-            disabled: editor => redoDepth(editor.currentView.state) === 0,
-            order: 17
-        },
-        {
-            type: "button",
             title: "Actividades",
             icon: "edit",
-        action: editor => {
-                console.log(editor.currentView.state.schema.nodes)
-                console.log("actividades")
-                console.log(editor.currentView.state.schema.nodes["actividades"])
-                console.log("bullet_list")
-                console.log(editor.currentView.state.schema.nodes["bullet_list"])
+            action: editor => {
                 const node = editor.currentView.state.schema.nodes["actividades"]
                 const command = wrapInList(node)
-                command(editor.currentView.state, tr => editor.currentView.dispatch(tr))
-            }    ,
+                command(editor.currentView.state, tr =>{
+                    editor.currentView.dispatch(tr)
+                } )
+            },
             available: editor => elementAvailable(editor, "bullet_list"),
             disabled: editor => {
                 if (
@@ -674,7 +655,43 @@ export const toolbarModel = () => ({
                     return true
                 }
             },
+            order: 16
+        },
+        {
+            type: "button",
+            title: "Video",
+            icon: "video",
+            action: editor => {
+                const dialog = new VideoDialog(editor)
+                dialog.init()
+            },
+            available: editor => elementAvailable(editor, "bullet_list"),
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    elementDisabled(editor, "bullet_list")
+                ) {
+                    return true
+                }
+            },
+            order: 17
+        },
+        {
+            type: "button",
+            title: gettext("Undo"),
+            icon: "undo",
+            action: editor => undo(editor.currentView.state, tr => editor.currentView.dispatch(tr.setMeta("inputType", "historyUndo"))),
+            disabled: editor => undoDepth(editor.currentView.state) === 0,
             order: 18
+        },
+        {
+            type: "button",
+            title: gettext("Redo"),
+            icon: "redo",
+            action: editor => redo(editor.currentView.state, tr => editor.currentView.dispatch(tr.setMeta("inputType", "historyRedo"))),
+            disabled: editor => redoDepth(editor.currentView.state) === 0,
+            order: 19
         },
     ]
 })
