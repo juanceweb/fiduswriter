@@ -398,8 +398,15 @@ export class HTMLExporterConvert {
             end = "</code>" + end
             break
         case "blockquote":
-            start += "<blockquote>"
-            end = "</blockquote>" + end
+            start += '<div id="" class="container-fluid bloque "><div class="row header-bloque">'
+            start += '<div class="col-12">'
+            start += '<span class="icon bloque-icon" aria-hidden="true" aria-label="icono Actividad">K</span>'
+            start += '<span class="bloque-type-title"><b>Actividad</b></span>'
+            start += '<div class="bloque-collapse-button rotate" data-bs-toggle="collapse" href="#bloque-content-25" role="button" aria-hidden="true" aria-label="Boton abrir" aria-expanded="false" aria-controls="bloque-content-25">+</div></div></div>'
+            start += '<div class="row collapse show" id="bloque-content-25">'
+            start += '<div class="bloque-content">'
+           
+            end = "</div></div>" + end
             break
         case "ordered_list": {
             if (node.attrs.order == 1) {

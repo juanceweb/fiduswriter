@@ -833,7 +833,7 @@ html[hc='a5'] #toolbar {
 }
 
 .article-part.titulo {
-    border: 2px solid #7ae964 !important;
+    border: 2px solid #a2a4b1 !important;
     border-radius: 5px;
     padding: 10px 20px 10px 10px;
     margin: 5px 0;
@@ -841,20 +841,32 @@ html[hc='a5'] #toolbar {
 }
 
 .article-part.subtitulo {
-    border: 2px solid #4a5db4 !important;
+    border: 2px solid #a2a4b1 !important;
 }
 
 .article-part.apartado {
-    border: 2px solid #c1692b !important;
+    border: 2px solid #a2a4b1 !important;
 }
 
 .article-part.subapartado {
-    border: 2px solid #e4197e !important;
+    border: 2px solid #a2a4b1 !important;
 }
 
 
 .article-part.cuerpo {
     border: 2px solid #a2a4b1 !important;
+}
+
+.section-namespace {
+    margin-top: -22px;
+}
+
+.section-namespace-span {
+    background-color: white;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 11px;
+    font-weight: bold;
 }
 
 .remove-article-part {

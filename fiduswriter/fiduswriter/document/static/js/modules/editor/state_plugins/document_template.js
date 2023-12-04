@@ -46,15 +46,35 @@ export function checkProtectedInSelection(state) {
     return anchorDocPart.attrs.locking === "fixed" || headDocPart.attrs.locking === "fixed"
 }
 
+let apartado = 0
+let subapartado = 0
+
 export class PartView {
     constructor(node, view, getPos) {
         this.node = node
         this.view = view
         this.getPos = getPos
-        this.dom = document.createElement("div")
+        this.dom = document.createElement("section")
         this.dom.classList.add("article-part")
         this.dom.classList.add(`article-${this.node.type.name}`)
         this.dom.classList.add(`${this.node.attrs.title.toLowerCase()}`)
+
+        let div = document.createElement("div")
+        let span = document.createElement("span")
+
+        div.classList.add("section-namespace")
+        span.classList.add("section-namespace-span")
+        span.textContent = this.node.attrs.title.toUpperCase()
+
+        if (this.node.attrs.title.toLowerCase() == "apartado" && this.node.attrs.hidden != true) {
+            apartado++
+            span.textContent += " *" + apartado
+        }
+
+        div.appendChild(span)
+
+        this.dom.appendChild(div)
+
         if (node.attrs.hidden) {
             this.dom.dataset.hidden = true
         }
