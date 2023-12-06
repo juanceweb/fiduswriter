@@ -863,25 +863,14 @@ html[hc='a5'] #toolbar {
     position: relative;
 }
 
-.article-part.subtitulo {
+.article-part.border-section {
     border: 2px solid #a2a4b1 !important;
 }
 
-.article-part.apartado {
-    border: 2px solid #a2a4b1 !important;
-}
-
-.article-part.subapartado {
-    border: 2px solid #a2a4b1 !important;
-}
-
-
-.article-part.cuerpo {
-    border: 2px solid #a2a4b1 !important;
-}
 
 .section-namespace {
     margin-top: -22px;
+    margin-bottom: 5px;
 }
 
 .section-namespace-span {

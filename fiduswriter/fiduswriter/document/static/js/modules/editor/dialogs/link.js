@@ -188,8 +188,6 @@ export class LinkDialog {
                         markType
                     )
                 }
-
-                console.log(view.state.schema.marks)
                 
                 view.dispatch(tr)
                 view.focus()

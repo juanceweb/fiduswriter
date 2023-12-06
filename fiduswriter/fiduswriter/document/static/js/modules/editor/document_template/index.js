@@ -66,13 +66,13 @@ export class ModDocumentTemplate {
                     let anchorParentOffset = editor.view.state.selection.$anchor.parentOffset
                     let anchorDepth = editor.view.state.selection.$anchor.depth
                     let new_offset = anchorPos - anchorParentOffset - anchorDepth
-                    let aca = false
+                    let offset_check = false
 
                     editor.view.state.doc.firstChild.forEach((docNode, docNodeOffset) => {
 
-                        if (aca == true) {
+                        if (offset_check == true) {
                             offset += docNodeOffset
-                            aca = false
+                            offset_check = false
                         }
                         
                         if (docNode.attrs.id === node.attrs.id) {
@@ -81,7 +81,7 @@ export class ModDocumentTemplate {
                         }
 
                         if (new_offset == docNodeOffset) {
-                                aca = true
+                                offset_check = true
                         }
 
                         idList.push(docNode.attrs.id)

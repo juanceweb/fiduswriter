@@ -72,7 +72,9 @@ export class HTMLExporterConvert {
 
     // Find information for meta tags in header
     preWalkJson(node) {
+
         switch (node.type) {
+    
         case "article":
             this.metaData.copyright = node.attrs.copyright
             break
@@ -287,9 +289,33 @@ export class HTMLExporterConvert {
                     end = "</div>" + end
                     break
                 }
-                else if (node.attrs.title == "Subtitulo") {
+                else if (node.attrs.title == "Objetivos") {
 
                     start += `<div class="inicio-unidad" id="${node.attrs.id}" ${ node.attrs.language ? ` lang="${node.attrs.language}"` : ""}>`
+                    end = "</div>" + end
+                    break
+                }
+                else if (node.attrs.title == "Introduccion") {
+
+                    start += `<div class="introduccion-unidad" id="${node.attrs.id}" ${ node.attrs.language ? ` lang="${node.attrs.language}"` : ""}>`
+                    end = "</div>" + end
+                    break
+                }
+                else if (node.attrs.title == "Subtitulo-1") {
+
+                    start += `<div  class="sub-negrita" id="${node.attrs.id}" ${ node.attrs.language ? ` lang="${node.attrs.language}"` : ""}>`
+                    end = "</div>" + end
+                    break
+                }
+                else if (node.attrs.title == "Subtitulo-2") {
+
+                    start += `<div class="sub-negrita-cursiva" id="${node.attrs.id}" ${ node.attrs.language ? ` lang="${node.attrs.language}"` : ""}>`
+                    end = "</div>" + end
+                    break
+                }
+                else if (node.attrs.title == "Subtitulo-3") {
+
+                    start += `<div class="sub-blanquita-cursiva" id="${node.attrs.id}" ${ node.attrs.language ? ` lang="${node.attrs.language}"` : ""}>`
                     end = "</div>" + end
                     break
                 }
@@ -321,6 +347,7 @@ export class HTMLExporterConvert {
                     let contentMod= (
                     content.slice(0, posicionh4) +
                     span +
+                    " " +
                     content.slice(posicionh4)
                     );
 
@@ -351,6 +378,7 @@ export class HTMLExporterConvert {
                     let contentMod= (
                     content.slice(0, posicionh5) +
                     span +
+                    " " +
                     content.slice(posicionh5)
                     );
 
@@ -408,6 +436,7 @@ export class HTMLExporterConvert {
            
             end = "</div></div>" + end
             break
+
         case "ordered_list": {
             if (node.attrs.order == 1) {
                 start += `<ol id="list-${++this.listCounter}">`
@@ -443,13 +472,15 @@ export class HTMLExporterConvert {
             end = "</aside>" + end
             break
         case "text": {
-            let strong, em, underline, hyperlink
+            let strong, em, underline, hyperlink, video
             // Check for hyperlink, bold/strong, italic/em and underline
+
             if (node.marks) {
                 strong = node.marks.find(mark => mark.type === "strong")
                 em = node.marks.find(mark => mark.type === "em")
                 underline = node.marks.find(mark => mark.type === "underline")
                 hyperlink = node.marks.find(mark => mark.type === "link")
+                video = node.marks.find(mark => mark.type === "video")
             }
             if (em) {
                 start += "<em>"
@@ -468,6 +499,11 @@ export class HTMLExporterConvert {
                 end = "</a>" + end
             }
             content += escapeText(node.text).normalize("NFC")
+            if (video) {
+                start = ""
+                content = '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + video.attrs.urlVideo + '" frameborder="0" allowfullscreen></iframe>'
+                end = ""
+            }
             break
         }
         case "cross_reference": {

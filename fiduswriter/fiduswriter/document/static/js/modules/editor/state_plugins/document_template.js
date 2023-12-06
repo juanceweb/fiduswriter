@@ -58,6 +58,7 @@ export class PartView {
         this.dom.classList.add("article-part")
         this.dom.classList.add(`article-${this.node.type.name}`)
         this.dom.classList.add(`${this.node.attrs.title.toLowerCase()}`)
+        this.dom.classList.add('border-section')
 
         let div = document.createElement("div")
         let span = document.createElement("span")
@@ -68,7 +69,13 @@ export class PartView {
 
         if (this.node.attrs.title.toLowerCase() == "apartado" && this.node.attrs.hidden != true) {
             apartado++
+            subapartado = 0
             span.textContent += " *" + apartado
+        }
+
+        if (this.node.attrs.title.toLowerCase() == "subapartado"  && this.node.attrs.hidden != true) {
+            subapartado++
+            span.textContent += " *" + apartado + "." + subapartado
         }
 
         div.appendChild(span)
