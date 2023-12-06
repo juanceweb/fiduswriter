@@ -2,7 +2,7 @@ import {wrapIn, toggleMark} from "prosemirror-commands"
 import {wrapInList} from "prosemirror-schema-list"
 import {undo, redo, undoDepth, redoDepth} from "prosemirror-history"
 
-import {CitationDialog, FigureDialog, LinkDialog, MathDialog, TableDialog,VideoDialog} from "../../dialogs"
+import {CitationDialog, FigureDialog, LinkDialog, MathDialog, TableDialog,VideoDialog,EncuestaDialog} from "../../dialogs"
 import {READ_ONLY_ROLES, COMMENT_ONLY_ROLES} from "../.."
 import {setBlockType} from "../../keymap"
 import {checkProtectedInSelection} from "../../state_plugins"
@@ -679,11 +679,77 @@ export const toolbarModel = () => ({
         },
         {
             type: "button",
+            title: "Lectura Obligatoria",
+            icon: "glasses",
+            action: editor => {
+                const node = editor.currentView.state.schema.nodes["lectura_obligatoria"]
+                const command = wrapInList(node)
+                command(editor.currentView.state, tr =>{
+                    editor.currentView.dispatch(tr)
+                } )
+            },
+            available: editor => elementAvailable(editor, "bullet_list"),
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    elementDisabled(editor, "bullet_list")
+                ) {
+                    return true
+                }
+            },
+            order: 18
+        },
+        {
+            type: "button",
+            title: "Para reflexionar",
+            icon: "question",
+            action: editor => {
+                const node = editor.currentView.state.schema.nodes["para_reflexionar"]
+                const command = wrapInList(node)
+                command(editor.currentView.state, tr =>{
+                    editor.currentView.dispatch(tr)
+                } )
+            },
+            available: editor => elementAvailable(editor, "bullet_list"),
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    elementDisabled(editor, "bullet_list")
+                ) {
+                    return true
+                }
+            },
+            order: 19
+        },
+        {
+            type: "button",
+            title: "Encuesta",
+            icon: "clipboard-question",
+            action: editor => {
+                const dialog = new EncuestaDialog(editor)
+                dialog.init()
+            },
+            available: editor => elementAvailable(editor, "bullet_list"),
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    elementDisabled(editor, "bullet_list")
+                ) {
+                    return true
+                }
+            },
+            order: 20
+        },
+        {
+            type: "button",
             title: gettext("Undo"),
             icon: "undo",
             action: editor => undo(editor.currentView.state, tr => editor.currentView.dispatch(tr.setMeta("inputType", "historyUndo"))),
             disabled: editor => undoDepth(editor.currentView.state) === 0,
-            order: 18
+            order: 21
         },
         {
             type: "button",
@@ -691,7 +757,7 @@ export const toolbarModel = () => ({
             icon: "redo",
             action: editor => redo(editor.currentView.state, tr => editor.currentView.dispatch(tr.setMeta("inputType", "historyRedo"))),
             disabled: editor => redoDepth(editor.currentView.state) === 0,
-            order: 19
+            order: 22
         },
     ]
 })

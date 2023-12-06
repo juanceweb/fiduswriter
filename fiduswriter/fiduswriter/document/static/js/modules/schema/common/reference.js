@@ -87,6 +87,33 @@ export const randomAnchorId = () => {
     return `A${Math.round(Math.random() * 10000000) + 1}`
 }
 
+export const encuesta = {
+    group: "block",
+    content: "blockquote+",
+    attrs: {
+
+        urlEncuesta: {
+            default: null
+        }
+    },
+    inclusive: false,
+    parseDOM: [
+        {
+            getAttrs(dom) {
+                return {
+
+                    urlEncuesta: dom.getAttribute("urlEncuesta")
+                }
+            }
+        }
+    ],
+    toDOM(node) {
+        const attrs = {width:"833", height:"532", src:node.attrs.urlEncuesta ,id: node.attrs.id, class: "encuesta_borde"}
+        addTracks(node, attrs)
+        return ["iframe", attrs, 0]
+    }
+}
+
 export const anchor = {
     attrs: {
         id: {
