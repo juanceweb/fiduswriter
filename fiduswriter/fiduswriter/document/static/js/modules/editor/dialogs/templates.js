@@ -190,6 +190,12 @@ export const videoDialogTemplate = () =>
         <p><input class="video-field"/></p>
     </div>`
 
+export const encuestaDialogTemplate = () =>
+    `<div title="URL Encuesta">
+        <p><input class="encuesta-field"/></p>
+    </div>`
+
+
 export const figureImageItemTemplate =  ({id, cats, image, thumbnail, title}) =>
     `<tr id="Image_${id}" class="${cats.map(cat => `cat_${escapeText(cat)} `)}" >
          <td class="type" style="width:100px;">

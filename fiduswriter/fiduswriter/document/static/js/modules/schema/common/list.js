@@ -77,6 +77,46 @@ export const actividades = {
     }
 }
 
+export const lectura_obligatoria = {
+    group: "block",
+    content: "blockquote+",
+    attrs: {
+        id: {default: false},
+        track: {default: []}
+    },
+    parseDOM: [{tag: "div", getAttrs(dom) {
+        return {
+            id: dom.id,
+            //track: parseTracks(dom.dataset.track)
+        }
+    }}],
+    toDOM(node) {
+        const attrs = {id: node.attrs.id, class: "lectura_obligatoria_borde"}
+        addTracks(node, attrs)
+        return ["div", attrs, 0]
+    }
+}
+
+export const para_reflexionar = {
+    group: "block",
+    content: "blockquote+",
+    attrs: {
+        id: {default: false},
+        track: {default: []}
+    },
+    parseDOM: [{tag: "div", getAttrs(dom) {
+        return {
+            id: dom.id,
+            //track: parseTracks(dom.dataset.track)
+        }
+    }}],
+    toDOM(node) {
+        const attrs = {id: node.attrs.id, class: "para_reflexionar_borde"}
+        addTracks(node, attrs)
+        return ["div", attrs, 0]
+    }
+}
+
 // :: NodeSpec
 // A list item (`<li>`) spec.
 export const list_item = {

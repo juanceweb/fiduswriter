@@ -36,7 +36,11 @@ import {
     table_cell,
     table_header,
     actividades,
-    video
+    lectura_obligatoria,
+    para_reflexionar,
+    video,
+    encuesta
+
 } from "../common"
 import {
     contributor,
@@ -100,6 +104,8 @@ const specNodes = OrderedMap.from({
     table_cell,
     table_header,
     actividades,
+    lectura_obligatoria,
+    para_reflexionar
 })
 
 const spec = {
@@ -115,7 +121,8 @@ const spec = {
         deletion,
         insertion,
         format_change,
-        video
+        video,
+        encuesta
     })
 }
 
