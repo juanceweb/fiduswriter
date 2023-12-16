@@ -38,6 +38,10 @@ import {
     actividades,
     lectura_obligatoria,
     para_reflexionar,
+    texto_aparte,
+    ejemplo,
+    lectura_recomendada,
+    leer_con_atencion,
     video,
     encuesta
 
@@ -105,7 +109,11 @@ const specNodes = OrderedMap.from({
     table_header,
     actividades,
     lectura_obligatoria,
-    para_reflexionar
+    para_reflexionar,
+    texto_aparte,
+    ejemplo,
+    lectura_recomendada,
+    leer_con_atencion
 })
 
 const spec = {

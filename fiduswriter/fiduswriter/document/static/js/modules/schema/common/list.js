@@ -117,6 +117,86 @@ export const para_reflexionar = {
     }
 }
 
+export const leer_con_atencion = {
+    group: "block",
+    content: "blockquote+",
+    attrs: {
+        id: {default: false},
+        track: {default: []}
+    },
+    parseDOM: [{tag: "div", getAttrs(dom) {
+        return {
+            id: dom.id,
+            //track: parseTracks(dom.dataset.track)
+        }
+    }}],
+    toDOM(node) {
+        const attrs = {id: node.attrs.id, class: "leer_con_atencion_borde"}
+        addTracks(node, attrs)
+        return ["div", attrs, 0]
+    }
+}
+
+export const texto_aparte = {
+    group: "block",
+    content: "blockquote+",
+    attrs: {
+        id: {default: false},
+        track: {default: []}
+    },
+    parseDOM: [{tag: "div", getAttrs(dom) {
+        return {
+            id: dom.id,
+            //track: parseTracks(dom.dataset.track)
+        }
+    }}],
+    toDOM(node) {
+        const attrs = {id: node.attrs.id, class: "texto_aparte_borde"}
+        addTracks(node, attrs)
+        return ["div", attrs, 0]
+    }
+}
+
+export const ejemplo = {
+    group: "block",
+    content: "blockquote+",
+    attrs: {
+        id: {default: false},
+        track: {default: []}
+    },
+    parseDOM: [{tag: "div", getAttrs(dom) {
+        return {
+            id: dom.id,
+            //track: parseTracks(dom.dataset.track)
+        }
+    }}],
+    toDOM(node) {
+        const attrs = {id: node.attrs.id, class: "ejemplo_borde"}
+        addTracks(node, attrs)
+        return ["div", attrs, 0]
+    }
+}
+
+export const lectura_recomendada = {
+    group: "block",
+    content: "blockquote+",
+    attrs: {
+        id: {default: false},
+        track: {default: []}
+    },
+    parseDOM: [{tag: "div", getAttrs(dom) {
+        return {
+            id: dom.id,
+            //track: parseTracks(dom.dataset.track)
+        }
+    }}],
+    toDOM(node) {
+        const attrs = {id: node.attrs.id, class: "lectura_recomendada_borde"}
+        addTracks(node, attrs)
+        return ["div", attrs, 0]
+    }
+}
+
 // :: NodeSpec
 // A list item (`<li>`) spec.
 export const list_item = {
