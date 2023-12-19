@@ -745,11 +745,103 @@ export const toolbarModel = () => ({
         },
         {
             type: "button",
+            title: "Leer con atención",
+            icon: "magnifying-glass",
+            action: editor => {
+                const node = editor.currentView.state.schema.nodes["leer_con_atencion"]
+                const command = wrapInList(node)
+                command(editor.currentView.state, tr =>{
+                    editor.currentView.dispatch(tr)
+                } )
+            },
+            available: editor => elementAvailable(editor, "bullet_list"),
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    elementDisabled(editor, "bullet_list")
+                ) {
+                    return true
+                }
+            },
+            order: 21
+        },
+        {
+            type: "button",
+            title: "Texto Aparte",
+            icon: "align-justify",
+            action: editor => {
+                const node = editor.currentView.state.schema.nodes["texto_aparte"]
+                const command = wrapInList(node)
+                command(editor.currentView.state, tr =>{
+                    editor.currentView.dispatch(tr)
+                } )
+            },
+            available: editor => elementAvailable(editor, "bullet_list"),
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    elementDisabled(editor, "bullet_list")
+                ) {
+                    return true
+                }
+            },
+            order: 22
+        },
+        {
+            type: "button",
+            title: "Ejemplo",
+            icon: "x",
+            action: editor => {
+                const node = editor.currentView.state.schema.nodes["ejemplo"]
+                const command = wrapInList(node)
+                command(editor.currentView.state, tr =>{
+                    editor.currentView.dispatch(tr)
+                } )
+            },
+            available: editor => elementAvailable(editor, "bullet_list"),
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    elementDisabled(editor, "bullet_list")
+                ) {
+                    return true
+                }
+            },
+            order: 23
+        },
+                {
+            type: "button",
+            title: "Lectura Recomendada",
+            icon: "thumbs-up",
+            action: editor => {
+                const node = editor.currentView.state.schema.nodes["lectura_recomendada"]
+                const command = wrapInList(node)
+                command(editor.currentView.state, tr =>{
+                    editor.currentView.dispatch(tr)
+                } )
+            },
+            available: editor => elementAvailable(editor, "bullet_list"),
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    elementDisabled(editor, "bullet_list")
+                ) {
+                    return true
+                }
+            },
+            order: 24
+        },
+        {
+            type: "button",
             title: gettext("Undo"),
             icon: "undo",
             action: editor => undo(editor.currentView.state, tr => editor.currentView.dispatch(tr.setMeta("inputType", "historyUndo"))),
             disabled: editor => undoDepth(editor.currentView.state) === 0,
-            order: 21
+            order: 25
         },
         {
             type: "button",
@@ -757,7 +849,7 @@ export const toolbarModel = () => ({
             icon: "redo",
             action: editor => redo(editor.currentView.state, tr => editor.currentView.dispatch(tr.setMeta("inputType", "historyRedo"))),
             disabled: editor => redoDepth(editor.currentView.state) === 0,
-            order: 22
+            order: 26
         },
     ]
 })
