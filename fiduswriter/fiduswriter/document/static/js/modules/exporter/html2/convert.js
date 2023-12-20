@@ -44,6 +44,8 @@ export class HTMLExporterConvert {
         this.subapartado_num = 0
         this.apartado_num_index = 0
         this.subapartado_num_index = 0
+        this.id_tools = 1
+        this.actividades_num = 0
     }
 
     init(docContent) {
@@ -331,6 +333,7 @@ export class HTMLExporterConvert {
                     this.apartado_num++
 
                     this.subapartado_num = 0
+                    this.actividades_num = 0
 
                     let apartado = this.numeracion + "." + this.apartado_num
                     
@@ -425,17 +428,114 @@ export class HTMLExporterConvert {
             start += "<code>"
             end = "</code>" + end
             break
+        
         case "blockquote":
+            start += "<blockquote>"
+            end = "</blockquote>" + end
+            break
+        
+        case "actividades":
+
+            this.actividades_num++
+
             start += '<div id="" class="container-fluid bloque "><div class="row header-bloque">'
             start += '<div class="col-12">'
             start += '<span class="icon bloque-icon" aria-hidden="true" aria-label="icono Actividad">K</span>'
-            start += '<span class="bloque-type-title"><b>Actividad</b></span>'
-            start += '<div class="bloque-collapse-button rotate" data-bs-toggle="collapse" href="#bloque-content-25" role="button" aria-hidden="true" aria-label="Boton abrir" aria-expanded="false" aria-controls="bloque-content-25">+</div></div></div>'
-            start += '<div class="row collapse show" id="bloque-content-25">'
+            start += '<span class="bloque-type-title"><b>Actividad ' + this.apartado_num + '.' + this.actividades_num + '</b></span>'
+            start += '<div class="bloque-collapse-button rotate" data-bs-toggle="collapse" href="#bloque-content-'+ this.id_tools +'" role="button" aria-hidden="true" aria-label="Boton abrir" aria-expanded="false" aria-controls="bloque-content-'+ this.id_tools + '">+</div></div></div>'
+            start += '<div class="row collapse show" id="bloque-content-' + this.id_tools + '">'
             start += '<div class="bloque-content">'
            
-            end = "</div></div>" + end
+            end = "</div></div></div>" + end
+
+            this.id_tools++
+
             break
+
+        case "leer_con_atencion":
+
+            start += '<div id="" class="container-fluid bloque "><div class="row header-bloque">'
+            start += '<div class="col-12">'
+            start += '<span class="icon bloque-icon" aria-hidden="true" aria-label="icono Leer con atenciónd">L</span>'
+            start += '<span class="bloque-type-title"><b>Leer con Atención</b></span>'
+            start += '<div class="bloque-collapse-button rotate" data-bs-toggle="collapse" href="#bloque-content-' + this.id_tools + '" role="button" aria-hidden="true" aria-label="Boton abrir" aria-expanded="false" aria-controls="bloque-content-'+ this.id_tools + '">+</div></div></div>'
+            start += '<div class="row collapse show" id="bloque-content-' + this.id_tools + '">'
+            start += '<div class="bloque-content">'
+           
+            end = "</div></div></div>" + end
+
+
+            this.id_tools++
+
+            break
+
+        case "texto_aparte":
+
+            start += '<div id="" class="container-fluid bloque "><div class="row header-bloque">'
+            start += '<div class="col-12">'
+            start += '<span class="icon bloque-icon" aria-hidden="true" aria-label="icono Texto aparte">?</span>'
+            start += '<span class="bloque-type-title"><b>Texto aparte</b></span>'
+            start += '<div class="bloque-collapse-button rotate" data-bs-toggle="collapse" href="#bloque-content-' + this.id_tools + '" role="button" aria-hidden="true" aria-label="Boton abrir" aria-expanded="false" aria-controls="bloque-content-'+ this.id_tools + '">+</div></div></div>'
+            start += '<div class="row collapse show" id="bloque-content-' + this.id_tools + '">'
+            start += '<div class="bloque-content">'
+           
+            end = "</div></div></div>" + end
+
+
+            this.id_tools++
+
+            break   
+            
+        case "para_reflexionar":
+
+            start += '<div id="" class="container-fluid bloque "><div class="row header-bloque">'
+            start += '<div class="col-12">'
+            start += '<span class="icon bloque-icon" aria-hidden="true" aria-label="icono Para reflexionar">P</span>'
+            start += '<span class="bloque-type-title"><b>Para reflexionar</b></span>'
+            start += '<div class="bloque-collapse-button rotate" data-bs-toggle="collapse" href="#bloque-content-' + this.id_tools + '" role="button" aria-hidden="true" aria-label="Boton abrir" aria-expanded="false" aria-controls="bloque-content-'+ this.id_tools + '">+</div></div></div>'
+            start += '<div class="row collapse show" id="bloque-content-' + this.id_tools + '">'
+            start += '<div class="bloque-content">'
+           
+            end = "</div></div></div>" + end
+
+
+            this.id_tools++
+
+            break    
+            
+        case "lectura_recomendada":
+
+            start += '<div id="" class="container-fluid bloque "><div class="row header-bloque">'
+            start += '<div class="col-12">'
+            start += '<span class="icon bloque-icon" aria-hidden="true" aria-label="icono Lectura recomendada">R</span>'
+            start += '<span class="bloque-type-title"><b>Lectura recomendada</b></span>'
+            start += '<div class="bloque-collapse-button rotate" data-bs-toggle="collapse" href="#bloque-content-' + this.id_tools + '" role="button" aria-hidden="true" aria-label="Boton abrir" aria-expanded="false" aria-controls="bloque-content-'+ this.id_tools + '">+</div></div></div>'
+            start += '<div class="row collapse show" id="bloque-content-' + this.id_tools + '">'
+            start += '<div class="bloque-content">'
+           
+            end = "</div></div></div>" + end
+
+
+            this.id_tools++
+
+            break
+
+        case "lectura_obligatoria":
+
+            start += '<div id="" class="container-fluid bloque "><div class="row header-bloque">'
+            start += '<div class="col-12">'
+            start += '<span class="icon bloque-icon" aria-hidden="true" aria-label="icono Lectura obligatoria">O</span>'
+            start += '<span class="bloque-type-title"><b>Lectura obligatoria</b></span>'
+            start += '<div class="bloque-collapse-button rotate" data-bs-toggle="collapse" href="#bloque-content-' + this.id_tools + '" role="button" aria-hidden="true" aria-label="Boton abrir" aria-expanded="false" aria-controls="bloque-content-'+ this.id_tools + '">+</div></div></div>'
+            start += '<div class="row collapse show" id="bloque-content-' + this.id_tools + '">'
+            start += '<div class="bloque-content">'
+           
+            end = "</div></div></div>" + end
+
+
+            this.id_tools++
+
+            break  
 
         case "ordered_list": {
             if (node.attrs.order == 1) {
@@ -500,9 +600,21 @@ export class HTMLExporterConvert {
             }
             content += escapeText(node.text).normalize("NFC")
             if (video) {
-                start = ""
+
+                start += '<div id="" class="container-fluid bloque "><div class="row header-bloque">'
+                start += '<div class="col-12">'
+                start += '<span class="icon bloque-icon" aria-hidden="true" aria-label="icono Audiovisual">E</span>'
+                start += '<span class="bloque-type-title"><b>Audiovisual</b></span>'
+                start += '<div class="bloque-collapse-button rotate" data-bs-toggle="collapse" href="#bloque-content-' + this.id_tools + '" role="button" aria-hidden="true" aria-label="Boton abrir" aria-expanded="false" aria-controls="bloque-content-'+ this.id_tools + '">+</div></div></div>'
+                start += '<div class="row collapse show" id="bloque-content-' + this.id_tools + '">'
+                start += '<div class="bloque-content">'
+               
+                end = "</div></div></div>" + end
+    
+                this.id_tools++
+
                 content = '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + video.attrs.urlVideo + '" frameborder="0" allowfullscreen></iframe>'
-                end = ""
+
             }
             break
         }
