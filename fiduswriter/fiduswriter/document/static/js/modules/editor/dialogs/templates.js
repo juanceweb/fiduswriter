@@ -187,7 +187,9 @@ export const mathDialogTemplate = () =>
 
 export const videoDialogTemplate = () =>
     `<div title="URL Video">
-        <p><input class="video-field"/></p>
+        <p><input class="video-titulo"/></p>
+        <p><input class="video-url"/></p>
+        <p><input class="video-desc"/></p>
     </div>`
 
 export const encuestaDialogTemplate = () =>

@@ -25,40 +25,49 @@ export class VideoDialog {
             height: 85,
             width: 600,
             buttons: [{
-                    text: this.equationSelected ? gettext("Update") : gettext("Insert"),
-                    classes: "fw-dark insert-math",
-                    click: () => {
+                text: this.equationSelected ? gettext("Update") : gettext("Insert"),
+                classes: "fw-dark insert-math",
+                click: () => {
 
+                    let urlVideo = this.dialog.dialogEl.querySelector("input.video-titulo").value.replace('https://www.youtube.com/watch?v=', '');
+                    let urlTitulo = this.dialog.dialogEl.querySelector("input.video-url").value;
+                    let urlDesc = this.dialog.dialogEl.querySelector("input.video-desc").value;
 
-                        let urlVideo = this.dialog.dialogEl.querySelector("input.video-field").value.replace('https://www.youtube.com/watch?v=','');
+                    const view = this.editor.currentView,
+                        posFrom = view.state.selection.from
+                    let posTo = view.state.selection.to
+                    const state = view.state
+//--------------------------------------------------------------
+                    /*
+                    const markType = view.state.schema.marks.video.create({
+                        urlVideo
+                    })
 
-                        const view = this.editor.currentView,
-                        posFrom = view.state.selection.from,
-                        tr = view.state.tr
-                        let posTo = view.state.selection.to
-
-                            const markType = view.state.schema.marks.video.create({
-
-                            urlVideo
-                        })
-
-                        tr.insertText(urlVideo, posFrom, posTo)
-                        posTo = tr.mapping.map(posFrom, 1)
-                        markType.attrs ={
-
-                            urlVideo,
-                        }
-                        tr.addMark(
-                            posFrom,
-                            posTo,
-                            markType
-                        )
-                        view.dispatch(tr)
-                        view.focus()
-                        this.dialog.close()
-                        //return
-                        }
-                },
+                    tr.insertText(urlVideo, posFrom, posTo)
+                    posTo = tr.mapping.map(posFrom, 1)
+                    markType.attrs = {
+                        urlVideo,
+                        urlTitulo,
+                        urlDesc
+                    }
+                    tr.addMark(
+                        posFrom,
+                        posTo,
+                        markType
+                    )
+                    view.dispatch(tr)
+                    */
+//--------------------------------------------------------------
+                    view.dispatch(
+                        state.tr.replaceSelectionWith(state.schema.node("horizontal_rule")),
+ //                       state.tr.replaceSelectionWith(state.schema.node("video"))
+                     )
+//--------------------------------------------------------------
+                    view.focus()
+                    this.dialog.close()
+                    //return
+                }
+            },
                 {
                     type: "cancel"
                 }
