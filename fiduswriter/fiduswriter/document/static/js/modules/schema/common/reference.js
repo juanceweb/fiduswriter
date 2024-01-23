@@ -61,7 +61,7 @@ export const video = {
     content: "blockquote+",
     attrs: {
 
-        urlVideo: {
+        desc: {
             default: null
         }
     },
@@ -70,16 +70,19 @@ export const video = {
         {
             getAttrs(dom) {
                 return {
+                    desc: dom.getAttribute("desc"),
+                    urlVideo: dom.getAttribute("urlVideo"),
+                    titulo: dom.getAttribute("titulo")
 
-                    urlVideo: dom.getAttribute("urlVideo")
                 }
             }
         }
     ],
     toDOM(node) {
-        const attrs = {width:"300", height:"200", src:"https://www.youtube.com/embed/"+node.attrs.urlVideo ,id: node.attrs.id, class: "video_borde"}
+        const attrs = {id: node.attrs.id, class: "video_borde"}
+        const attrsVideo = {width:"300", height:"200", src:"https://www.youtube.com/embed/"+node.attrs.urlVideo}
         addTracks(node, attrs)
-        return ["iframe", attrs, 0]
+        return ["div",attrs,["h2",node.attrs.titulo],["iframe",attrsVideo,node.attrs.urlVideo],["div",0]]
     }
 }
 

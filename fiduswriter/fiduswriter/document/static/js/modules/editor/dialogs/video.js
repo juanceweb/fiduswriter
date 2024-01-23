@@ -22,33 +22,33 @@ export class VideoDialog {
         //initialize dialog and open it
         this.dialog = new Dialog({
             body: videoDialogTemplate(),
-            height: 85,
+            height:250,
             width: 600,
             buttons: [{
                 text: this.equationSelected ? gettext("Update") : gettext("Insert"),
                 classes: "fw-dark insert-math",
                 click: () => {
 
-                    let urlVideo = this.dialog.dialogEl.querySelector("input.video-titulo").value.replace('https://www.youtube.com/watch?v=', '');
-                    let urlTitulo = this.dialog.dialogEl.querySelector("input.video-url").value;
-                    let urlDesc = this.dialog.dialogEl.querySelector("input.video-desc").value;
+                    let urlVideo = this.dialog.dialogEl.querySelector("input.video-url").value.replace('https://www.youtube.com/watch?v=', '');
+                    let titulo = this.dialog.dialogEl.querySelector("input.video-titulo").value;
+                    let desc = this.dialog.dialogEl.querySelector("input.video-desc").value;
 
                     const view = this.editor.currentView,
                         posFrom = view.state.selection.from
                     let posTo = view.state.selection.to
-                    const state = view.state
-//--------------------------------------------------------------
-                    /*
+                    const tr = view.state.tr
+
                     const markType = view.state.schema.marks.video.create({
-                        urlVideo
+                        desc
                     })
 
-                    tr.insertText(urlVideo, posFrom, posTo)
+                    tr.insertText(desc, posFrom, posTo)
                     posTo = tr.mapping.map(posFrom, 1)
                     markType.attrs = {
+                        desc,
                         urlVideo,
-                        urlTitulo,
-                        urlDesc
+                        titulo
+
                     }
                     tr.addMark(
                         posFrom,
@@ -56,13 +56,6 @@ export class VideoDialog {
                         markType
                     )
                     view.dispatch(tr)
-                    */
-//--------------------------------------------------------------
-                    view.dispatch(
-                        state.tr.replaceSelectionWith(state.schema.node("horizontal_rule")),
- //                       state.tr.replaceSelectionWith(state.schema.node("video"))
-                     )
-//--------------------------------------------------------------
                     view.focus()
                     this.dialog.close()
                     //return
