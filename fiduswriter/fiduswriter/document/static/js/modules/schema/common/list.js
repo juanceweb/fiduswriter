@@ -92,8 +92,10 @@ export const lectura_obligatoria = {
     }}],
     toDOM(node) {
         const attrs = {id: node.attrs.id, class: "lectura_obligatoria_borde"}
+        const attrs_namespace = {class: "tool-namespace"}
+        const attrs_span = {class: "tool-namespace-span"}
         addTracks(node, attrs)
-        return ["div", attrs, 0]
+        return ['div', attrs, ["div", attrs_namespace, ["span", attrs_span, "lectura obligatoria"] ], ["div", 0] ]
     }
 }
 
