@@ -192,6 +192,13 @@ export const videoDialogTemplate = () =>
         <p class="video-etiqueta">Descripción</p><p><input class="video-desc"/></p>
     </div>`
 
+export const audioDialogTemplate = () =>
+    `<div>
+        <p class="audio-etiqueta">Titulo</pclass><p><input class="audio-titulo"/></p>
+        <p class="audio-etiqueta">Iframe Audio </p><p><input class="audio-url"/></p>
+        <p class="audio-etiqueta">Descripción</p><p><input class="audio-desc"/></p>
+    </div>`
+
 export const encuestaDialogTemplate = () =>
     `<div title="URL Encuesta">
         <p><input class="encuesta-field"/></p>

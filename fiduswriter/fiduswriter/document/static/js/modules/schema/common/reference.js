@@ -89,6 +89,39 @@ export const video = {
     }
 }
 
+export const audio = {
+    group: "block",
+    content: "blockquote+",
+    attrs: {
+        titulo: {
+            default: null
+        },
+        desc: {
+            default: null
+        }
+    },
+    inclusive: false,
+    parseDOM: [
+        {
+            getAttrs(dom) {
+                return {
+                    desc: dom.getAttribute("desc"),
+                    urlAudio: dom.getAttribute("urlAudio"),
+                    titulo: dom.getAttribute("titulo")
+
+                }
+            }
+        }
+    ],
+    toDOM(node) {
+        const attrs = {id: node.attrs.id, class: "audio_borde"}
+
+        const attrsAudio = {frameBorder:'0', allowFullScreen:'', scrolling:'no', height:'200', style:'width:100%;', src:node.attrs.urlAudio ,loading:'lazy'}
+        addTracks(node, attrs)
+        return ["div", attrs , ["p", node.attrs.titulo ] , ["iframe", attrsAudio, 0] , ["p", node.attrs.desc] ]
+    }
+}
+
 export const randomAnchorId = () => {
     return `A${Math.round(Math.random() * 10000000) + 1}`
 }
