@@ -2,7 +2,7 @@ import {wrapIn, toggleMark} from "prosemirror-commands"
 import {wrapInList} from "prosemirror-schema-list"
 import {undo, redo, undoDepth, redoDepth} from "prosemirror-history"
 
-import {CitationDialog, FigureDialog, LinkDialog, MathDialog, TableDialog,VideoDialog,EncuestaDialog} from "../../dialogs"
+import {CitationDialog, FigureDialog, LinkDialog, MathDialog, TableDialog,VideoDialog,AudioDialog,EncuestaDialog} from "../../dialogs"
 import {READ_ONLY_ROLES, COMMENT_ONLY_ROLES} from "../.."
 import {setBlockType} from "../../keymap"
 import {checkProtectedInSelection} from "../../state_plugins"
@@ -677,6 +677,26 @@ export const toolbarModel = () => ({
             },
             order: 17
         },
+                {
+            type: "button",
+            title: "Audio",
+            icon: "volume-high",
+            action: editor => {
+                const dialog = new AudioDialog(editor)
+                dialog.init()
+            },
+            available: editor => elementAvailable(editor, "bullet_list"),
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    elementDisabled(editor, "bullet_list")
+                ) {
+                    return true
+                }
+            },
+            order: 18
+        },
         {
             type: "button",
             title: "Lectura Obligatoria",
@@ -698,7 +718,7 @@ export const toolbarModel = () => ({
                     return true
                 }
             },
-            order: 18
+            order: 19
         },
         {
             type: "button",
@@ -721,7 +741,7 @@ export const toolbarModel = () => ({
                     return true
                 }
             },
-            order: 19
+            order: 20
         },
         {
             type: "button",
@@ -741,7 +761,7 @@ export const toolbarModel = () => ({
                     return true
                 }
             },
-            order: 20
+            order: 21
         },
         {
             type: "button",
@@ -764,7 +784,7 @@ export const toolbarModel = () => ({
                     return true
                 }
             },
-            order: 21
+            order: 22
         },
         {
             type: "button",
@@ -787,7 +807,7 @@ export const toolbarModel = () => ({
                     return true
                 }
             },
-            order: 22
+            order: 23
         },
         {
             type: "button",
@@ -810,7 +830,7 @@ export const toolbarModel = () => ({
                     return true
                 }
             },
-            order: 23
+            order: 24
         },
                 {
             type: "button",
@@ -833,7 +853,7 @@ export const toolbarModel = () => ({
                     return true
                 }
             },
-            order: 24
+            order: 25
         },
         {
             type: "button",
@@ -841,7 +861,7 @@ export const toolbarModel = () => ({
             icon: "undo",
             action: editor => undo(editor.currentView.state, tr => editor.currentView.dispatch(tr.setMeta("inputType", "historyUndo"))),
             disabled: editor => undoDepth(editor.currentView.state) === 0,
-            order: 25
+            order: 26
         },
         {
             type: "button",
@@ -849,7 +869,7 @@ export const toolbarModel = () => ({
             icon: "redo",
             action: editor => redo(editor.currentView.state, tr => editor.currentView.dispatch(tr.setMeta("inputType", "historyRedo"))),
             disabled: editor => redoDepth(editor.currentView.state) === 0,
-            order: 26
+            order: 27
         },
     ]
 })

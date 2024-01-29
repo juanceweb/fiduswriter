@@ -43,6 +43,7 @@ import {
     lectura_recomendada,
     leer_con_atencion,
     video,
+    audio,
     encuesta
 
 } from "../common"
@@ -130,6 +131,7 @@ const spec = {
         insertion,
         format_change,
         video,
+        audio,
         encuesta
     })
 }

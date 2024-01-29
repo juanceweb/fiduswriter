@@ -1,11 +1,11 @@
-import {videoDialogTemplate} from "./templates"
+import {audioDialogTemplate} from "./templates"
 import {Dialog} from "../../common"
 
 
 /**
  * Class to work with formula dialog
  */
-export class VideoDialog {
+export class AudioDialog {
     constructor(editor) {
         this.editor = editor
         this.node = this.editor.currentView.state.selection.node
@@ -18,7 +18,7 @@ export class VideoDialog {
 
         //initialize dialog and open it
         this.dialog = new Dialog({
-            body: videoDialogTemplate(),
+            body: audioDialogTemplate(),
             height:250,
             width: 600,
             buttons: [{
@@ -26,16 +26,21 @@ export class VideoDialog {
                 classes: "fw-dark insert-math",
                 click: () => {
 
-                    let urlVideo = this.dialog.dialogEl.querySelector("input.video-url").value.replace('https://www.youtube.com/watch?v=', '');
-                    let titulo = this.dialog.dialogEl.querySelector("input.video-titulo").value;
-                    let desc = this.dialog.dialogEl.querySelector("input.video-desc").value;
+                    var htmlString = this.dialog.dialogEl.querySelector("input.audio-url").value
+
+                    // Crear un rango y un fragmento contextual
+                    var range = document.createRange();
+                    var fragment = range.createContextualFragment(htmlString);
+                    let urlAudio = fragment.firstChild['src']
+                    let titulo = this.dialog.dialogEl.querySelector("input.audio-titulo").value;
+                    let desc = this.dialog.dialogEl.querySelector("input.audio-desc").value;
 
                     const view = this.editor.currentView,
                         posFrom = view.state.selection.from
                     let posTo = view.state.selection.to
                     const tr = view.state.tr
 
-                    const markType = view.state.schema.marks.video.create({
+                    const markType = view.state.schema.marks.audio.create({
                         desc
                     })
 
@@ -43,7 +48,7 @@ export class VideoDialog {
                     posTo = tr.mapping.map(posFrom, 1)
                     markType.attrs = {
                         desc,
-                        urlVideo,
+                        urlAudio,
                         titulo
 
                     }
@@ -62,7 +67,7 @@ export class VideoDialog {
                     type: "cancel"
                 }
             ],
-            title: "Video",
+            title: "Audio",
             beforeClose: () => {
                 if (this.mathField) {
                     this.mathField = false
