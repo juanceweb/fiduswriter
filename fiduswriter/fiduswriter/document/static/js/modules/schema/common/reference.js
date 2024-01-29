@@ -83,7 +83,6 @@ export const video = {
     toDOM(node) {
         const attrs = {id: node.attrs.id, class: "video_borde"}
         const attrsVideo = {width:"300", height:"200", src:"https://www.youtube.com/embed/"+node.attrs.urlVideo}
-        console.log(node.attrs)
         addTracks(node, attrs)
         return ["div", attrs , ["p", node.attrs.titulo ] , ["iframe", attrsVideo, 0] , ["p", node.attrs.desc] ]
     }
