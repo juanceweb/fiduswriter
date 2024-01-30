@@ -1000,6 +1000,14 @@ html[hc='a5'] #toolbar {
     position: relative;
 }
 
+.para_ampliar_borde {
+    border: 2px solid #470c4b !important;
+    border-radius: 5px;
+    padding: 10px 20px 10px 10px;
+    margin: 5px 0;
+    position: relative;
+}
+
 .video_borde {
     border: 2px solid #e41919 !important;
     border-radius: 5px;

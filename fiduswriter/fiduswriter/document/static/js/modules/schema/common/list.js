@@ -199,6 +199,26 @@ export const lectura_recomendada = {
     }
 }
 
+export const para_ampliar = {
+    group: "block",
+    content: "blockquote+",
+    attrs: {
+        id: {default: false},
+        track: {default: []}
+    },
+    parseDOM: [{tag: "div", getAttrs(dom) {
+        return {
+            id: dom.id,
+            //track: parseTracks(dom.dataset.track)
+        }
+    }}],
+    toDOM(node) {
+        const attrs = {id: node.attrs.id, class: "para_ampliar_borde"}
+        addTracks(node, attrs)
+        return ["div", attrs, 0]
+    }
+}
+
 // :: NodeSpec
 // A list item (`<li>`) spec.
 export const list_item = {

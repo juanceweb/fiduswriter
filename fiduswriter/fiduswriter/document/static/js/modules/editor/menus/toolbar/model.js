@@ -832,7 +832,7 @@ export const toolbarModel = () => ({
             },
             order: 24
         },
-                {
+        {
             type: "button",
             title: "Lectura Recomendada",
             icon: "thumbs-up",
@@ -857,11 +857,34 @@ export const toolbarModel = () => ({
         },
         {
             type: "button",
+            title: "Para Ampliar",
+            icon: "up-right-and-down-left-from-center",
+            action: editor => {
+                const node = editor.currentView.state.schema.nodes["para_ampliar"]
+                const command = wrapInList(node)
+                command(editor.currentView.state, tr =>{
+                    editor.currentView.dispatch(tr)
+                } )
+            },
+            available: editor => elementAvailable(editor, "bullet_list"),
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    elementDisabled(editor, "bullet_list")
+                ) {
+                    return true
+                }
+            },
+            order: 26
+        },
+        {
+            type: "button",
             title: gettext("Undo"),
             icon: "undo",
             action: editor => undo(editor.currentView.state, tr => editor.currentView.dispatch(tr.setMeta("inputType", "historyUndo"))),
             disabled: editor => undoDepth(editor.currentView.state) === 0,
-            order: 26
+            order: 27
         },
         {
             type: "button",
@@ -869,7 +892,7 @@ export const toolbarModel = () => ({
             icon: "redo",
             action: editor => redo(editor.currentView.state, tr => editor.currentView.dispatch(tr.setMeta("inputType", "historyRedo"))),
             disabled: editor => redoDepth(editor.currentView.state) === 0,
-            order: 27
+            order: 28
         },
     ]
 })
