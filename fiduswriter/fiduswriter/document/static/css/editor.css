@@ -16,6 +16,11 @@ body.editor header {
     border: 1px solid var(--cs-white-border);
 }
 
+.image-alt {
+    height: 80%;
+    border: 1px solid #ccc;
+}
+
 .user-contents .figure figure {
     width: 100%;
     margin: 0;

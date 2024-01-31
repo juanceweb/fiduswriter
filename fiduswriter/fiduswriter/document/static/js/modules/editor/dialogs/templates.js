@@ -191,14 +191,14 @@ export const mathDialogTemplate = () =>
 
 export const videoDialogTemplate = () =>
     `<div>
-        <p class="video-etiqueta">Titulo</pclass><p><input class="video-titulo"/></p>
+        <p class="video-etiqueta">Titulo</p><p><input class="video-titulo"/></p>
         <p class="video-etiqueta">Url Video</p><p><input class="video-url"/></p>
         <p class="video-etiqueta">Descripción</p><p><input class="video-desc"/></p>
     </div>`
 
 export const audioDialogTemplate = () =>
     `<div>
-        <p class="audio-etiqueta">Titulo</pclass><p><input class="audio-titulo"/></p>
+        <p class="audio-etiqueta">Titulo</p><p><input class="audio-titulo"/></p>
         <p class="audio-etiqueta">Iframe Audio </p><p><input class="audio-url"/></p>
         <p class="audio-etiqueta">Descripción</p><p><input class="audio-desc"/></p>
     </div>`
@@ -304,6 +304,13 @@ export const configureFigureTemplate = ({language}) =>
                             </select>
                         </td>
                     </tr>
+                    <tr>
+                        <th><h4 class="fw-tablerow-title">${gettext("Alt")}</h4></th>
+                        <td>
+                            <input class="image-alt" style="width: 91%"></input>
+                        </td>
+                    </tr>
+                    
                 </tbody>
             </table>
         </div>`

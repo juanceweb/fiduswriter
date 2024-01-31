@@ -68,7 +68,7 @@ class FigureCaptionView {
         this.options = options
 
         this.dom = document.createElement("figcaption")
-        this.dom.innerHTML = "<span class=\"text\"></span>"
+        this.dom.innerHTML = "<span class=\"image-text\"></span>"
         this.contentDOM = this.dom.lastElementChild
     }
 }

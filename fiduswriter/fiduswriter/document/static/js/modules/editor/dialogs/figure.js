@@ -205,9 +205,12 @@ export class FigureDialog {
             return false
         }
         const content = []
+
+        let alt = this.dialog.dialogEl.querySelector("input.image-alt").value;
+
         if (this.imgId) {
             content.push(
-                this.editor.currentView.state.schema.nodes["image"].create({image: this.imgId})
+                this.editor.currentView.state.schema.nodes["image"].create({image: this.imgId, alt : alt})
             )
         } else {
             content.push(

@@ -41,6 +41,8 @@ import {
     texto_aparte,
     ejemplo,
     lectura_recomendada,
+    recurso_web,
+    para_ampliar,
     leer_con_atencion,
     video,
     audio,
@@ -114,6 +116,8 @@ const specNodes = OrderedMap.from({
     texto_aparte,
     ejemplo,
     lectura_recomendada,
+    recurso_web,
+    para_ampliar,
     leer_con_atencion
 })
 

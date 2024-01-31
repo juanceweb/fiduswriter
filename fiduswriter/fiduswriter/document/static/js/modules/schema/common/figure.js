@@ -59,6 +59,7 @@ export const image = {
     draggable: false,
     attrs: {
         image: {default: false},
+        alt: {default: ""}
     },
     parseDOM: [{
         tag: "img",
@@ -71,12 +72,14 @@ export const image = {
     }],
     toDOM(node) {
         const dom = document.createElement("img")
+        console.log(node.attrs)
         if (node.attrs.image !== false) {
             dom.dataset.image = node.attrs.image
             if (node.type.schema.cached.imageDB) {
                 if (node.type.schema.cached.imageDB.db[node.attrs.image]?.image) {
                     const imgSrc = node.type.schema.cached.imageDB.db[node.attrs.image].image
                     dom.setAttribute("src", imgSrc)
+                    dom.setAttribute("alt", node.attrs.alt)
                     dom.dataset.imageSrc = node.type.schema.cached.imageDB.db[node.attrs.image].image
                 } else {
                     /* The image was not present in the imageDB -- possibly because a collaborator just added ut.

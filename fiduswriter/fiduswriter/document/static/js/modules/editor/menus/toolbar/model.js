@@ -819,7 +819,7 @@ export const toolbarModel = () => ({
             icon: "web",
             action: editor => {
                 const node = editor.currentView.state.schema.nodes["recurso_web"]
-                const command = wrapInList(node)
+                const command = wrapIn(node)
                 command(editor.currentView.state, tr =>{
                     editor.currentView.dispatch(tr)
                 } )
