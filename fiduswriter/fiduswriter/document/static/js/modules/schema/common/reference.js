@@ -52,7 +52,7 @@ export const link = {
     toDOM(node) {
         const {href, title} = node.attrs
         const attrs = title || href.charAt(0) !== "#" ? {href, title} : {href, title: gettext("Missing target"), class: "missing-target"}
-        return ["a", attrs, 0]
+        return ["a", attrs, 0 ]
     }
 }
 
@@ -60,7 +60,13 @@ export const video = {
     group: "block",
     content: "blockquote+",
     attrs: {
+        id: {
+            default: false
+        },
         titulo: {
+            default: null
+        },
+        urlVideo: {
             default: null
         },
         desc: {
@@ -72,6 +78,7 @@ export const video = {
         {
             getAttrs(dom) {
                 return {
+                    id: dom.id,
                     desc: dom.getAttribute("desc"),
                     urlVideo: dom.getAttribute("urlVideo"),
                     titulo: dom.getAttribute("titulo")
@@ -81,10 +88,24 @@ export const video = {
         }
     ],
     toDOM(node) {
-        const attrs = {id: node.attrs.id, class: "video_borde"}
+        console.log("video")
+        const idDel = node.attrs.id + "-remove"
+        const attrs = {id: node.attrs.id, class: "audiovisual-borde"}
+        const attrsText = {class: "audiovisual-text", readonly: "true" }
         const attrsVideo = {width:"300", height:"200", src:"https://www.youtube.com/embed/"+node.attrs.urlVideo}
+        const attrsDel = {id: idDel, class:"remove-article-part"}
+
         addTracks(node, attrs)
-        return ["div", attrs , ["p", node.attrs.titulo ] , ["iframe", attrsVideo, 0] , ["p", node.attrs.desc] ]
+
+        // const botonDel = document.getElementById(idDel)
+
+        // console.log(botonDel)
+
+        // videoId.addEventListener("click", () => {
+        //     videoId.remove()
+        // })
+
+        return ["div", attrs , ["p", attrsText, node.attrs.titulo ] , ["iframe", attrsVideo, 0] , ["p", attrsText, node.attrs.desc], ["div", attrsDel, ["i", {class: "fa fa-trash-alt"}] ] ]
     }
 }
 
@@ -96,6 +117,9 @@ export const audio = {
             default: null
         },
         desc: {
+            default: null
+        },
+        urlAudio: {
             default: null
         }
     },
@@ -113,11 +137,12 @@ export const audio = {
         }
     ],
     toDOM(node) {
-        const attrs = {id: node.attrs.id, class: "audio_borde"}
-
-        const attrsAudio = {frameBorder:'0', allowFullScreen:'', scrolling:'no', height:'200', style:'width:100%;', src:node.attrs.urlAudio ,loading:'lazy'}
+        console.log("audio")
+        const attrs = {id: node.attrs.id, class: "audiovisual-borde"}
+        const attrsText = {class: "audiovisual-text", readonly: "true" }
+        const attrsAudio = {frameBorder:'0', allowFullScreen:'', scrolling:'no', height:'150', style:'width:95%;', src:node.attrs.urlAudio ,loading:'lazy'}
         addTracks(node, attrs)
-        return ["div", attrs , ["p", node.attrs.titulo ] , ["iframe", attrsAudio, 0] , ["p", node.attrs.desc] ]
+        return ["div", attrs , ["p", attrsText, node.attrs.titulo ] , ["iframe", attrsAudio, 0] , ["p", attrsText, node.attrs.desc], ["div", {class:"remove-article-part"}, ["i", {class: "fa fa-trash-alt"}] ] ]
     }
 }
 
@@ -175,3 +200,4 @@ export const anchor = {
         }]
     }
 }
+

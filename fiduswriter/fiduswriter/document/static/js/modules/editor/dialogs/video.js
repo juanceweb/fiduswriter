@@ -29,6 +29,7 @@ export class VideoDialog {
                     let urlVideo = this.dialog.dialogEl.querySelector("input.video-url").value.replace('https://www.youtube.com/watch?v=', '');
                     let titulo = this.dialog.dialogEl.querySelector("input.video-titulo").value;
                     let desc = this.dialog.dialogEl.querySelector("input.video-desc").value;
+                    let id = "video-" + urlVideo 
 
                     const view = this.editor.currentView,
                         posFrom = view.state.selection.from
@@ -42,11 +43,13 @@ export class VideoDialog {
                     tr.insertText(desc, posFrom, posTo)
                     posTo = tr.mapping.map(posFrom, 1)
                     markType.attrs = {
+                        id,
                         desc,
                         urlVideo,
                         titulo
 
                     }
+
                     tr.addMark(
                         posFrom,
                         posTo,

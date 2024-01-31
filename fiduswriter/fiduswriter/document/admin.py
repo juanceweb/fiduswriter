@@ -30,6 +30,7 @@ class DocumentTemplateAdmin(admin.ModelAdmin):
         "duplicate",
     ]
     list_display = (
+        "id",
         "title",
         "user",
     )

@@ -10,7 +10,7 @@ export class LinkDialog {
         this.editor = editor
         this.target = false // cross reference or internal link
         this.linkType = "external"
-        this.defaultLink = "https://"
+        this.defaultLink = ""
         this.title = ""
         this.submitButtonText = gettext("Insert")
         this.dialog = false
@@ -140,6 +140,7 @@ export class LinkDialog {
                         href = linkEl.value
                     }
                     title = this.dialog.dialogEl.querySelector("input.link-title").value
+
                     if ((new RegExp(/^\s*$/)).test(title)) {
                         // The link title is empty. Make it the same as the link itself.
                         title = href
@@ -177,7 +178,14 @@ export class LinkDialog {
                     if (posFrom === posTo) {
                         tr.insertText(title, posFrom, posTo)
                         posTo = tr.mapping.map(posFrom, 1)
+                        
+                    } else if (this.title != title) {
+                        tr.insertText("", posFrom, posTo)
+                        posTo = posFrom
+                        tr.insertText(title, posFrom, posTo)
+                        posTo = tr.mapping.map(posFrom, 1)
                     }
+
                     const markType = view.state.schema.marks.link.create({
                         href,
                         title
@@ -188,7 +196,7 @@ export class LinkDialog {
                         markType
                     )
                 }
-                
+
                 view.dispatch(tr)
                 view.focus()
                 return
@@ -202,7 +210,7 @@ export class LinkDialog {
 
         this.dialog = new Dialog({
             id: "edit-link",
-            title: gettext("Link"),
+            title: gettext("Pastilla"),
             body: linkDialogTemplate({
                 target: this.target,
                 allowedContent: this.checkAllowedContent(),

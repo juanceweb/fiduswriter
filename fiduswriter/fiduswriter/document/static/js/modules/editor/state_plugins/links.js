@@ -203,9 +203,6 @@ export const linksPlugin = function(options) {
                         </div>
                     </div>
                     <ul class="drop-up-options">
-                        <li class="copy-link" title="${gettext("Copy link")}">
-                            ${gettext("Copy link")}
-                        </li>
                         ${
     writeAccess ?
         `<li class="edit-link" title="${gettext("Edit link")}">

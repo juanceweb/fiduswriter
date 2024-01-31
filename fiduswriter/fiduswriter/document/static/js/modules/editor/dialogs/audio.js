@@ -52,6 +52,7 @@ export class AudioDialog {
                         titulo
 
                     }
+
                     tr.addMark(
                         posFrom,
                         posTo,

@@ -269,6 +269,10 @@ body.editor header {
     display: none;
 }
 
+.fw-radio {
+    display: none;
+}
+
 .editor-toolbar .fw-button.no-border {
     background: transparent;
     border-color: transparent;
@@ -569,7 +573,6 @@ span.delete {
 .help-key-def {
     display: inline-block;
     margin-left: 1em;
-    float: right;
 }
 
 
@@ -944,75 +947,25 @@ html[hc='a5'] #toolbar {
     position: relative;
 }
 
-.actividades_borde {
-    border: 2px solid #e4197e !important;
-    border-radius: 5px;
-    padding: 10px 20px 10px 10px;
-    margin: 5px 0;
-    position: relative;
-}
-
-.lectura_obligatoria_borde {
+.tool-borde {
     border: 2px solid #0005ff !important;
     border-radius: 5px;
     padding: 10px 20px 10px 10px;
-    margin: 5px 0;
+    margin-bottom: 15px;
     position: relative;
 }
 
-.para_reflexionar_borde {
-    border: 2px solid #fc8200 !important;
-    border-radius: 5px;
-    padding: 10px 20px 10px 10px;
-    margin: 5px 0;
-    position: relative;
+
+.audiovisual-text {
+    padding-left: 5px;
+    margin-bottom: 5px !important;
 }
 
-.leer_con_atencion_borde {
-    border: 2px solid #2bf3eb !important;
-    border-radius: 5px;
-    padding: 10px 20px 10px 10px;
-    margin: 5px 0;
-    position: relative;
-}
-
-.texto_aparte_borde {
-    border: 2px solid #e15555 !important;
-    border-radius: 5px;
-    padding: 10px 20px 10px 10px;
-    margin: 5px 0;
-    position: relative;
-}
-
-.ejemplo_borde {
-    border: 2px solid #d3b82a !important;
-    border-radius: 5px;
-    padding: 10px 20px 10px 10px;
-    margin: 5px 0;
-    position: relative;
-}
-
-.lectura_recomendada_borde {
-    border: 2px solid #5592e1 !important;
-    border-radius: 5px;
-    padding: 10px 20px 10px 10px;
-    margin: 5px 0;
-    position: relative;
-}
-
-.video_borde {
-    border: 2px solid #e41919 !important;
-    border-radius: 5px;
-    padding: 10px 20px 10px 10px;
-    margin: 5px 0;
-    position: relative;
-}
-
-.audio_borde {
+.audiovisual-borde {
     border: 2px solid #bc2ad3 !important;
     border-radius: 5px;
     padding: 10px 20px 10px 10px;
-    margin: 5px 0;
+    margin-bottom: 15px !important;
     position: relative;
 }
 

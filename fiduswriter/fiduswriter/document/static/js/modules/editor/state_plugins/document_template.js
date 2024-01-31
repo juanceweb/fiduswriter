@@ -85,6 +85,7 @@ export class PartView {
         if (node.attrs.hidden) {
             this.dom.dataset.hidden = true
         }
+
         if (node.attrs.deleted) {
             this.contentDOM = this.dom.appendChild(document.createElement("div"))
             addDeletedPartWidget(this.dom, view, getPos)

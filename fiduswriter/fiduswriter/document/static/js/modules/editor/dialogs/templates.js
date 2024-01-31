@@ -6,7 +6,7 @@ import {
 
 export const linkDialogTemplate = ({defaultLink, internalTargets, linkType, title, target, allowedContent}) =>
     `${
-        allowedContent.cross_reference && internalTargets.length ?
+        allowedContent.cross_reference && internalTargets.length && false ?
             `<div class="fw-radio">
             <input type="radio" name="link-type" value="cross_reference" class="cross-reference-check">
             <label class="cross-reference-label">${gettext("Cross reference")}</label>
@@ -27,7 +27,7 @@ export const linkDialogTemplate = ({defaultLink, internalTargets, linkType, titl
             <div class="fw-select-arrow fa fa-caret-down"></div>
         </div><p></p>` : ""
     }${
-        allowedContent.link && internalTargets.length ?
+        allowedContent.link && internalTargets.length && false ?
             `<div class="fw-radio">
             <input type="radio" name="link-type" value="internal" class="link-internal-check">
             <label class="link-internal-label">${gettext("Internal")}</label>
@@ -56,9 +56,13 @@ export const linkDialogTemplate = ({defaultLink, internalTargets, linkType, titl
             ""
     }${
         allowedContent.link ?
-            `<input class="link-title" type="text" value="${escapeText(title)}" placeholder="${gettext("Link title")}"/>
+        `<div class="fw-radio">
+            <input type="radio" name="link-type" value="external" class="link-external-check">
+            <label class="link-external-label">${gettext("External")}</label>
+        </div>
+        <input class="link-title" type="text" value="${escapeText(title)}" placeholder="${gettext("Palabra")}"/>
         <p></p>
-        <input class="link" type="text" value="${target && linkType === "external" ? target : defaultLink}" placeholder="${gettext("URL")}"/>` :
+        <input class="link" type="text" value="${target && linkType === "external" ? target : defaultLink}" placeholder="${gettext("Texto")}"/>` :
             ""
     }`
 

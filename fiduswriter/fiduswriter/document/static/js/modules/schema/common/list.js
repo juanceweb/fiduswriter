@@ -71,9 +71,11 @@ export const actividades = {
         }
     }}],
     toDOM(node) {
-        const attrs = {id: node.attrs.id, class: "actividades_borde"}
+        const attrs = {id: node.attrs.id, class: "tool-borde"}
+        const attrs_namespace = {class: "tool-namespace"}
+        const attrs_span = {class: "tool-namespace-span", readonly: "true"}
         addTracks(node, attrs)
-        return ["div", attrs, 0]
+        return ['div', attrs, ["div", attrs_namespace, ["span", attrs_span, "ACTIVIDADES"] ], ["div", 0] ]
     }
 }
 
@@ -91,11 +93,11 @@ export const lectura_obligatoria = {
         }
     }}],
     toDOM(node) {
-        const attrs = {id: node.attrs.id, class: "lectura_obligatoria_borde"}
+        const attrs = {id: node.attrs.id, class: "tool-borde"}
         const attrs_namespace = {class: "tool-namespace"}
         const attrs_span = {class: "tool-namespace-span"}
         addTracks(node, attrs)
-        return ['div', attrs, ["div", attrs_namespace, ["span", attrs_span, "lectura obligatoria"] ], ["div", 0] ]
+        return ['div', attrs, ["div", attrs_namespace, ["span", attrs_span, "LECTURA OBLIGATORIA"] ], ["div", 0] ]
     }
 }
 
@@ -113,9 +115,11 @@ export const para_reflexionar = {
         }
     }}],
     toDOM(node) {
-        const attrs = {id: node.attrs.id, class: "para_reflexionar_borde"}
+        const attrs = {id: node.attrs.id, class: "tool-borde"}
+        const attrs_namespace = {class: "tool-namespace"}
+        const attrs_span = {class: "tool-namespace-span", readonly: "true" }
         addTracks(node, attrs)
-        return ["div", attrs, 0]
+        return ['div', attrs, ["div", attrs_namespace, ["span", attrs_span, "PARA REFLEXIONAR"] ], ["div", 0] ]
     }
 }
 
@@ -133,9 +137,33 @@ export const leer_con_atencion = {
         }
     }}],
     toDOM(node) {
-        const attrs = {id: node.attrs.id, class: "leer_con_atencion_borde"}
+        const attrs = {id: node.attrs.id, class: "tool-borde"}
+        const attrs_namespace = {class: "tool-namespace"}
+        const attrs_span = {class: "tool-namespace-span", readonly: "true"}
         addTracks(node, attrs)
-        return ["div", attrs, 0]
+        return ['div', attrs, ["div", attrs_namespace, ["span", attrs_span, "LEER CON ATENCION"] ], ["div", 0] ]
+    }
+}
+
+export const para_ampliar = {
+    group: "block",
+    content: "blockquote+",
+    attrs: {
+        id: {default: false},
+        track: {default: []}
+    },
+    parseDOM: [{tag: "div", getAttrs(dom) {
+        return {
+            id: dom.id,
+            //track: parseTracks(dom.dataset.track)
+        }
+    }}],
+    toDOM(node) {
+        const attrs = {id: node.attrs.id, class: "tool-borde"}
+        const attrs_namespace = {class: "tool-namespace"}
+        const attrs_span = {class: "tool-namespace-span", readonly: "true"}
+        addTracks(node, attrs)
+        return ['div', attrs, ["div", attrs_namespace, ["span", attrs_span, "PARA AMPLIAR"] ], ["div", 0] ]
     }
 }
 
@@ -153,9 +181,11 @@ export const texto_aparte = {
         }
     }}],
     toDOM(node) {
-        const attrs = {id: node.attrs.id, class: "texto_aparte_borde"}
+        const attrs = {id: node.attrs.id, class: "tool-borde"}
+        const attrs_namespace = {class: "tool-namespace"}
+        const attrs_span = {class: "tool-namespace-span", readonly: "true"}
         addTracks(node, attrs)
-        return ["div", attrs, 0]
+        return ['div', attrs, ["div", attrs_namespace, ["span", attrs_span, "TEXTO APARTE"] ], ["div", 0] ]
     }
 }
 
@@ -173,9 +203,11 @@ export const ejemplo = {
         }
     }}],
     toDOM(node) {
-        const attrs = {id: node.attrs.id, class: "ejemplo_borde"}
+        const attrs = {id: node.attrs.id, class: "tool-borde"}
+        const attrs_namespace = {class: "tool-namespace"}
+        const attrs_span = {class: "tool-namespace-span", readonly: "true"}
         addTracks(node, attrs)
-        return ["div", attrs, 0]
+        return ['div', attrs, ["div", attrs_namespace, ["span", attrs_span, "EJEMPLO"] ], ["div", 0] ]
     }
 }
 
@@ -193,9 +225,34 @@ export const lectura_recomendada = {
         }
     }}],
     toDOM(node) {
-        const attrs = {id: node.attrs.id, class: "lectura_recomendada_borde"}
+        const attrs = {id: node.attrs.id, class: "tool-borde"}
+        const attrs_namespace = {class: "tool-namespace"}
+        const attrs_span = {class: "tool-namespace-span", readonly: "true"}
         addTracks(node, attrs)
-        return ["div", attrs, 0]
+        return ['div', attrs, ["div", attrs_namespace, ["span", attrs_span, "LECTURA RECOMENDADA"] ], ["div", 0] ]
+    }
+}
+
+
+export const recurso_web = {
+    group: "block",
+    content: "blockquote+",
+    attrs: {
+        id: {default: false},
+        track: {default: []}
+    },
+    parseDOM: [{tag: "div", getAttrs(dom) {
+        return {
+            id: dom.id,
+            //track: parseTracks(dom.dataset.track)
+        }
+    }}],
+    toDOM(node) {
+        const attrs = {id: node.attrs.id, class: "tool-borde"}
+        const attrs_namespace = {class: "tool-namespace"}
+        const attrs_span = {class: "tool-namespace-span", readonly: "true"}
+        addTracks(node, attrs)
+        return ['div', attrs, ["div", attrs_namespace, ["span", attrs_span, "RECURSO WEB"] ], ["div", 0] ]
     }
 }
 

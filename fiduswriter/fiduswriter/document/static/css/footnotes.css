@@ -12,7 +12,7 @@
 .user-contents .footnote-container code,
 .user-contents .footnote-container ol,
 .user-contents .footnote-container ul {
-    margin-bottom: unset;
+    margin-bottom: 5px;
 }
 
 /* footnotes in main editor */

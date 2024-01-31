@@ -469,31 +469,6 @@ export const toolbarModel = () => ({
             order: 8
         },
         {
-            id: "link",
-            type: "button",
-            title: gettext("Link"),
-            icon: "link",
-            action: editor => {
-                const dialog = new LinkDialog(editor)
-                dialog.init()
-            },
-            available: editor => markAvailable(editor, "link"),
-            disabled: editor => {
-                if (
-                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
-                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
-                    (
-                        markDisabled(editor, "link") &&
-                        elementDisabled(editor, "cross_reference")
-                    )
-                ) {
-                    return true
-                }
-            },
-            selected: editor => editor.currentView.state.selection.$head.marks().some(mark => mark.type.name === "link"),
-            order: 9
-        },
-        {
             type: "button",
             title: gettext("Footnote"),
             icon: "asterisk",
@@ -514,33 +489,7 @@ export const toolbarModel = () => ({
                     return true
                 }
             },
-            order: 10
-        },
-        {
-            type: "button",
-            title: gettext("Cite"),
-            icon: "book",
-            action: editor => {
-                const dialog = new CitationDialog(editor)
-                dialog.init()
-                return false
-            },
-            available: editor => elementAvailable(editor, "citation"),
-            disabled: editor => {
-                if (
-                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
-                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
-                    elementDisabled(editor, "citation") ||
-                    !["text", "node"].includes(editor.currentView.state.selection.jsonID) ||
-                    (
-                        editor.currentView.state.selection.jsonID === "node" &&
-                        editor.currentView.state.selection.node.type.name !== "citation"
-                    )
-                ) {
-                    return true
-                }
-            },
-            order: 11
+            order: 9
         },
         {
             type: "button",
@@ -563,7 +512,7 @@ export const toolbarModel = () => ({
                     return true
                 }
             },
-            order: 12
+            order: 10
         },
         {
             type: "button",
@@ -588,28 +537,7 @@ export const toolbarModel = () => ({
                     return true
                 }
             },
-            order: 13
-        },
-        {
-            type: "button",
-            title: gettext("Figure"),
-            icon: "image",
-            action: editor => {
-                const dialog = new FigureDialog(editor)
-                dialog.init()
-                return false
-            },
-            available: editor => elementAvailable(editor, "figure"),
-            disabled: editor => {
-                if (
-                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
-                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
-                    elementDisabled(editor, "figure")
-                ) {
-                    return true
-                }
-            },
-            order: 14
+            order: 11
         },
         {
             type: "button",
@@ -632,18 +560,19 @@ export const toolbarModel = () => ({
                     return true
                 }
             },
-            order: 15
+            order: 12
         },
         {
             type: "button",
-            title: "Actividades",
-            icon: "edit",
+            title: "Leer con atención",
+            icon: "magnifying-glass",
             action: editor => {
-                const node = editor.currentView.state.schema.nodes["actividades"]
-                const command = wrapInList(node)
+                const node = editor.currentView.state.schema.nodes["leer_con_atencion"]
+                const command = wrapIn(node)
                 command(editor.currentView.state, tr =>{
                     editor.currentView.dispatch(tr)
                 } )
+
             },
             available: editor => elementAvailable(editor, "bullet_list"),
             disabled: editor => {
@@ -655,70 +584,7 @@ export const toolbarModel = () => ({
                     return true
                 }
             },
-            order: 16
-        },
-        {
-            type: "button",
-            title: "Video",
-            icon: "video",
-            action: editor => {
-                const dialog = new VideoDialog(editor)
-                dialog.init()
-            },
-            available: editor => elementAvailable(editor, "bullet_list"),
-            disabled: editor => {
-                if (
-                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
-                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
-                    elementDisabled(editor, "bullet_list")
-                ) {
-                    return true
-                }
-            },
-            order: 17
-        },
-                {
-            type: "button",
-            title: "Audio",
-            icon: "volume-high",
-            action: editor => {
-                const dialog = new AudioDialog(editor)
-                dialog.init()
-            },
-            available: editor => elementAvailable(editor, "bullet_list"),
-            disabled: editor => {
-                if (
-                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
-                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
-                    elementDisabled(editor, "bullet_list")
-                ) {
-                    return true
-                }
-            },
-            order: 18
-        },
-        {
-            type: "button",
-            title: "Lectura Obligatoria",
-            icon: "glasses",
-            action: editor => {
-                const node = editor.currentView.state.schema.nodes["lectura_obligatoria"]
-                const command = wrapInList(node)
-                command(editor.currentView.state, tr =>{
-                    editor.currentView.dispatch(tr)
-                } )
-            },
-            available: editor => elementAvailable(editor, "bullet_list"),
-            disabled: editor => {
-                if (
-                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
-                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
-                    elementDisabled(editor, "bullet_list")
-                ) {
-                    return true
-                }
-            },
-            order: 19
+            order: 13
         },
         {
             type: "button",
@@ -741,50 +607,7 @@ export const toolbarModel = () => ({
                     return true
                 }
             },
-            order: 20
-        },
-        {
-            type: "button",
-            title: "Encuesta",
-            icon: "clipboard-question",
-            action: editor => {
-                const dialog = new EncuestaDialog(editor)
-                dialog.init()
-            },
-            available: editor => elementAvailable(editor, "bullet_list"),
-            disabled: editor => {
-                if (
-                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
-                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
-                    elementDisabled(editor, "bullet_list")
-                ) {
-                    return true
-                }
-            },
-            order: 21
-        },
-        {
-            type: "button",
-            title: "Leer con atención",
-            icon: "magnifying-glass",
-            action: editor => {
-                const node = editor.currentView.state.schema.nodes["leer_con_atencion"]
-                const command = wrapInList(node)
-                command(editor.currentView.state, tr =>{
-                    editor.currentView.dispatch(tr)
-                } )
-            },
-            available: editor => elementAvailable(editor, "bullet_list"),
-            disabled: editor => {
-                if (
-                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
-                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
-                    elementDisabled(editor, "bullet_list")
-                ) {
-                    return true
-                }
-            },
-            order: 22
+            order: 14
         },
         {
             type: "button",
@@ -807,7 +630,58 @@ export const toolbarModel = () => ({
                     return true
                 }
             },
-            order: 23
+            order: 15
+        },
+         {
+            id: "link",
+            type: "button",
+            title: gettext("Pastilla"),
+            icon: "link",
+            action: editor => {
+                const dialog = new LinkDialog(editor)
+                dialog.init()
+            },
+            available: editor => markAvailable(editor, "link"),
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    (
+                        markDisabled(editor, "link") &&
+                        elementDisabled(editor, "cross_reference")
+                    )
+                ) {
+                    return true
+                }
+            },
+            selected: editor => editor.currentView.state.selection.$head.marks().some(mark => mark.type.name === "link"),
+            order: 16
+        },
+        {
+            type: "button",
+            title: gettext("Cita"),
+            icon: "book",
+            action: editor => {
+                const dialog = new CitationDialog(editor)
+                dialog.init()
+                return false
+            },
+            available: editor => elementAvailable(editor, "citation"),
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    elementDisabled(editor, "citation") ||
+                    !["text", "node"].includes(editor.currentView.state.selection.jsonID) ||
+                    (
+                        editor.currentView.state.selection.jsonID === "node" &&
+                        editor.currentView.state.selection.node.type.name !== "citation"
+                    )
+                ) {
+                    return true
+                }
+            },
+            order: 17
         },
         {
             type: "button",
@@ -830,9 +704,162 @@ export const toolbarModel = () => ({
                     return true
                 }
             },
+            order: 18
+        },
+        {
+            type: "button",
+            title: "Para Ampliar",
+            icon: "plus",
+            action: editor => {
+                const node = editor.currentView.state.schema.nodes["para_ampliar"]
+                const command = wrapInList(node)
+                command(editor.currentView.state, tr =>{
+                    editor.currentView.dispatch(tr)
+                } )
+            },
+            available: editor => elementAvailable(editor, "bullet_list"),
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    elementDisabled(editor, "bullet_list")
+                ) {
+                    return true
+                }
+            },
+            order: 19
+        },
+        {
+            type: "button",
+            title: "Actividades",
+            icon: "edit",
+            action: editor => {
+                const node = editor.currentView.state.schema.nodes["actividades"]
+                const command = wrapInList(node)
+                command(editor.currentView.state, tr =>{
+                    editor.currentView.dispatch(tr)
+                } )
+            },
+            available: editor => elementAvailable(editor, "bullet_list"),
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    elementDisabled(editor, "bullet_list")
+                ) {
+                    return true
+                }
+            },
+            order: 20
+        },
+        {
+            type: "button",
+            title: "Audio",
+            icon: "volume-high",
+            action: editor => {
+                const dialog = new AudioDialog(editor)
+                dialog.init()
+            },
+            available: editor => elementAvailable(editor, "bullet_list"),
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    elementDisabled(editor, "bullet_list")
+                ) {
+                    return true
+                }
+            },
+            order: 21
+        },
+        {
+            type: "button",
+            title: "Audiovisual",
+            icon: "video",
+            action: editor => {
+                const dialog = new VideoDialog(editor)
+                dialog.init()
+            },
+            available: editor => elementAvailable(editor, "bullet_list"),
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    elementDisabled(editor, "bullet_list")
+                ) {
+                    return true
+                }
+            },
+            order: 22
+        },
+        {
+            type: "button",
+            title: gettext("Imagen"),
+            icon: "image",
+            action: editor => {
+                const dialog = new FigureDialog(editor)
+                dialog.init()
+                return false
+            },
+            available: editor => elementAvailable(editor, "figure"),
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    elementDisabled(editor, "figure")
+                ) {
+                    return true
+                }
+            },
+            order: 23
+        },
+        {
+            type: "button",
+            title: "Recurso Web",
+            icon: "web",
+            action: editor => {
+                const node = editor.currentView.state.schema.nodes["recurso_web"]
+                const command = wrapInList(node)
+                command(editor.currentView.state, tr =>{
+                    editor.currentView.dispatch(tr)
+                } )
+            },
+            available: editor => elementAvailable(editor, "bullet_list"),
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    elementDisabled(editor, "bullet_list")
+                ) {
+                    return true
+                }
+            },
             order: 24
         },
-                {
+        {
+            type: "button",
+            title: "Lectura Obligatoria",
+            icon: "glasses",
+            action: editor => {
+                const node = editor.currentView.state.schema.nodes["lectura_obligatoria"]
+                const command = wrapInList(node)
+                command(editor.currentView.state, tr =>{
+                    editor.currentView.dispatch(tr)
+                } )
+            },
+            available: editor => elementAvailable(editor, "bullet_list"),
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    elementDisabled(editor, "bullet_list")
+                ) {
+                    return true
+                }
+            },
+            order: 25
+        },
+        {
             type: "button",
             title: "Lectura Recomendada",
             icon: "thumbs-up",
@@ -853,8 +880,28 @@ export const toolbarModel = () => ({
                     return true
                 }
             },
-            order: 25
+            order: 26
         },
+        {
+            type: "button",
+            title: "Encuesta",
+            icon: "clipboard-question",
+            action: editor => {
+                const dialog = new EncuestaDialog(editor)
+                dialog.init()
+            },
+            available: editor => elementAvailable(editor, "bullet_list"),
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    elementDisabled(editor, "bullet_list")
+                ) {
+                    return true
+                }
+            },
+            order: 27
+        },      
         {
             type: "button",
             title: gettext("Undo"),
