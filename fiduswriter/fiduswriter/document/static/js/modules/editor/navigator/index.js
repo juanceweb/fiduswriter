@@ -9,6 +9,7 @@ export class ModNavigator {
         this.defaultFilters = ["heading1", "heading2", "heading3"]
     }
 
+
     init() {
         this.render()
         this.bindEvents()

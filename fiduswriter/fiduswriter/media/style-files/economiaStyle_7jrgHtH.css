@@ -273,7 +273,8 @@ margin-top: 100px;
 }
 
 .bloque {
-  margin-top: 3%;
+  margin-top: 5%;
+  margin-bottom: 5%;
   border-top: 2px solid #407855;
   border-bottom: 2px solid #407855;
   background-color: #EBF2E7;

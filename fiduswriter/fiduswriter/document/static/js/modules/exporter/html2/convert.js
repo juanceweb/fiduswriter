@@ -46,6 +46,8 @@ export class HTMLExporterConvert {
         this.subapartado_num_index = 0
         this.id_tools = 1
         this.actividades_num = 0
+        this.pastillaNum = 0
+        this.pastillaDom = ''
     }
 
     init(docContent) {
@@ -210,6 +212,8 @@ export class HTMLExporterConvert {
 
     walkJson(node, options = {}) {
         let start = "", content = "", end = ""
+
+        console.log(node.type)
 
         switch (node.type) {
         case "article":
@@ -485,6 +489,40 @@ export class HTMLExporterConvert {
             this.id_tools++
 
             break   
+
+        case "ejemplo":
+
+            start += '<div id="" class="container-fluid bloque "><div class="row header-bloque">'
+            start += '<div class="col-12">'
+            start += '<span class="icon bloque-icon" aria-hidden="true" aria-label="icono Ejemplo">X</span>'
+            start += '<span class="bloque-type-title"><b>Ejemplo</b></span>'
+            start += '<div class="bloque-collapse-button rotate" data-bs-toggle="collapse" href="#bloque-content-' + this.id_tools + '" role="button" aria-hidden="true" aria-label="Boton abrir" aria-expanded="false" aria-controls="bloque-content-'+ this.id_tools + '">+</div></div></div>'
+            start += '<div class="row collapse show" id="bloque-content-' + this.id_tools + '">'
+            start += '<div class="bloque-content">'
+           
+            end = "</div></div></div>" + end
+
+
+            this.id_tools++
+
+            break   
+
+        case "para_ampliar":
+
+            start += '<div id="" class="container-fluid bloque "><div class="row header-bloque">'
+            start += '<div class="col-12">'
+            start += '<span class="icon bloque-icon" aria-hidden="true" aria-label="icono Para ampliar">A</span>'
+            start += '<span class="bloque-type-title"><b>Para ampliar</b></span>'
+            start += '<div class="bloque-collapse-button rotate" data-bs-toggle="collapse" href="#bloque-content-' + this.id_tools + '" role="button" aria-hidden="true" aria-label="Boton abrir" aria-expanded="false" aria-controls="bloque-content-'+ this.id_tools + '">+</div></div></div>'
+            start += '<div class="row collapse show" id="bloque-content-' + this.id_tools + '">'
+            start += '<div class="bloque-content">'
+           
+            end = "</div></div></div>" + end
+
+
+            this.id_tools++
+
+            break   
             
         case "para_reflexionar":
 
@@ -572,15 +610,16 @@ export class HTMLExporterConvert {
             end = "</aside>" + end
             break
         case "text": {
-            let strong, em, underline, hyperlink, video
+            let strong, em, underline, hyperlink, video, pastilla, audio
             // Check for hyperlink, bold/strong, italic/em and underline
 
             if (node.marks) {
                 strong = node.marks.find(mark => mark.type === "strong")
                 em = node.marks.find(mark => mark.type === "em")
                 underline = node.marks.find(mark => mark.type === "underline")
-                hyperlink = node.marks.find(mark => mark.type === "link")
+                pastilla = node.marks.find(mark => mark.type === "link")
                 video = node.marks.find(mark => mark.type === "video")
+                audio = node.marks.find(mark => mark.type === "audio")
             }
             if (em) {
                 start += "<em>"
@@ -598,6 +637,31 @@ export class HTMLExporterConvert {
                 start += `<a href="${hyperlink.attrs.href}">`
                 end = "</a>" + end
             }
+            if (pastilla) {
+
+                this.pastillaNum += 1
+
+                end = '<a href="#" class="pastilla" id="openModal-' + this.pastillaNum + '" data-bs-toggle="modal" data-bs-target="#modalPastilla-' + this.pastillaNum + '"><span class="icon">N</span></a>'
+
+                this.pastillaDom += '<div class="modal fade" id="modalPastilla-' + this.pastillaNum + '" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">'
+
+                this.pastillaDom += '<div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header">'
+
+                this.pastillaDom += '<h3 class="modal-title" id="modalPastillaTitle-' + this.pastillaNum + '"><span class="icon">N</span><h5>Pastilla</h5></h3>'
+
+                this.pastillaDom += ' <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>'
+                     
+                this.pastillaDom += '<div class="modal-body"><div class="container">'
+                
+                this.pastillaDom += '<p>'+ pastilla.attrs.href +'</p>'
+
+                this.pastillaDom += '</div></div>'
+
+                this.pastillaDom += '<div class="modal-footer"><button class="btn btn-primary" id="modalPastilla' + this.pastillaNum + '" type="button" data-bs-dismiss="modal">Cerrar</button></div>'
+
+                this.pastillaDom += '</div></div></div>'
+
+            }
             content += escapeText(node.text).normalize("NFC")
             if (video) {
 
@@ -607,13 +671,34 @@ export class HTMLExporterConvert {
                 start += '<span class="bloque-type-title"><b>Audiovisual</b></span>'
                 start += '<div class="bloque-collapse-button rotate" data-bs-toggle="collapse" href="#bloque-content-' + this.id_tools + '" role="button" aria-hidden="true" aria-label="Boton abrir" aria-expanded="false" aria-controls="bloque-content-'+ this.id_tools + '">+</div></div></div>'
                 start += '<div class="row collapse show" id="bloque-content-' + this.id_tools + '">'
-                start += '<div class="bloque-content">'
+                start += '<p><strong>'+ video.attrs.titulo +'</strong></p>'
                
-                end = "</div></div></div>" + end
+                end = "</div></div>" + end
     
                 this.id_tools++
 
-                content = '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + video.attrs.urlVideo + '" frameborder="0" allowfullscreen></iframe>'
+                content = '<p><div class="video-responsive"><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" frameborder="0" height="315" src="https://www.youtube.com/embed/' + video.attrs.urlVideo + '" title="YouTube video player" width="560"></iframe></div></p>'
+
+                content += '<p><div class="fuente">Fuente: ' + video.attrs.desc +'</div></p>'
+
+            }
+            if (audio) {
+
+                start += '<div id="" class="container-fluid bloque "><div class="row header-bloque">'
+                start += '<div class="col-12">'
+                start += '<span class="icon bloque-icon" aria-hidden="true" aria-label="icono Audio">S</span>'
+                start += '<span class="bloque-type-title"><b>Audio</b></span>'
+                start += '<div class="bloque-collapse-button rotate" data-bs-toggle="collapse" href="#bloque-content-' + this.id_tools + '" role="button" aria-hidden="true" aria-label="Boton abrir" aria-expanded="false" aria-controls="bloque-content-'+ this.id_tools + '">+</div></div></div>'
+                start += '<div class="row collapse show" id="bloque-content-' + this.id_tools + '">'
+                start += '<p><strong>'+ audio.attrs.titulo +'</strong></p>'
+               
+                end = "</div></div>" + end
+    
+                this.id_tools++
+
+                content = '<p><div class="audio-responsive"><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" frameborder="0" height="315" src="' + audio.attrs.urlAudio + '" title="Audio ivoox player" width="560"></iframe></div></p>'
+
+                content += '<p><div class="fuente">Fuente: ' + audio.attrs.desc +'</div></p>'
 
             }
             break
@@ -655,15 +740,17 @@ export class HTMLExporterConvert {
             ) {
                 content += `<img id="${node.attrs.id}" src="images/${imageFilename}"${this.endSlash}>`
             } else {
-                start +=
-                    `<figure
-                        id="${node.attrs.id}"
-                        class="aligned-${node.attrs.aligned} image-width-${node.attrs.width}"
-                        data-aligned="${node.attrs.aligned}"
-                        data-width="${node.attrs.width}"
-                        data-category="${node.attrs.category}"
-                    >`
-                end = "</figure>" + end
+
+                start += '<div class="container-fluid bloque "><div class="row header-bloque"><div class="col-12">'
+                start += '<span class="icon bloque-icon" aria-hidden="true" aria-label="icono Figura">I</span><span class="bloque-type-title"><b>Figura 3.1.</b></span>'
+                start += '<div class="bloque-collapse-button rotate" data-bs-toggle="collapse" href="#bloque-content-'+ this.id_tools + '" role="button" aria-hidden="true" aria-label="Boton abrir" aria-expanded="true" aria-controls="bloque-content-'+ this.id_tools +'">+</div></div></div>'
+                start += '<div class="row collapse show" id="bloque-content-'+ this.id_tools +'"><h5>Cinco fuerzas de Porter</h5><div class="bloque-content"><p><a target="_blank"  href="">'
+
+                this.id_tools++
+
+                end = '<p>Fuente: <span style="font-size:10.5pt"><span style="line-height:115%"><span style="font-family:"Times New Roman",serif"><span style="color:black"><span style="font-size:10.0pt"><span style="line-height:115%">'
+
+                end += '<a href="https://economipedia.com/wp-content/uploads/5-FUERZAS-DE-PORTER.jpg" target="_blank">https://economipedia.com/wp-content/uploads/5-FUERZAS-DE-PORTER.jpg</a></span></span></span></span></span></span></p></div></div></div>'
 
                 const equation = node.content.find(node => node.type === "figure_equation")?.attrs.equation
 
@@ -708,7 +795,7 @@ export class HTMLExporterConvert {
                     content = convertLatexToMarkup(equation, {mathstyle: "displaystyle"})
                 } else {
                     if (imageFilename) {
-                        content += `<img src="images/${imageFilename}"${this.endSlash}>`
+                        content += `<img class="zoom" alt="" src="images/${imageFilename}"${this.endSlash}/></a></p>`
                     }
                 }
             }
@@ -785,6 +872,13 @@ export class HTMLExporterConvert {
             node.content.forEach(child => {
                 content += this.walkJson(child, options)
             })
+        }
+
+        if (node.type != "text" && this.pastillaDom != "") {
+            console.log(end)
+            console.log(this.pastillaDom)
+            end += this.pastillaDom
+            this.pastillaDom = ""
         }
 
         return start + content + end

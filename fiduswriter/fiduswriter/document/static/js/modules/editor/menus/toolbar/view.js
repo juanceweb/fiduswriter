@@ -175,7 +175,7 @@ export class ToolbarView {
                 spaceCounter -= 138
                 break
             default:
-                spaceCounter -= 52
+                spaceCounter -= 56
             }
             if (spaceCounter < 0) {
                 menuIndexToDrop = Math.max(index - 2, 3) // We need the space of two buttons for the more button

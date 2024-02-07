@@ -72,7 +72,6 @@ export const image = {
     }],
     toDOM(node) {
         const dom = document.createElement("img")
-        console.log(node.attrs)
         if (node.attrs.image !== false) {
             dom.dataset.image = node.attrs.image
             if (node.type.schema.cached.imageDB) {

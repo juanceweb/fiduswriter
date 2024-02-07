@@ -29,6 +29,31 @@ export const cross_reference = {
     }
 }
 
+export const pastilla = {
+    attrs: {
+        href: {},
+        title: {
+            default: null
+        }
+    },
+    inclusive: false,
+    parseDOM: [
+        {
+            tag: "a[href]",
+            getAttrs(dom) {
+                return {
+                    href: dom.getAttribute("href"),
+                    title: dom.getAttribute("title")
+                }
+            }
+        }
+    ],
+    toDOM(node) {
+        const {href, title} = node.attrs
+        const attrs = title || href.charAt(0) !== "#" ? {href, title} : {href, title: gettext("Missing target"), class: "missing-target"}
+        return ["a", attrs, 0 ]
+    }
+}
 
 export const link = {
     attrs: {
@@ -88,24 +113,16 @@ export const video = {
         }
     ],
     toDOM(node) {
-        console.log("video")
-        const idDel = node.attrs.id + "-remove"
+
         const attrs = {id: node.attrs.id, class: "audiovisual-borde"}
         const attrsText = {class: "audiovisual-text", readonly: "true" }
         const attrsVideo = {width:"300", height:"200", src:"https://www.youtube.com/embed/"+node.attrs.urlVideo}
-        const attrsDel = {id: idDel, class:"remove-article-part"}
-
+        const attrsDel = {class:"remove-article-part", onclick: "newAlert(event)"}
+        const attrs_namespace = {class: "tool-namespace"}
+        const attrs_span = {class: "tool-namespace-span", readonly: "true"}
         addTracks(node, attrs)
 
-        // const botonDel = document.getElementById(idDel)
-
-        // console.log(botonDel)
-
-        // videoId.addEventListener("click", () => {
-        //     videoId.remove()
-        // })
-
-        return ["div", attrs , ["p", attrsText, node.attrs.titulo ] , ["iframe", attrsVideo, 0] , ["p", attrsText, node.attrs.desc], ["div", attrsDel, ["i", {class: "fa fa-trash-alt"}] ] ]
+        return ["div", attrs , ["div", attrs_namespace, ["span", attrs_span, "AUDIOVISUAL"] ], ["p", attrsText, node.attrs.titulo ] , ["iframe", attrsVideo, 0] , ["p", attrsText, node.attrs.desc], ["div", attrsDel, ["i", {class: "fa fa-trash-alt"}] ] ]
     }
 }
 
@@ -137,12 +154,15 @@ export const audio = {
         }
     ],
     toDOM(node) {
-        console.log("audio")
         const attrs = {id: node.attrs.id, class: "audiovisual-borde"}
         const attrsText = {class: "audiovisual-text", readonly: "true" }
         const attrsAudio = {frameBorder:'0', allowFullScreen:'', scrolling:'no', height:'150', style:'width:95%;', src:node.attrs.urlAudio ,loading:'lazy'}
+        const attrsDel = {class:"remove-article-part", onclick: "newAlert(event)"}
+        const attrs_namespace = {class: "tool-namespace"}
+        const attrs_span = {class: "tool-namespace-span", readonly: "true"}
         addTracks(node, attrs)
-        return ["div", attrs , ["p", attrsText, node.attrs.titulo ] , ["iframe", attrsAudio, 0] , ["p", attrsText, node.attrs.desc], ["div", {class:"remove-article-part"}, ["i", {class: "fa fa-trash-alt"}] ] ]
+
+        return ["div", attrs , ["div", attrs_namespace, ["span", attrs_span, "AUDIO"] ], ["p", attrsText, node.attrs.titulo ] , ["iframe", attrsAudio, 0] , ["p", attrsText, node.attrs.desc], ["div", attrsDel, ["i", {class: "fa fa-trash-alt"}] ] ]
     }
 }
 
