@@ -2,7 +2,7 @@ import {wrapIn, toggleMark} from "prosemirror-commands"
 import {wrapInList} from "prosemirror-schema-list"
 import {undo, redo, undoDepth, redoDepth} from "prosemirror-history"
 
-import {CitationDialog, FigureDialog, LinkDialog, MathDialog, TableDialog,VideoDialog,AudioDialog,EncuestaDialog} from "../../dialogs"
+import {CitationDialog, FigureDialog, HyperLinkDialog, LinkDialog, MathDialog, TableDialog,VideoDialog,AudioDialog,InteractivoDialog} from "../../dialogs"
 import {READ_ONLY_ROLES, COMMENT_ONLY_ROLES} from "../.."
 import {setBlockType} from "../../keymap"
 import {checkProtectedInSelection} from "../../state_plugins"
@@ -563,6 +563,31 @@ export const toolbarModel = () => ({
             order: 12
         },
         {
+            id: "hyperlink",
+            type: "button",
+            title: gettext("Link"),
+            icon: "link",
+            action: editor => {
+                const dialog = new HyperLinkDialog(editor)
+                dialog.init()
+            },
+            available: editor => markAvailable(editor, "link"),
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    (
+                        markDisabled(editor, "link") &&
+                        elementDisabled(editor, "cross_reference")
+                    )
+                ) {
+                    return true
+                }
+            },
+            selected: editor => editor.currentView.state.selection.$head.marks().some(mark => mark.type.name === "link"),
+            order: 28
+        },
+        {
             type: "button",
             title: "Leer con atención",
             icon: "magnifying-glass",
@@ -816,7 +841,7 @@ export const toolbarModel = () => ({
         {
             type: "button",
             title: "Recurso Web",
-            icon: "web",
+            icon: "globe",
             action: editor => {
                 const node = editor.currentView.state.schema.nodes["recurso_web"]
                 const command = wrapIn(node)
@@ -884,10 +909,10 @@ export const toolbarModel = () => ({
         },
         {
             type: "button",
-            title: "Encuesta",
+            title: "Interactivo",
             icon: "clipboard-question",
             action: editor => {
-                const dialog = new EncuestaDialog(editor)
+                const dialog = new InteractivoDialog(editor)
                 dialog.init()
             },
             available: editor => elementAvailable(editor, "bullet_list"),
@@ -908,7 +933,7 @@ export const toolbarModel = () => ({
             icon: "undo",
             action: editor => undo(editor.currentView.state, tr => editor.currentView.dispatch(tr.setMeta("inputType", "historyUndo"))),
             disabled: editor => undoDepth(editor.currentView.state) === 0,
-            order: 27
+            order: 29
         },
         {
             type: "button",
@@ -916,7 +941,7 @@ export const toolbarModel = () => ({
             icon: "redo",
             action: editor => redo(editor.currentView.state, tr => editor.currentView.dispatch(tr.setMeta("inputType", "historyRedo"))),
             disabled: editor => redoDepth(editor.currentView.state) === 0,
-            order: 28
+            order: 30
         },
     ]
 })

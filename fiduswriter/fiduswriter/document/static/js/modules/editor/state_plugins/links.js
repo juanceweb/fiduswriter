@@ -509,7 +509,7 @@ ${
             const newTr = newState.tr.setMeta("fixIds", true)
 
             newState.doc.descendants((node, pos) => {
-                if (node.type.groups.includes("heading") || ["figure", "table", "bullet_list", "ordered_list","actividades","lectura_obligatoria","para_reflexionar","video","encuesta"].includes(node.type.name)) {
+                if (node.type.groups.includes("heading") || ["figure", "table", "bullet_list", "ordered_list","actividades","lectura_obligatoria","para_reflexionar","video","interactivo"].includes(node.type.name)) {
                     if (ids.includes(node.attrs.id) || !node.attrs.id) {
                         // Add node if the id is false (default) or it is present twice
                         const randomIdGenerator = node.type.groups.includes("heading") ? randomHeadingId : node.type.name === "figure" ? randomFigureId : node.type.name === "table" ? randomTableId : randomListId

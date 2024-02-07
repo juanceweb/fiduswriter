@@ -473,6 +473,22 @@ export class HTMLExporterConvert {
 
             break
 
+        case "recurso_web":
+
+            start += '<div id="" class="container-fluid bloque "><div class="row header-bloque">'
+            start += '<div class="col-12">'
+            start += '<span class="icon bloque-icon" aria-hidden="true" aria-label="icono Recurso Web">W</span>'
+            start += '<span class="bloque-type-title"><b>Recurso Web</b></span>'
+            start += '<div class="bloque-collapse-button rotate" data-bs-toggle="collapse" href="#bloque-content-' + this.id_tools + '" role="button" aria-hidden="true" aria-label="Boton abrir" aria-expanded="false" aria-controls="bloque-content-'+ this.id_tools + '">+</div></div></div>'
+            start += '<div class="row collapse show" id="bloque-content-' + this.id_tools + '">'
+            start += '<div class="bloque-content">'
+           
+            end = "</div></div></div>" + end
+
+            this.id_tools++
+
+            break
+
         case "texto_aparte":
 
             start += '<div id="" class="container-fluid bloque "><div class="row header-bloque">'
@@ -610,7 +626,7 @@ export class HTMLExporterConvert {
             end = "</aside>" + end
             break
         case "text": {
-            let strong, em, underline, hyperlink, video, pastilla, audio
+            let strong, em, underline, hyperlink, video, pastilla, audio, interactivo
             // Check for hyperlink, bold/strong, italic/em and underline
 
             if (node.marks) {
@@ -620,6 +636,8 @@ export class HTMLExporterConvert {
                 pastilla = node.marks.find(mark => mark.type === "link")
                 video = node.marks.find(mark => mark.type === "video")
                 audio = node.marks.find(mark => mark.type === "audio")
+                interactivo = node.marks.find(mark => mark.type ==="interactivo")
+                hyperlink = node.marks.find(mark => mark.type === "hyperlink")
             }
             if (em) {
                 start += "<em>"
@@ -634,6 +652,7 @@ export class HTMLExporterConvert {
                 end = "</span>" + end
             }
             if (hyperlink) {
+                console.log("hyperlink")
                 start += `<a href="${hyperlink.attrs.href}">`
                 end = "</a>" + end
             }
@@ -699,8 +718,28 @@ export class HTMLExporterConvert {
                 content = '<p><div class="audio-responsive"><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" frameborder="0" height="315" src="' + audio.attrs.urlAudio + '" title="Audio ivoox player" width="560"></iframe></div></p>'
 
                 content += '<p><div class="fuente">Fuente: ' + audio.attrs.desc +'</div></p>'
-
             }
+
+            if (interactivo) {
+
+                start += '<div id="" class="container-fluid bloque "><div class="row header-bloque">'
+                start += '<div class="col-12">'
+                start += '<span class="icon bloque-icon" aria-hidden="true" aria-label="icono Interactivo">E</span>'
+                start += '<span class="bloque-type-title"><b>Interactivo</b></span>'
+                start += '<div class="bloque-collapse-button rotate" data-bs-toggle="collapse" href="#bloque-content-' + this.id_tools + '" role="button" aria-hidden="true" aria-label="Boton abrir" aria-expanded="false" aria-controls="bloque-content-'+ this.id_tools + '">+</div></div></div>'
+                start += '<div class="row collapse show" id="bloque-content-' + this.id_tools + '">'
+                start += '<p><strong>'+ "" +'</strong></p>'
+               
+                end = "</div></div>" + end
+    
+                this.id_tools++
+
+                content = '<p><div class="video-responsive"><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" frameborder="0" height="315" src="' + interactivo.attrs.urlInteractivo + '" title="Interactivo player" width="560"></iframe></div></p>'
+
+                content += '<p><div class="fuente">Fuente: ' + "" +'</div></p>'
+                
+            }
+
             break
         }
         case "cross_reference": {

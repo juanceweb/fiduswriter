@@ -1,4 +1,4 @@
-import {encuestaDialogTemplate} from "./templates"
+import {InteractivoDialogTemplate} from "./templates"
 import {Dialog} from "../../common"
 import {wrapInList} from "prosemirror-schema-list"
 import {sub, sup, subChars, supChars} from "./subsup"
@@ -8,7 +8,7 @@ import {Schema} from "prosemirror-model"
 /**
  * Class to work with formula dialog
  */
-export class EncuestaDialog {
+export class InteractivoDialog {
     constructor(editor) {
         this.editor = editor
         this.node = this.editor.currentView.state.selection.node
@@ -21,7 +21,7 @@ export class EncuestaDialog {
 
         //initialize dialog and open it
         this.dialog = new Dialog({
-            body: encuestaDialogTemplate(),
+            body: InteractivoDialogTemplate(),
             height: 85,
             width: 600,
             buttons: [{
@@ -30,22 +30,22 @@ export class EncuestaDialog {
                     click: () => {
 
 
-                        let urlEncuesta = this.dialog.dialogEl.querySelector("input.encuesta-field").value;
+                        let urlInteractivo = this.dialog.dialogEl.querySelector("input.interactivo-field").value;
 
                         const view = this.editor.currentView,
                         posFrom = view.state.selection.from,
                         tr = view.state.tr
                         let posTo = view.state.selection.to
 
-                            const markType = view.state.schema.marks.encuesta.create({
-                            urlEncuesta
+                            const markType = view.state.schema.marks.interactivo.create({
+                            urlInteractivo
                         })
 
-                        tr.insertText(urlEncuesta, posFrom, posTo)
+                        tr.insertText(urlInteractivo, posFrom, posTo)
                         posTo = tr.mapping.map(posFrom, 1)
                         markType.attrs ={
 
-                            urlEncuesta,
+                            urlInteractivo,
                         }
                         tr.addMark(
                             posFrom,
@@ -62,7 +62,7 @@ export class EncuestaDialog {
                     type: "cancel"
                 }
             ],
-            title: "Encuesta",
+            title: "Interactivo",
             beforeClose: () => {
                 if (this.mathField) {
                     this.mathField = false

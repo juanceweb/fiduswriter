@@ -30,6 +30,7 @@ import {
     cross_reference,
     link,
     pastilla,
+    hyperlink,
     table,
     table_caption,
     table_body,
@@ -47,7 +48,7 @@ import {
     leer_con_atencion,
     video,
     audio,
-    encuesta
+    interactivo
 
 } from "../common"
 import {
@@ -129,6 +130,7 @@ const spec = {
         strong: marks.strong,
         link,
         pastilla,
+        hyperlink,
         underline,
         comment,
         annotation_tag,
@@ -138,7 +140,7 @@ const spec = {
         format_change,
         video,
         audio,
-        encuesta
+        interactivo
     })
 }
 

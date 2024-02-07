@@ -55,6 +55,33 @@ export const pastilla = {
     }
 }
 
+export const hyperlink = {
+    attrs: {
+        href: {},
+        title: {
+            default: null
+        }
+    },
+    inclusive: false,
+    parseDOM: [
+        {
+            tag: "a[href]",
+            getAttrs(dom) {
+                return {
+                    href: dom.getAttribute("href"),
+                    title: dom.getAttribute("title")
+                }
+            }
+        }
+    ],
+    toDOM(node) {
+
+        const {href, title} = node.attrs
+        const attrs = title || href.charAt(0) !== "#" ? {href, title} : {href, title: gettext("Missing target"), class: "missing-target"}
+        return ["a", attrs, 0 ]
+    }
+}
+
 export const link = {
     attrs: {
         href: {},
@@ -75,6 +102,7 @@ export const link = {
         }
     ],
     toDOM(node) {
+
         const {href, title} = node.attrs
         const attrs = title || href.charAt(0) !== "#" ? {href, title} : {href, title: gettext("Missing target"), class: "missing-target"}
         return ["a", attrs, 0 ]
@@ -173,12 +201,12 @@ export const randomAnchorId = () => {
     return `A${Math.round(Math.random() * 10000000) + 1}`
 }
 
-export const encuesta = {
+export const interactivo = {
     group: "block",
     content: "blockquote+",
     attrs: {
 
-        urlEncuesta: {
+        urlInteractivo: {
             default: null
         }
     },
@@ -188,15 +216,21 @@ export const encuesta = {
             getAttrs(dom) {
                 return {
 
-                    urlEncuesta: dom.getAttribute("urlEncuesta")
+                    urlInteractivo: dom.getAttribute("urlInteractivo")
                 }
             }
         }
     ],
     toDOM(node) {
-        const attrs = {width:"833", height:"532", src:node.attrs.urlEncuesta ,id: node.attrs.id, class: "encuesta_borde"}
+        const attrs = { id: node.attrs.id, class: "audiovisual-borde" }
+        const attrsText = {class: "audiovisual-text", readonly: "true" }
+        const attrsInteractivo = {frameBorder:'0', allowFullScreen:'', scrolling:'no', width:"300", height:"200", src: node.attrs.urlInteractivo ,loading:'lazy'}
+        const attrsDel = {class:"remove-article-part", onclick: "newAlert(event)"}
+        const attrs_namespace = {class: "tool-namespace"}
+        const attrs_span = {class: "tool-namespace-span", readonly: "true"}
         addTracks(node, attrs)
-        return ["iframe", attrs, 0]
+
+        return ["div", attrs , ["div", attrs_namespace, ["span", attrs_span, "INTERACTIVO"] ], ["p", attrsText, "" ] , ["iframe", attrsInteractivo, 0] , ["p", attrsText, ""], ["div", attrsDel, ["i", {class: "fa fa-trash-alt"}] ] ]
     }
 }
 
