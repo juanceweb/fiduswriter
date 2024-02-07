@@ -908,7 +908,7 @@ export const toolbarModel = () => ({
             icon: "undo",
             action: editor => undo(editor.currentView.state, tr => editor.currentView.dispatch(tr.setMeta("inputType", "historyUndo"))),
             disabled: editor => undoDepth(editor.currentView.state) === 0,
-            order: 26
+            order: 27
         },
         {
             type: "button",
@@ -916,7 +916,7 @@ export const toolbarModel = () => ({
             icon: "redo",
             action: editor => redo(editor.currentView.state, tr => editor.currentView.dispatch(tr.setMeta("inputType", "historyRedo"))),
             disabled: editor => redoDepth(editor.currentView.state) === 0,
-            order: 27
+            order: 28
         },
     ]
 })

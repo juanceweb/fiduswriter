@@ -42,7 +42,10 @@ import {
     texto_aparte,
     ejemplo,
     lectura_recomendada,
+<<<<<<< HEAD
     recurso_web,
+=======
+>>>>>>> 63595de232f41bf5b514751efb4424892e70f7ab
     para_ampliar,
     leer_con_atencion,
     video,
@@ -117,7 +120,10 @@ const specNodes = OrderedMap.from({
     texto_aparte,
     ejemplo,
     lectura_recomendada,
+<<<<<<< HEAD
     recurso_web,
+=======
+>>>>>>> 63595de232f41bf5b514751efb4424892e70f7ab
     para_ampliar,
     leer_con_atencion
 })

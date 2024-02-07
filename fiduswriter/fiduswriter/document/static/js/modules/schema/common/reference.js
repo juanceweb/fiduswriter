@@ -96,6 +96,9 @@ export const video = {
         },
         desc: {
             default: null
+        },
+        urlVideo: {
+            default: null
         }
     },
     inclusive: false,
@@ -138,7 +141,11 @@ export const audio = {
         },
         urlAudio: {
             default: null
+<<<<<<< HEAD
         }
+=======
+        },
+>>>>>>> 63595de232f41bf5b514751efb4424892e70f7ab
     },
     inclusive: false,
     parseDOM: [
