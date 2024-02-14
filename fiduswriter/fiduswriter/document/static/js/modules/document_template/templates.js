@@ -111,13 +111,17 @@ const allowedMarksTemplate = ({marks}) =>
 <label>
     <input type="checkbox" class="marks" value="link" ${marks.includes("link") ? "checked" : ""}/>
     ${gettext("Link")}
+</label>
+<label>
+    <input type="checkbox" class="marks" value="hyperlink" ${marks.includes("hyperlink") ? "checked" : ""}/>
+    ${gettext("Hyperlink")}
 </label>`
 
 const headingTemplate = ({
     id = "",
     title = "",
     elements = ["heading1", "heading2", "heading3", "heading4", "heading5", "heading6"],
-    marks = ["strong", "em", "underline", "link"],
+    marks = ["strong", "em", "underline", "link", "hyperlink"],
     locking = "false",
     optional = "false",
     language = false,
@@ -266,7 +270,7 @@ const richtextTemplate = ({
     id = "",
     title = "",
     elements = ["paragraph", "heading1", "heading2", "heading3", "heading4", "heading5", "heading6", "figure", "ordered_list", "bullet_list", "horizontal_rule", "equation", "citation", "cross_reference", "blockquote", "footnote", "actividades","lectura_obligatoria","para_reflexionar","video","interactivo","leer_con_atencion","texto_aparte","ejemplo","lectura_recomendada","para_ampliar"],
-    marks = ["strong", "em", "underline", "link"],
+    marks = ["strong", "em", "underline", "link", "hyperlink"],
     locking = "false",
     optional = "false",
     language = false,
@@ -408,7 +412,7 @@ const tableTemplate = ({
     id = "",
     title = "",
     elements = ["paragraph", "heading1", "heading2", "heading3", "heading4", "heading5", "heading6", "figure", "ordered_list", "bullet_list", "horizontal_rule", "equation", "citation", "cross_reference", "blockquote", "footnote"],
-    marks = ["strong", "em", "underline", "link"],
+    marks = ["strong", "em", "underline", "link", "hyperlink"],
     locking = "false",
     optional = "false",
     language = false
@@ -495,7 +499,7 @@ const tocTemplate = ({
 
 const footnoteTemplate = ({
     footnote_elements = ["paragraph", "heading1", "heading2", "heading3", "heading4", "heading5", "heading6", "figure", "ordered_list", "bullet_list", "horizontal_rule", "equation", "citation", "cross_reference", "blockquote", "table"],
-    footnote_marks = ["strong", "em", "underline", "link"]
+    footnote_marks = ["strong", "em", "underline", "link", "hyperlink"]
 }) => `<div class="doc-part attrs">${allowedElementsTemplate({elements: footnote_elements}, false)}${allowedMarksTemplate({marks: footnote_marks})}</div>`
 
 const citationstylesTemplate = ({citationstyles = ["apa"]}, allCitationStyles) =>

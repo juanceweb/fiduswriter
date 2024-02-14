@@ -565,26 +565,26 @@ export const toolbarModel = () => ({
         {
             id: "hyperlink",
             type: "button",
-            title: gettext("Link"),
+            title: gettext("Hyperlink"),
             icon: "link",
             action: editor => {
                 const dialog = new HyperLinkDialog(editor)
                 dialog.init()
             },
-            available: editor => markAvailable(editor, "link"),
+            available: editor => markAvailable(editor, "hyperlink"),
             disabled: editor => {
                 if (
                     READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
                     COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
                     (
-                        markDisabled(editor, "link") &&
+                        markDisabled(editor, "hyperlink") &&
                         elementDisabled(editor, "cross_reference")
                     )
                 ) {
                     return true
                 }
             },
-            selected: editor => editor.currentView.state.selection.$head.marks().some(mark => mark.type.name === "link"),
+            selected: editor => editor.currentView.state.selection.$head.marks().some(mark => mark.type.name === "hyperlink"),
             order: 28
         },
         {

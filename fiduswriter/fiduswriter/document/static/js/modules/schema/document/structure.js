@@ -198,7 +198,7 @@ export const richtext_part = partSpec("richtext", "block+", {
         default: ["paragraph", "heading1", "heading2", "heading3", "heading4", "heading5", "heading6", "code_block", "figure", "ordered_list", "bullet_list", "horizontal_rule", "equation", "citation", "cross_reference", "blockquote", "footnote", "table"]
     },
     marks: {
-        default: ["strong", "em", "link", "anchor"]
+        default: ["strong", "em", "link", "anchor", "hyperlink"]
     },
     metadata: {
         default: false
@@ -209,7 +209,7 @@ export const heading_part = partSpec("heading", "heading", {
         default: ["heading1"]
     },
     marks: {
-        default: ["strong", "em", "link", "anchor"]
+        default: ["strong", "em", "link", "anchor", "hyperlink"]
     },
     metadata: {
         default: false
@@ -236,7 +236,7 @@ export const table_part = partSpec("table", "table", {
         default: ["paragraph", "heading1", "heading2", "heading3", "heading4", "heading5", "heading6", "figure", "ordered_list", "bullet_list", "horizontal_rule", "equation", "citation", "blockquote", "footnote"]
     },
     marks: {
-        default: ["strong", "em", "link", "anchor"]
+        default: ["strong", "em", "link", "anchor", "hyperlink"]
     }
 })
 

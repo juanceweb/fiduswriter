@@ -29,32 +29,6 @@ export const cross_reference = {
     }
 }
 
-export const pastilla = {
-    attrs: {
-        href: {},
-        title: {
-            default: null
-        }
-    },
-    inclusive: false,
-    parseDOM: [
-        {
-            tag: "a[href]",
-            getAttrs(dom) {
-                return {
-                    href: dom.getAttribute("href"),
-                    title: dom.getAttribute("title")
-                }
-            }
-        }
-    ],
-    toDOM(node) {
-        const {href, title} = node.attrs
-        const attrs = title || href.charAt(0) !== "#" ? {href, title} : {href, title: gettext("Missing target"), class: "missing-target"}
-        return ["a", attrs, 0 ]
-    }
-}
-
 export const hyperlink = {
     attrs: {
         href: {},
@@ -75,6 +49,8 @@ export const hyperlink = {
         }
     ],
     toDOM(node) {
+
+        console.log(node.type.name)
 
         const {href, title} = node.attrs
         const attrs = title || href.charAt(0) !== "#" ? {href, title} : {href, title: gettext("Missing target"), class: "missing-target"}
@@ -102,7 +78,6 @@ export const link = {
         }
     ],
     toDOM(node) {
-
         const {href, title} = node.attrs
         const attrs = title || href.charAt(0) !== "#" ? {href, title} : {href, title: gettext("Missing target"), class: "missing-target"}
         return ["a", attrs, 0 ]

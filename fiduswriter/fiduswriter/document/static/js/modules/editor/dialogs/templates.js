@@ -204,65 +204,8 @@ export const audioDialogTemplate = () =>
         <p class="audio-etiqueta">Descripción</p><p><input class="audio-desc"/></p>
     </div>`
 
-export const HyperlinkDialogTemplate = ({defaultLink, internalTargets, linkType, title, target, allowedContent}) =>
-    `${
-        allowedContent.cross_reference && internalTargets.length && false ?
-            `<div class="fw-radio">
-            <input type="radio" name="link-type" value="cross_reference" class="cross-reference-check">
-            <label class="cross-reference-label">${gettext("Cross reference")}</label>
-        </div>
-        <div class="fw-select-container">
-            <select class="cross-reference-selector fw-button fw-light fw-large" required="">
-                <option class="placeholder" selected="" disabled="" value="">
-                    ${gettext("Select Target")}
-                </option>
-                ${
-    internalTargets.map(iTarget =>
-        `<option class="cross-reference-item" type="text" value="${iTarget.id}" ${target === iTarget.id ? "selected" : ""}>
-                            ${escapeText(iTarget.text)}
-                        </option>`
-    ).join("")
-}
-            </select>
-            <div class="fw-select-arrow fa fa-caret-down"></div>
-        </div><p></p>` : ""
-    }${
-        allowedContent.link && internalTargets.length && false ?
-            `<div class="fw-radio">
-            <input type="radio" name="link-type" value="internal" class="link-internal-check">
-            <label class="link-internal-label">${gettext("Internal")}</label>
-        </div>
-        <div class="fw-select-container">
-            <select class="internal-link-selector fw-button fw-light fw-large" required="">
-                <option class="placeholder" selected="" disabled="" value="">
-                    ${gettext("Select Target")}
-                </option>
-                ${
-    internalTargets.map(iTarget =>
-        `<option class="link-item" type="text" value="${iTarget.id}" ${target === iTarget.id ? "selected" : ""}>
-                            ${escapeText(iTarget.text)}
-                        </option>`
-    ).join("")
-}
-            </select>
-            <div class="fw-select-arrow fa fa-caret-down"></div>
-        </div>
-        <p></p>
-        <div class="fw-radio">
-            <input type="radio" name="link-type" value="external" class="link-external-check">
-            <label class="link-external-label">${gettext("External")}</label>
-        </div>`
-            :
-            ""
-    }${
-        !allowedContent.link ?
-        `<div class="fw-radio">
-            <input type="radio" name="link-type" value="external" class="link-external-check">
-            <label class="link-external-label">${gettext("External")}</label>
-        </div>
-        <input class="link-title" type="text" value="${escapeText(title)}" placeholder="${gettext("Link")}"/>` :
-            ""
-    }`
+export const HyperlinkDialogTemplate = () =>
+        `<input class="link-title" type="text" value="" placeholder="${gettext("Link")}"/>`
 
 
 export const InteractivoDialogTemplate = () =>

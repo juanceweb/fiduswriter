@@ -56,9 +56,10 @@ export class ModDocumentTemplate {
                 tooltip: `${gettext("Show/hide")} ${node.attrs.title}`,
                 order: index,
                 action: editor => {
-                    let offset = 1, // We need to add one as we are looking at offset values within the firstChild
+                    let offset = 0, // We need to add one as we are looking at offset values within the firstChild
                         newNode,
-                        nodeId 
+                        nodeId,
+                        secondLine
                         
                     let idList = []
 
@@ -67,6 +68,9 @@ export class ModDocumentTemplate {
                     let anchorDepth = editor.view.state.selection.$anchor.depth
                     let new_offset = anchorPos - anchorParentOffset - anchorDepth
                     let offset_check = false
+                    let second_offset_check = false
+                    let secondoffset
+                    let firstrenglonselect
 
                     editor.view.state.doc.firstChild.forEach((docNode, docNodeOffset) => {
 
@@ -74,14 +78,27 @@ export class ModDocumentTemplate {
                             offset += docNodeOffset
                             offset_check = false
                         }
+
+                        if (second_offset_check == true) {
+                            secondoffset = docNodeOffset
+                            second_offset_check = false
+                        }
                         
                         if (docNode.attrs.id === node.attrs.id) {
                             newNode = docNode.type.create(docNode.attrs, docNode.content, docNode.marks)
                             nodeId = docNode.attrs.id
                         }
 
+                        // en el caso de que se posicione en la primer linea del objeto seleccion
                         if (new_offset == docNodeOffset) {
                                 offset_check = true
+                                firstrenglonselect = true
+                        }
+
+                        // en el caso de que se posicione en una linea que no sea la primera de la seccion
+                        if (new_offset > docNodeOffset) {
+                            secondLine = docNodeOffset
+                            second_offset_check = true
                         }
 
                         idList.push(docNode.attrs.id)
@@ -104,7 +121,13 @@ export class ModDocumentTemplate {
                     newNode.attrs.hidden = false
                     newNode.attrs.deleted = true
 
-                    editor.view.dispatch(editor.view.state.tr.insert(offset, newNode))
+                    if (firstrenglonselect == true) {
+                        editor.view.dispatch(editor.view.state.tr.insert(offset, newNode))
+                    } else {
+                        editor.view.dispatch(editor.view.state.tr.insert(secondoffset, newNode))
+                    }
+
+                  
                 },
             }))
         }

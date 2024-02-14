@@ -122,39 +122,46 @@ export class HyperLinkDialog {
             text: this.submitButtonText,
             classes: "fw-dark",
             click: () => {
-                const linkTypeEl = this.dialog.dialogEl.querySelector("input[name=link-type]:checked"),
-                    linkType = linkTypeEl ? linkTypeEl.value : "external"
-                let href, title, target, change
 
-                switch (linkType) {
-                case "internal": {
-                    target = this.dialog.dialogEl.querySelector("select.internal-link-selector").value
-                    href = `#${target}`
-                    title = this.internalTargets.find(iTarget => iTarget.id === target).text
-                    change = target && (this.linkType !== "internal" || this.target !== target)
-                    break
-                }
-                case "external": {
-                    const linkEl = this.dialog.dialogEl.querySelector("input.link-title")
-                    if (!(new RegExp(/^\s*$/)).test(linkEl.value) && linkEl.value !== this.defaultLink) {
-                        href = linkEl.value
-                    }
-                    title = this.dialog.dialogEl.querySelector("input.link-title").value
+                let title = this.dialog.dialogEl.querySelector("input.link-title").value
+                let href = this.dialog.dialogEl.querySelector("input.link-title").value
 
-                    if ((new RegExp(/^\s*$/)).test(title)) {
-                        // The link title is empty. Make it the same as the link itself.
-                        title = href
-                    }
-                    change = href && (this.linkType !== "external" || this.target !== href || this.title !== title)
-                    break
-                }
-                case "cross_reference": {
-                    target = this.dialog.dialogEl.querySelector("select.cross-reference-selector").value
-                    title = this.internalTargets.find(iTarget => iTarget.id === target).text
-                    change = target && (this.linkType !== "cross_reference" || this.target !== target)
-                    break
-                }
-                }
+
+                // const linkTypeEl = this.dialog.dialogEl.querySelector("input[name=link-type]:checked"),
+                //     linkType = linkTypeEl ? linkTypeEl.value : "external"
+                // let href, title, target, change
+
+                // switch (linkType) {
+                // case "internal": {
+                //     target = this.dialog.dialogEl.querySelector("select.internal-link-selector").value
+                //     href = `#${target}`
+                //     title = this.internalTargets.find(iTarget => iTarget.id === target).text
+                //     change = target && (this.linkType !== "internal" || this.target !== target)
+                //     break
+                // }
+                // case "external": {
+                //     const linkEl = this.dialog.dialogEl.querySelector("input.link-title")
+                //     if (!(new RegExp(/^\s*$/)).test(linkEl.value) && linkEl.value !== this.defaultLink) {
+                //         href = linkEl.value
+                //     }
+                //     title = this.dialog.dialogEl.querySelector("input.link-title").value
+
+                //     if ((new RegExp(/^\s*$/)).test(title)) {
+                //         // The link title is empty. Make it the same as the link itself.
+                //         title = href
+                //     }
+                //     change = href && (this.linkType !== "external" || this.target !== href || this.title !== title)
+                //     break
+                // }
+                // case "cross_reference": {
+                //     target = this.dialog.dialogEl.querySelector("select.cross-reference-selector").value
+                //     title = this.internalTargets.find(iTarget => iTarget.id === target).text
+                //     change = target && (this.linkType !== "cross_reference" || this.target !== target)
+                //     break
+                // }
+                // }
+                let change = href && ( this.target !== href || this.title !== title)
+
                 this.dialog.close()
 
                 if (!change) {
@@ -169,34 +176,34 @@ export class HyperLinkDialog {
                     tr = view.state.tr
                 let posTo = view.state.selection.to
 
-                if (linkType === "cross_reference") {
-                    const node = view.state.schema.nodes.cross_reference.create({id: target, title})
-                    tr.replaceSelectionWith(node)
-                } else {
+                // if (linkType === "cross_reference") {
+                //     const node = view.state.schema.nodes.cross_reference.create({id: target, title})
+                //     tr.replaceSelectionWith(node)
+                // } else {
                     // There is an empty selection. We insert the link title into the editor
                     // and then add the link to that.
-                    if (posFrom === posTo) {
-                        tr.insertText(title, posFrom, posTo)
-                        posTo = tr.mapping.map(posFrom, 1)
-                        
-                    } else if (this.title != title) {
-                        tr.insertText("", posFrom, posTo)
-                        posTo = posFrom
-                        tr.insertText(title, posFrom, posTo)
-                        posTo = tr.mapping.map(posFrom, 1)
-                    }
-
-                    const markType = view.state.schema.marks.hyperlink.create({
-                        href,
-                        title
-                    })
-
-                    tr.addMark(
-                        posFrom,
-                        posTo,
-                        markType
-                    )
+                if (posFrom === posTo) {
+                    tr.insertText(title, posFrom, posTo)
+                    posTo = tr.mapping.map(posFrom, 1)
+                    
+                } else if (this.title != title) {
+                    tr.insertText("", posFrom, posTo)
+                    posTo = posFrom
+                    tr.insertText(title, posFrom, posTo)
+                    posTo = tr.mapping.map(posFrom, 1)
                 }
+
+                const markType = view.state.schema.marks.hyperlink.create({
+                    href,
+                    title
+                })
+
+                tr.addMark(
+                    posFrom,
+                    posTo,
+                    markType
+                )
+                // }
 
                 view.dispatch(tr)
                 view.focus()
@@ -212,14 +219,7 @@ export class HyperLinkDialog {
         this.dialog = new Dialog({
             id: "edit-link",
             title: gettext("Hyperlink"),
-            body: HyperlinkDialogTemplate({
-                target: this.target,
-                allowedContent: this.checkAllowedContent(),
-                title: this.title,
-                linkType: this.linkType,
-                defaultLink: this.defaultLink,
-                internalTargets: this.internalTargets
-            }),
+            body: HyperlinkDialogTemplate({title: this.title}),
             buttons,
             width: 836,
             height: 360,
@@ -228,59 +228,59 @@ export class HyperLinkDialog {
 
         this.dialog.open()
 
-        if (this.internalTargets.length) {
-            const externalEls = this.dialog.dialogEl.querySelectorAll("input.link, input.link-title"),
-                internalEls = this.dialog.dialogEl.querySelectorAll("select.internal-link-selector"),
-                crossReferenceEls = this.dialog.dialogEl.querySelectorAll("select.cross-reference-selector"),
-                externalSwitchers = this.dialog.dialogEl.querySelectorAll("input.link, input.link-title, label.link-external-label, input.link-external-check"),
-                internalSwitchers = this.dialog.dialogEl.querySelectorAll("select.internal-link-selector, label.link-internal-label, input.link-internal-check"),
-                crossReferenceSwitchers = this.dialog.dialogEl.querySelectorAll("select.cross-reference-selector, label.cross-reference-label, input.cross-reference-check"),
-                radioInternal = this.dialog.dialogEl.querySelector("input.link-internal-check"),
-                radioExternal = this.dialog.dialogEl.querySelector("input.link-external-check"),
-                radioCrossReference = this.dialog.dialogEl.querySelector("input.cross-reference-check")
+        // if (this.internalTargets.length) {
+        //     const externalEls = this.dialog.dialogEl.querySelectorAll("input.link, input.link-title"),
+        //         internalEls = this.dialog.dialogEl.querySelectorAll("select.internal-link-selector"),
+        //         crossReferenceEls = this.dialog.dialogEl.querySelectorAll("select.cross-reference-selector"),
+        //         externalSwitchers = this.dialog.dialogEl.querySelectorAll("input.link, input.link-title, label.link-external-label, input.link-external-check"),
+        //         internalSwitchers = this.dialog.dialogEl.querySelectorAll("select.internal-link-selector, label.link-internal-label, input.link-internal-check"),
+        //         crossReferenceSwitchers = this.dialog.dialogEl.querySelectorAll("select.cross-reference-selector, label.cross-reference-label, input.cross-reference-check"),
+        //         radioInternal = this.dialog.dialogEl.querySelector("input.link-internal-check"),
+        //         radioExternal = this.dialog.dialogEl.querySelector("input.link-external-check"),
+        //         radioCrossReference = this.dialog.dialogEl.querySelector("input.cross-reference-check")
 
 
-            switch (this.linkType) {
-            case "internal":
-                externalEls.forEach(el => el.classList.add("disabled"))
-                crossReferenceEls.forEach(el => el.classList.add("disabled"))
-                radioInternal.checked = true
-                break
-            case "external":
-                internalEls.forEach(el => el.classList.add("disabled"))
-                externalEls.forEach(el => el.classList.add("disabled"))
-                radioExternal.checked = true
-                break
-            case "cross_reference":
-                internalEls.forEach(el => el.classList.add("disabled"))
-                crossReferenceEls.forEach(el => el.classList.add("disabled"))
-                radioCrossReference.checked = true
-                break
-            default:
-                break
-            }
+        //     switch (this.linkType) {
+        //     case "internal":
+        //         externalEls.forEach(el => el.classList.add("disabled"))
+        //         crossReferenceEls.forEach(el => el.classList.add("disabled"))
+        //         radioInternal.checked = true
+        //         break
+        //     case "external":
+        //         internalEls.forEach(el => el.classList.add("disabled"))
+        //         externalEls.forEach(el => el.classList.add("disabled"))
+        //         radioExternal.checked = true
+        //         break
+        //     case "cross_reference":
+        //         internalEls.forEach(el => el.classList.add("disabled"))
+        //         crossReferenceEls.forEach(el => el.classList.add("disabled"))
+        //         radioCrossReference.checked = true
+        //         break
+        //     default:
+        //         break
+        //     }
 
-            internalSwitchers.forEach(el => el.addEventListener("click", () => {
-                externalEls.forEach(el => el.classList.add("disabled"))
-                internalEls.forEach(el => el.classList.remove("disabled"))
-                crossReferenceEls.forEach(el => el.classList.add("disabled"))
-                radioInternal.checked = true
-            }))
+        //     internalSwitchers.forEach(el => el.addEventListener("click", () => {
+        //         externalEls.forEach(el => el.classList.add("disabled"))
+        //         internalEls.forEach(el => el.classList.remove("disabled"))
+        //         crossReferenceEls.forEach(el => el.classList.add("disabled"))
+        //         radioInternal.checked = true
+        //     }))
 
-            externalSwitchers.forEach(el => el.addEventListener("click", () => {
-                internalEls.forEach(el => el.classList.add("disabled"))
-                externalEls.forEach(el => el.classList.remove("disabled"))
-                crossReferenceEls.forEach(el => el.classList.add("disabled"))
-                radioExternal.checked = true
-            }))
+        //     externalSwitchers.forEach(el => el.addEventListener("click", () => {
+        //         internalEls.forEach(el => el.classList.add("disabled"))
+        //         externalEls.forEach(el => el.classList.remove("disabled"))
+        //         crossReferenceEls.forEach(el => el.classList.add("disabled"))
+        //         radioExternal.checked = true
+        //     }))
 
-            crossReferenceSwitchers.forEach(el => el.addEventListener("click", () => {
-                internalEls.forEach(el => el.classList.add("disabled"))
-                externalEls.forEach(el => el.classList.add("disabled"))
-                crossReferenceEls.forEach(el => el.classList.remove("disabled"))
-                radioCrossReference.checked = true
-            }))
+        //     crossReferenceSwitchers.forEach(el => el.addEventListener("click", () => {
+        //         internalEls.forEach(el => el.classList.add("disabled"))
+        //         externalEls.forEach(el => el.classList.add("disabled"))
+        //         crossReferenceEls.forEach(el => el.classList.remove("disabled"))
+        //         radioCrossReference.checked = true
+        //     }))
 
-        }
+        // }
     }
 }

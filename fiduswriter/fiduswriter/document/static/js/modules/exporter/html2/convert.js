@@ -213,8 +213,6 @@ export class HTMLExporterConvert {
     walkJson(node, options = {}) {
         let start = "", content = "", end = ""
 
-        console.log(node.type)
-
         switch (node.type) {
         case "article":
             break
@@ -652,7 +650,6 @@ export class HTMLExporterConvert {
                 end = "</span>" + end
             }
             if (hyperlink) {
-                console.log("hyperlink")
                 start += `<a href="${hyperlink.attrs.href}">`
                 end = "</a>" + end
             }
@@ -914,8 +911,7 @@ export class HTMLExporterConvert {
         }
 
         if (node.type != "text" && this.pastillaDom != "") {
-            console.log(end)
-            console.log(this.pastillaDom)
+
             end += this.pastillaDom
             this.pastillaDom = ""
         }

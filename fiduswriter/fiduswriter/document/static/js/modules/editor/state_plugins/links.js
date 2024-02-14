@@ -464,6 +464,7 @@ ${
             }
         },
         appendTransaction: (trs, oldState, newState) => {
+            
             // Check if any of the transactions are local.
             if (trs.every(tr => !tr.getMeta("linkUpdate"))) {
                 // All transactions are remote or don't change anything. Give up.
@@ -474,6 +475,7 @@ ${
                 const linkUpdate = tr.getMeta("linkUpdate")
                 return linkUpdate && linkUpdate.foundAnchorWithoutId
             })
+
             // ID should not be found in the other pm either. So we look through
             // those as well.
             let otherState, language
