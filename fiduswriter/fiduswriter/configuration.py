@@ -116,7 +116,8 @@ INSTALLED_APPS = [
 # A list of allowed hostnames of this Fidus Writer installation
 ALLOWED_HOSTS = [
     "localhost",
-    "127.0.0.1"
+    "127.0.0.1",
+    "fidus.uvq.edu.ar"
 ]
 
 # Disable service worker (default is True)
