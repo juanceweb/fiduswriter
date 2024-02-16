@@ -132,4 +132,4 @@ MEDIA_MAX_SIZE = False
 
 # Which domains served over http to allow post requests from. Should be the same as ALLOWED_HOSTS
 # But including https://, for example "https://www.domain.com".
-# CSRF_TRUSTED_ORIGINS = []
+CSRF_TRUSTED_ORIGINS = ["https://fidus.uvq.edu.ar",]
