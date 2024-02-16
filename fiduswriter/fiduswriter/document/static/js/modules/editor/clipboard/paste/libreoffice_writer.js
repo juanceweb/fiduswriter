@@ -6,6 +6,7 @@ export class LibreOfficeWriterPasteHandler extends GeneralPasteHandler {
     // Convert an existing node to a different node, if needed.
     convertNode(node) {
         node = super.convertNode(node)
+        
         // Footnote markers (only in main pm instance):
         if (node.tagName === "A" &&
             node.classList.contains("sdfootnoteanc") &&
