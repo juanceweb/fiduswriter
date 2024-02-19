@@ -20,7 +20,11 @@ export class CommentEditor {
         this.text = text
         this.options = options
 
+        console.log(options)
+
         this.isMajor = this.options.isMajor
+        this.isMedium = this.options.isMedium
+        this.isLow = this.options.isLow
 
         this.keepOpenAfterSubmit = false
         this.selectedTag = 0
@@ -99,12 +103,12 @@ export class CommentEditor {
                 <label>${gettext("Alta prioridad")}</label>
             </div>
             <div>    
-            <input class="comment-is-major" type="checkbox" name="isMedium"
+            <input class="comment-is-medium" type="checkbox" name="isMedium"
                 ${this.options.isMedium ? "checked" : ""}/>
                 <label>${gettext("Media prioridad")}</label>
             </div>
             <div>    
-            <input class="comment-is-major" type="checkbox" name="isLow"
+            <input class="comment-is-low" type="checkbox" name="isLow"
                 ${this.options.isLow ? "checked" : ""}/>
                 <label>${gettext("Baja prioridad")}</label>
             </div>
@@ -169,6 +173,14 @@ export class CommentEditor {
                 this.isMajor = !this.isMajor
                 this.updateButtons()
                 break
+            case findTarget(event, ".comment-is-medium", el):
+                    this.isMedium = !this.isMedium
+                    this.updateButtons()
+                    break
+            case findTarget(event, ".comment-is-low", el):
+                this.isLow= !this.isLow
+                this.updateButtons()
+                break
             }
         })
     }
@@ -178,6 +190,7 @@ export class CommentEditor {
             this.text.length ? this.text : [{type: "paragraph"}],
             this.view.state.doc.toJSON().content || [{type: "paragraph"}]
         ) || this.options.isMajor !== this.isMajor)
+        || (this.options.isMedium !== this.isMedium || this.options.isLow !== this.isLow)
     }
 
     updateButtons() {
@@ -190,8 +203,9 @@ export class CommentEditor {
 
     submit() {
         const comment = this.view.state.doc.toJSON().content
+        console.log("submit")
         if (comment?.length > 0) {
-            this.mod.interactions.updateComment({id: this.id, comment, isMajor: this.isMajor})
+            this.mod.interactions.updateComment({id: this.id, comment, isMajor: this.isMajor, isMedium: this.isMedium, isLow: this.isLow})
             this.sendNotifications()
         } else {
             this.mod.interactions.deleteComment(this.id)

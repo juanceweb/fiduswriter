@@ -123,7 +123,7 @@ const commentTemplate = ({comment, view, active, editComment, activeCommentAnswe
         assignedUsername = assignedUser ? assignedUser.name : false
     return `
         <div id="margin-box-${comment.id}" data-view="${view}" data-id="${comment.id}" data-user-id="${comment.user}"
-            class="margin-box comment ${active ? "active" : "inactive"} ${comment.resolved ? "resolved" : ""} ${comment.isMajor === true ? "comment-is-major-bgc" : ""}">
+            class="margin-box comment ${active ? "active" : "inactive"} ${comment.resolved ? "resolved" : ""} ${comment.isLow === true ? "comment-is-low-bgc" : ""} ${comment.isMedium === true ? "comment-is-medium-bgc" : ""} ${comment.isMajor === true ? "comment-is-major-bgc" : ""}">
 <div class="comment-answer-container">
 ${
     comment.comment.length === 0 ?

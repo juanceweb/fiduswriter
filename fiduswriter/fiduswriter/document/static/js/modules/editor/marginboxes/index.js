@@ -23,6 +23,8 @@ export class ModMarginboxes {
         }
         this.commentColors = {
             isMajor: "#f4c9d9",
+            isMedium: "f3c9d9",
+            isLow: "f1c9d9",
             marker: "#f9f9f9",
             active: "#fffacf"
         }

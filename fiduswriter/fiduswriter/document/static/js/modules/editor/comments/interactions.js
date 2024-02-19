@@ -94,12 +94,14 @@ export class ModCommentInteractions {
         const id = this.activeCommentId
         if (commentEditorDOM) {
             const value = id === "-1" ?
-                {text: [], isMajor: false} :
+                {text: [], isMajor: false, isMedium: false, isLow: false} :
                 {
                     text: this.mod.store.comments[id].comment,
-                    isMajor: this.mod.store.comments[id].isMajor
+                    isMajor: this.mod.store.comments[id].isMajor,
+                    isMedium: this.mod.store.comments[id].isMedium,
+                    isLow: this.mod.store.comments[id].isLow,
                 }
-            this.editor = new CommentEditor(this.mod, id, commentEditorDOM, value.text, {isMajor: value.isMajor})
+            this.editor = new CommentEditor(this.mod, id, commentEditorDOM, value.text, {isMajor: value.isMajor, isMedium: value.isMedium, isLow: value.isLow})
         } else {
             const answerId = this.activeCommentAnswerId,
                 text = answerId ?
@@ -301,8 +303,9 @@ export class ModCommentInteractions {
     }
 
 
-    updateComment({id, comment, isMajor}) {
+    updateComment({id, comment, isMajor, isMedium, isLow}) {
         // Save the change to a comment and mark that the document has been changed
+        console.log("update")
         if (id === "-1") {
             const referrer = getCommentDuringCreationDecoration(this.mod.store.commentDuringCreation.view.state)
             // This is a new comment. We need to get an ID for it if it has content.
@@ -322,14 +325,16 @@ export class ModCommentInteractions {
                     username,
                     date: Date.now() - this.mod.editor.clientTimeAdjustment, // We update the time to the time the comment was stored
                     comment,
-                    isMajor
+                    isMajor,
+                    isMedium,
+                    isLow
                 },
                 referrer.from,
                 referrer.to,
                 this.mod.store.commentDuringCreation.view
             )
         } else {
-            this.mod.store.updateComment({id, comment, isMajor})
+            this.mod.store.updateComment({id, comment, isMajor, isMedium, isLow})
         }
         this.deactivateAll()
         this.updateDOM()

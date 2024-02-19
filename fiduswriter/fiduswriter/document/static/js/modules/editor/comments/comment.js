@@ -9,6 +9,8 @@ export class Comment {
         comment = [],
         answers = [],
         isMajor = false,
+        isMedium = false,
+        isLow = false,
         resolved = false,
         hidden = false
     }) {
@@ -21,7 +23,10 @@ export class Comment {
         this.comment = comment
         this.answers = answers
         this.isMajor = isMajor // boolean - Whether comment is of major importance.
+        this.isMedium = isMedium
+        this.isLow = isLow
         this.resolved = resolved // Whether comment is marked as resolved.
         this.hidden = hidden
+        console.log(this)
     }
 }

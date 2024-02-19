@@ -341,6 +341,8 @@ class WebSocket(BaseWebSocketHandler):
                     "date": cd["date"],
                     "comment": cd["comment"],
                     "isMajor": cd["isMajor"],
+                    "isMedium": cd["isMedium"],
+                    "isLow": cd["isLow"],
                     "resolved": cd["resolved"],
                 }
             elif cd["type"] == "delete":
@@ -349,6 +351,10 @@ class WebSocket(BaseWebSocketHandler):
                 self.session["doc"].comments[id]["comment"] = cd["comment"]
                 if "isMajor" in cd:
                     self.session["doc"].comments[id]["isMajor"] = cd["isMajor"]
+                if "isMedium" in cd:
+                    self.session["doc"].comments[id]["isMedium"] = cd["isMedium"]
+                if "isLow" in cd:
+                    self.session["doc"].comments[id]["isLow"] = cd["isLow"]
                 if "assignedUser" in cd and "assignedUsername" in cd:
                     self.session["doc"].comments[id]["assignedUser"] = cd[
                         "assignedUser"
