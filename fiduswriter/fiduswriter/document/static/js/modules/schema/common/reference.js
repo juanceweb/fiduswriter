@@ -78,6 +78,9 @@ export const link = {
         }
     ],
     toDOM(node) {
+
+        console.log(node.type.name)
+
         const {href, title} = node.attrs
         const attrs = title || href.charAt(0) !== "#" ? {href, title} : {href, title: gettext("Missing target"), class: "missing-target"}
         return ["a", attrs, 0 ]

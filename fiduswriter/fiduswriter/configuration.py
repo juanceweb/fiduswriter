@@ -116,7 +116,8 @@ INSTALLED_APPS = [
 # A list of allowed hostnames of this Fidus Writer installation
 ALLOWED_HOSTS = [
     "localhost",
-    "127.0.0.1"
+    "127.0.0.1",
+    "fidus.uvq.edu.ar"
 ]
 
 # Disable service worker (default is True)
@@ -131,4 +132,4 @@ MEDIA_MAX_SIZE = False
 
 # Which domains served over http to allow post requests from. Should be the same as ALLOWED_HOSTS
 # But including https://, for example "https://www.domain.com".
-# CSRF_TRUSTED_ORIGINS = []
+CSRF_TRUSTED_ORIGINS = ["https://fidus.uvq.edu.ar",]

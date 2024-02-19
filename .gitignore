@@ -4,4 +4,6 @@ venv/
 fiduswriter/fiduswriter/.transpile
 fiduswriter/fiduswriter/static-transpile
 fiduswriter/fiduswriter/static-libs/json/schema.json
-fiduswriter/fiduswriter/fiduswrtier.sql
+fiduswriter/fiduswriter/fiduswriter.sql
+fiduswriter.sql
+/fiduswriter.sql

@@ -93,9 +93,21 @@ export class CommentEditor {
         this.dom.appendChild(this.viewDOM)
         this.dom.insertAdjacentHTML(
             "beforeend",
-            `<input class="comment-is-major" type="checkbox" name="isMajor"
-                ${this.options.isMajor ? "checked" : ""}/>
-            <label>${gettext("High priority")}</label>
+            `<div>
+                <input class="comment-is-major" type="checkbox" name="isMajor"
+                    ${this.options.isMajor ? "checked" : ""}/>
+                <label>${gettext("Alta prioridad")}</label>
+            </div>
+            <div>    
+            <input class="comment-is-major" type="checkbox" name="isMedium"
+                ${this.options.isMedium ? "checked" : ""}/>
+                <label>${gettext("Media prioridad")}</label>
+            </div>
+            <div>    
+            <input class="comment-is-major" type="checkbox" name="isLow"
+                ${this.options.isLow ? "checked" : ""}/>
+                <label>${gettext("Baja prioridad")}</label>
+            </div>
             <div class="comment-btns">
                 <button class="submit fw-button fw-dark disabled" type="submit">
                     ${this.id !== "-1" ? gettext("Edit") : gettext("Submit")}

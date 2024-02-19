@@ -160,16 +160,14 @@ export class HyperLinkDialog {
                 //     break
                 // }
                 // }
-                let change = href && ( this.target !== href || this.title !== title)
+                // let change = href && ( this.target !== href || this.title !== title)
 
-                this.dialog.close()
-
-                if (!change) {
-                    // The link input is empty or hasn't been changed from the default value.
-                    // Just close the dialog.
-                    this.editor.currentView.focus()
-                    return
-                }
+                // if (!change) {
+                //     // The link input is empty or hasn't been changed from the default value.
+                //     // Just close the dialog.
+                //     this.editor.currentView.focus()
+                //     return
+                // }
 
                 const view = this.editor.currentView,
                     posFrom = view.state.selection.from,
@@ -186,12 +184,13 @@ export class HyperLinkDialog {
                     tr.insertText(title, posFrom, posTo)
                     posTo = tr.mapping.map(posFrom, 1)
                     
-                } else if (this.title != title) {
-                    tr.insertText("", posFrom, posTo)
-                    posTo = posFrom
-                    tr.insertText(title, posFrom, posTo)
-                    posTo = tr.mapping.map(posFrom, 1)
-                }
+                } 
+                // else if (this.title != title) {
+                //     tr.insertText("", posFrom, posTo)
+                //     posTo = posFrom
+                //     tr.insertText(title, posFrom, posTo)
+                //     posTo = tr.mapping.map(posFrom, 1)
+                // }
 
                 const markType = view.state.schema.marks.hyperlink.create({
                     href,
@@ -207,6 +206,9 @@ export class HyperLinkDialog {
 
                 view.dispatch(tr)
                 view.focus()
+
+                this.dialog.close()
+
                 return
 
             }
@@ -217,9 +219,9 @@ export class HyperLinkDialog {
         })
 
         this.dialog = new Dialog({
-            id: "edit-link",
+            // id: "edit-link",
             title: gettext("Hyperlink"),
-            body: HyperlinkDialogTemplate({title: this.title}),
+            body: HyperlinkDialogTemplate(),
             buttons,
             width: 836,
             height: 360,
