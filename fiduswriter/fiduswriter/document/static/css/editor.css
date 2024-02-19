@@ -1343,7 +1343,7 @@ body.no-scroll {
         position: absolute;
     }
 
-    #margin-box-container {
+    /* #margin-box-container {
         overflow-y: auto;
         overflow-x: hidden;
         bottom: 0;
@@ -1352,7 +1352,7 @@ body.no-scroll {
         right: 0;
         max-height: 35vh;
         z-index: 2;
-    }
+    } */
 
     .comment-btns {
         text-align: left !important;
