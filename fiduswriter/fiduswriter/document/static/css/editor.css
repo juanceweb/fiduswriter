@@ -734,6 +734,47 @@ span.delete {
     position: relative;
 }
 
+.cita-input {
+    background-color: var(--cs-white-background);
+    margin: 9px 10px 7px;
+    padding-left: 5px;
+    font-size: 14px;
+    display: block;
+    width: 800px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: solid 1px var(--cs-white-border);
+    cursor: text;
+    position: relative;
+}
+
+.cita-ejemplo{
+    background-color: var(--cs-white-background);
+    margin: 9px 10px 7px;
+    padding-left: 5px;
+    font-size: 14px;
+    display: block;
+    width: 800px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    cursor: text;
+    position: relative;
+}
+
+.cita-select{
+    background-color: var(--cs-white-background);
+    margin: 9px 10px 7px;
+    padding-left: 5px;
+    font-size: 14px;
+    display: block;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    cursor: text;
+    position: relative;
+}
+
+
+
 .math-field .placeholder {
     position: absolute;
     top: 20px;

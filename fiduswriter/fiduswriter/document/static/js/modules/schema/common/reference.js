@@ -99,9 +99,6 @@ export const video = {
         },
         desc: {
             default: null
-        },
-        urlVideo: {
-            default: null
         }
     },
     inclusive: false,
@@ -129,6 +126,38 @@ export const video = {
         addTracks(node, attrs)
 
         return ["div", attrs , ["div", attrs_namespace, ["span", attrs_span, "AUDIOVISUAL"] ], ["p", attrsText, node.attrs.titulo ] , ["iframe", attrsVideo, 0] , ["p", attrsText, node.attrs.desc], ["div", attrsDel, ["i", {class: "fa fa-trash-alt"}] ] ]
+    }
+}
+
+export const citaTool = {
+    group: "block",
+    content: "blockquote+",
+    attrs: {
+
+        cita: {
+            default: null
+        }
+    },
+    inclusive: false,
+    parseDOM: [
+        {
+            getAttrs(dom) {
+                return {
+
+                    cita: dom.getAttribute("urlInteractivo")
+                }
+            }
+        }
+    ],
+    toDOM(node) {
+        const attrs = { id: node.attrs.id, class: "audiovisual-borde" }
+        const attrsText = {class: "audiovisual-text", readonly: "true" }
+        const attrsDel = {class:"remove-article-part", onclick: "newAlert(event)"}
+        const attrs_namespace = {class: "tool-namespace"}
+        const attrs_span = {class: "tool-namespace-span"}
+        addTracks(node, attrs)
+
+        return ["strong", {class:'class_cita'} , 0 ]
     }
 }
 

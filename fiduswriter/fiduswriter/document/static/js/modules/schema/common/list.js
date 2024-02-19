@@ -79,6 +79,28 @@ export const actividades = {
     }
 }
 
+export const cita = {
+    group: "block",
+    content: "blockquote+",
+    attrs: {
+        id: {default: false},
+        track: {default: []}
+    },
+    parseDOM: [{tag: "div", getAttrs(dom) {
+        return {
+            id: dom.id,
+            //track: parseTracks(dom.dataset.track)
+        }
+    }}],
+    toDOM(node) {
+        const attrs = {id: node.attrs.id, class: "tool-borde"}
+        const attrs_namespace = {class: "tool-namespace"}
+        const attrs_span = {class: "tool-namespace-span", readonly: "true"}
+        addTracks(node, attrs)
+        return ['div', attrs, ["div", attrs_namespace, ["span", attrs_span, "CITA"] ], ["div", 0] ]
+    }
+}
+
 export const lectura_obligatoria = {
     group: "block",
     content: "blockquote+",

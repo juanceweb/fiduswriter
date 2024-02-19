@@ -41,13 +41,15 @@ import {
     para_reflexionar,
     texto_aparte,
     ejemplo,
+    cita,
     lectura_recomendada,
     recurso_web,
     para_ampliar,
     leer_con_atencion,
     video,
     audio,
-    interactivo
+    interactivo,
+    citaTool
 
 } from "../common"
 import {
@@ -116,6 +118,7 @@ const specNodes = OrderedMap.from({
     para_reflexionar,
     texto_aparte,
     ejemplo,
+    cita,
     lectura_recomendada,
     recurso_web,
     para_ampliar,
@@ -138,7 +141,8 @@ const spec = {
         format_change,
         video,
         audio,
-        interactivo
+        interactivo,
+        citaTool
     })
 }
 

@@ -213,6 +213,35 @@ export const InteractivoDialogTemplate = () =>
         <p><input class="interactivo-field"/></p>
     </div>`
 
+export const CitaToolDialogTemplate = () =>
+    `<div title="URL Interactivo">
+        <p><input class="cita-input"/></p>
+        <p class = "cita-ejemplo"> </p>
+        <select name="apa" id="select_apa" class="cita-select">
+          <option value=''>--Seleccione ejemplo APA--</option>
+          <option value='Apellido, N. (año). Título del trabajo. Editorial.'>Libro impreso</option>
+          <option value='Apellido, N. (año). Título del trabajo. Editorial. DOI o URL'>Libro en línea</option>
+          <option value='Apellido, N. (Ed.). (año). Título del trabajo. Editorial.'>Libro con editor</option>
+          <option value='Apellido Autor, N. (año). Título del capítulo o entrada. En N. Apellido Editor (Ed.), Título del libro (xx ed., Vol. xx, pp. xxx-xxx). Editorial.'>Capítulo de libro</option>
+          <option value='Apellido, A., Apellido, B. y Apellido, C.  (año). Título del artículo. Nombre de la revista, volumen(número), página-página. '>Publicaciones periódicas impresas</option>
+          <option value='Apellido, A., Apellido, B. y Apellido, C. (año). Título del artículo específico. Título de la Revista, Volumen(número de la revista), número de página inicio-número de página fin. URL'>Publicaciones periódicas en línea</option>
+          <option value='Apellido, N. (fecha de publicación). Titular del artículo. Nombre del periódico en cursiva.'>Artículo de periódico impreso</option>
+          <option value='Apellido, N. (fecha de publicación). Titular del artículo. Nombre del periódico en cursiva. URL'>Artículo de periódico en línea</option>
+          <option value='Apellido, N. (año). Título de la tesis [Tesis de doctorado, Nombre de la institución que otorgó el título]. Nombre de la base de datos. URL.'>Tesis en línea</option>
+          <option value='Apellido, A., Apellido, B. y Apellido, C. (fecha de publicación). Título del artículo de la página web. Nombre del sitio web. URL'>Páginas web</option>
+          <option value='Apellido, N. (Director). (año). Título [Película]. Productor.'>Películas</option>
+          <option value='Apellido, N. (fecha de publicación). Título del artículo en el blog. Nombre del Blog. URL'>Blog</option>
+          <option value='Apellido, N. (fecha de publicación). Veinte primeras palabras [Comentario en la entrada “Título de la entrada”]. Nombre del Blog. URL'>Comentario en blog</option>
+          <option value='Nombre del autor. [Nombre de usuario en Youtube] (fecha). Título del video [Video]. Youtube. URL'>Youtube</option>
+          <option value='Usuario. (dd/mm/aaaa). Veinte primeras palabras. [tuit]. Twitter. htpp://twitter.com/usuario'>Twitter</option>
+          <option value='Nombre de usuario. (dd/mm/aaaa). Veinte primeras palabras. [Actualización Facebook]. URL'>Post de Facebook</option>
+          <option value='Apellido, N. (rol en la publicación). (2015-presente). Título del podcast. URL. '>Podcast</option>
+          <option value='Apellido, N. (rol en la publicación). (2015-presente). Título del episodio (Número del episodio) [Episodio de podcast]. En Título del podcast. URL.'>Episodio de podcast</option>
+          <option value='Número y año de la ley. Asunto. Fecha de promulgación. Número en el Diario Oficial.'>Leyes</option>
+          <option value='Nombre oficial de la Constitución [abreviación]. Artículo específico citado. Fecha de promulgación (País).'>Constitución política</option>
+          <option value='Título oficial del Código [abreviación]. Número y año de la ley a que corresponde. Artículo(s) citado(s). Fecha de promulgación (País).'>Códigos</option>
+        </select>
+    </div>`
 
 export const figureImageItemTemplate =  ({id, cats, image, thumbnail, title}) =>
     `<tr id="Image_${id}" class="${cats.map(cat => `cat_${escapeText(cat)} `)}" >
