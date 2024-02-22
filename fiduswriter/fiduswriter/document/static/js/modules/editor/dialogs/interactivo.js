@@ -22,16 +22,18 @@ export class InteractivoDialog {
         //initialize dialog and open it
         this.dialog = new Dialog({
             body: InteractivoDialogTemplate(),
-            height: 85,
+            height: 95,
             width: 600,
             buttons: [{
                     text: this.equationSelected ? gettext("Update") : gettext("Insert"),
                     classes: "fw-dark insert-math",
                     click: () => {
 
-
-                        let urlInteractivo = this.dialog.dialogEl.querySelector("input.interactivo-field").value;
-
+                        var parser = new DOMParser();
+                        let htmlString = this.dialog.dialogEl.querySelector("input.interactivo-field").value;
+                        var doc = parser.parseFromString(htmlString, 'text/html');
+                        var elementoIframe = doc.getElementsByTagName('iframe')
+                        let urlInteractivo = elementoIframe[0]['src']
                         const view = this.editor.currentView,
                         posFrom = view.state.selection.from,
                         tr = view.state.tr

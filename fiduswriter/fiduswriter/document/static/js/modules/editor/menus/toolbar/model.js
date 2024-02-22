@@ -909,7 +909,7 @@ export const toolbarModel = () => ({
         },
         {
             type: "button",
-            title: "Interactivo",
+            title: "Actividad interactiva",
             icon: "clipboard-question",
             action: editor => {
                 const dialog = new InteractivoDialog(editor)

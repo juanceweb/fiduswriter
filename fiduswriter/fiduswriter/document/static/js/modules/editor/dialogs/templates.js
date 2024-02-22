@@ -210,7 +210,8 @@ export const HyperlinkDialogTemplate = () =>
 
 export const InteractivoDialogTemplate = () =>
     `<div title="URL Interactivo">
-        <p><input class="interactivo-field"/></p>
+        <p class="etiqueta">Iframe Actividad</p>
+        <input class="interactivo-field"/>
     </div>`
 
 export const CitaToolDialogTemplate = () =>
