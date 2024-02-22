@@ -192,16 +192,16 @@ export const mathDialogTemplate = () =>
 
 export const videoDialogTemplate = () =>
     `<div>
-        <p class="video-etiqueta">Titulo</p><p><input class="video-titulo"/></p>
-        <p class="video-etiqueta">Url Video</p><p><input class="video-url"/></p>
-        <p class="video-etiqueta">Descripción</p><p><input class="video-desc"/></p>
+        <p class="etiqueta">Titulo</p><p><input class="video-titulo"/></p>
+        <p class="etiqueta">Url Video</p><p><input class="video-url"/></p>
+        <p class="etiqueta">Descripción</p><p><input class="video-desc"/></p>
     </div>`
 
 export const audioDialogTemplate = () =>
     `<div>
-        <p class="audio-etiqueta">Titulo</p><p><input class="audio-titulo"/></p>
-        <p class="audio-etiqueta">Iframe Audio </p><p><input class="audio-url"/></p>
-        <p class="audio-etiqueta">Descripción</p><p><input class="audio-desc"/></p>
+        <p class="etiqueta">Titulo</p><p><input class="audio-titulo"/></p>
+        <p class="etiqueta">Iframe Audio </p><p><input class="audio-url"/></p>
+        <p class="etiqueta">Descripción</p><p><input class="audio-desc"/></p>
     </div>`
 
 export const HyperlinkDialogTemplate = () =>
@@ -215,10 +215,10 @@ export const InteractivoDialogTemplate = () =>
 
 export const CitaToolDialogTemplate = () =>
     `<div title="URL Interactivo">
-        <p><input class="cita-input"/></p>
-        <p class = "cita-ejemplo"> </p>
+        <p class="etiqueta">Cita Larga</p>
+        <input class="cita-input"/>
+        <p class = "cita-ejemplo">Apellido, N. (año). Título del trabajo. Editorial.</p>
         <select name="apa" id="select_apa" class="cita-select">
-          <option value=''>--Seleccione ejemplo APA--</option>
           <option value='Apellido, N. (año). Título del trabajo. Editorial.'>Libro impreso</option>
           <option value='Apellido, N. (año). Título del trabajo. Editorial. DOI o URL'>Libro en línea</option>
           <option value='Apellido, N. (Ed.). (año). Título del trabajo. Editorial.'>Libro con editor</option>
@@ -241,7 +241,18 @@ export const CitaToolDialogTemplate = () =>
           <option value='Nombre oficial de la Constitución [abreviación]. Artículo específico citado. Fecha de promulgación (País).'>Constitución política</option>
           <option value='Título oficial del Código [abreviación]. Número y año de la ley a que corresponde. Artículo(s) citado(s). Fecha de promulgación (País).'>Códigos</option>
         </select>
+        <p class="etiqueta">Cita Corta</p>
+        <input class="cita-corta-input"/>
+        <p class = "cita-corta-ejemplo">a</p>
+        <select name="apa" id="select_apa_corto" class="cita-corta-select">
+          <option value='a'>uno</option>
+          <option value='b'>dos</option>
+          <option value='c'>tres</option>
+          <option value='d'>cuatro</option>
+          <option value='e'>cinco</option>
+        </select>
     </div>`
+
 
 export const figureImageItemTemplate =  ({id, cats, image, thumbnail, title}) =>
     `<tr id="Image_${id}" class="${cats.map(cat => `cat_${escapeText(cat)} `)}" >

@@ -19,8 +19,8 @@ export class CitaToolDialog {
         //initialize dialog and open it
         this.dialog = new Dialog({
             body: CitaToolDialogTemplate(),
-            height: 190,
-            width: 800,
+            height: 390,
+            width: 820,
             buttons: [
                     {
                     text: this.equationSelected ? gettext("Update") : gettext("Insert"),
@@ -28,7 +28,7 @@ export class CitaToolDialog {
                     click: () => {
 
                         let cita = this.dialog.dialogEl.querySelector("input.cita-input").value;
-
+                        let citaCorta = this.dialog.dialogEl.querySelector("input.cita-corta-input").value;
 
                         const view = this.editor.currentView,
                         posFrom = view.state.selection.from,
@@ -36,13 +36,13 @@ export class CitaToolDialog {
                         let posTo = view.state.selection.to
 
                             const markType = view.state.schema.marks.citaTool.create({
-                            cita
+                            cita,citaCorta
                         })
 
-                        tr.insertText(cita, posFrom, posTo)
+                        tr.insertText(citaCorta, posFrom, posTo)
                         posTo = tr.mapping.map(posFrom, 1)
                         markType.attrs ={
-                            cita
+                            cita,citaCorta
                         }
                         tr.addMark(
                             posFrom,
@@ -61,14 +61,16 @@ export class CitaToolDialog {
                 }
             ],
             title: "Cita Corta",
-            beforeClose: () => {
-            },
-            classes: "math",
+            beforeClose: () => {},
             onClose: () => this.editor.currentView.focus()
         })
         this.dialog.open()
         document.getElementById('select_apa').addEventListener('change', function() {
             let ejemplo = document.getElementsByClassName('cita-ejemplo')
+            ejemplo[0].innerHTML = this.value
+        });
+        document.getElementById('select_apa_corto').addEventListener('change', function() {
+            let ejemplo = document.getElementsByClassName('cita-corta-ejemplo')
             ejemplo[0].innerHTML = this.value
         });
     }

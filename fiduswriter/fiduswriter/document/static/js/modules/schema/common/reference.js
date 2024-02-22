@@ -139,6 +139,9 @@ export const citaTool = {
 
         cita: {
             default: null
+        },
+        citaCorta: {
+            default: null
         }
     },
     inclusive: false,
@@ -146,8 +149,8 @@ export const citaTool = {
         {
             getAttrs(dom) {
                 return {
-
-                    cita: dom.getAttribute("urlInteractivo")
+                    cita: dom.getAttribute("cita"),
+                    citaCorta: dom.getAttribute("citaCorta")
                 }
             }
         }
