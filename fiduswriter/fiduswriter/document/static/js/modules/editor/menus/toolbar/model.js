@@ -2,7 +2,7 @@ import {wrapIn, toggleMark} from "prosemirror-commands"
 import {wrapInList} from "prosemirror-schema-list"
 import {undo, redo, undoDepth, redoDepth} from "prosemirror-history"
 
-import {CitationDialog, FigureDialog, HyperLinkDialog, LinkDialog, MathDialog, TableDialog,VideoDialog,AudioDialog,InteractivoDialog} from "../../dialogs"
+import {CitationDialog, FigureDialog, HyperLinkDialog, LinkDialog, MathDialog, TableDialog,VideoDialog,AudioDialog,InteractivoDialog,CitaToolDialog} from "../../dialogs"
 import {READ_ONLY_ROLES, COMMENT_ONLY_ROLES} from "../.."
 import {setBlockType} from "../../keymap"
 import {checkProtectedInSelection} from "../../state_plugins"
@@ -617,7 +617,7 @@ export const toolbarModel = () => ({
             icon: "question",
             action: editor => {
                 const node = editor.currentView.state.schema.nodes["para_reflexionar"]
-                const command = wrapInList(node)
+                const command = wrapIn(node)
                 command(editor.currentView.state, tr =>{
                     editor.currentView.dispatch(tr)
                 } )
@@ -640,7 +640,7 @@ export const toolbarModel = () => ({
             icon: "align-justify",
             action: editor => {
                 const node = editor.currentView.state.schema.nodes["texto_aparte"]
-                const command = wrapInList(node)
+                const command = wrapIn(node)
                 command(editor.currentView.state, tr =>{
                     editor.currentView.dispatch(tr)
                 } )
@@ -714,7 +714,7 @@ export const toolbarModel = () => ({
             icon: "x",
             action: editor => {
                 const node = editor.currentView.state.schema.nodes["ejemplo"]
-                const command = wrapInList(node)
+                const command = wrapIn(node)
                 command(editor.currentView.state, tr =>{
                     editor.currentView.dispatch(tr)
                 } )
@@ -737,7 +737,7 @@ export const toolbarModel = () => ({
             icon: "plus",
             action: editor => {
                 const node = editor.currentView.state.schema.nodes["para_ampliar"]
-                const command = wrapInList(node)
+                const command = wrapIn(node)
                 command(editor.currentView.state, tr =>{
                     editor.currentView.dispatch(tr)
                 } )
@@ -760,7 +760,7 @@ export const toolbarModel = () => ({
             icon: "edit",
             action: editor => {
                 const node = editor.currentView.state.schema.nodes["actividades"]
-                const command = wrapInList(node)
+                const command = wrapIn(node)
                 command(editor.currentView.state, tr =>{
                     editor.currentView.dispatch(tr)
                 } )
@@ -867,7 +867,7 @@ export const toolbarModel = () => ({
             icon: "glasses",
             action: editor => {
                 const node = editor.currentView.state.schema.nodes["lectura_obligatoria"]
-                const command = wrapInList(node)
+                const command = wrapIn(node)
                 command(editor.currentView.state, tr =>{
                     editor.currentView.dispatch(tr)
                 } )
@@ -890,7 +890,7 @@ export const toolbarModel = () => ({
             icon: "thumbs-up",
             action: editor => {
                 const node = editor.currentView.state.schema.nodes["lectura_recomendada"]
-                const command = wrapInList(node)
+                const command = wrapIn(node)
                 command(editor.currentView.state, tr =>{
                     editor.currentView.dispatch(tr)
                 } )
@@ -909,7 +909,7 @@ export const toolbarModel = () => ({
         },
         {
             type: "button",
-            title: "Interactivo",
+            title: "Actividad interactiva",
             icon: "clipboard-question",
             action: editor => {
                 const dialog = new InteractivoDialog(editor)
@@ -926,14 +926,57 @@ export const toolbarModel = () => ({
                 }
             },
             order: 27
-        },      
+        },
+        {
+            type: "button",
+            title: "Cita Corta",
+            icon: "quote-left",
+            action: editor => {
+                const dialog = new CitaToolDialog(editor)
+                dialog.init()
+            },
+            available: editor => elementAvailable(editor, "bullet_list"),
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    elementDisabled(editor, "bullet_list")
+                ) {
+                    return true
+                }
+            },
+            order: 28
+        },
+        {
+            type: "button",
+            title: "Cita",
+            icon: "comment",
+            action: editor => {
+                const node = editor.currentView.state.schema.nodes["cita"]
+                const command = wrapIn(node)
+                command(editor.currentView.state, tr =>{
+                    editor.currentView.dispatch(tr)
+                } )
+            },
+            available: editor => elementAvailable(editor, "bullet_list"),
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    elementDisabled(editor, "bullet_list")
+                ) {
+                    return true
+                }
+            },
+            order: 29
+        },
         {
             type: "button",
             title: gettext("Undo"),
             icon: "undo",
             action: editor => undo(editor.currentView.state, tr => editor.currentView.dispatch(tr.setMeta("inputType", "historyUndo"))),
             disabled: editor => undoDepth(editor.currentView.state) === 0,
-            order: 29
+            order: 30
         },
         {
             type: "button",
@@ -941,7 +984,7 @@ export const toolbarModel = () => ({
             icon: "redo",
             action: editor => redo(editor.currentView.state, tr => editor.currentView.dispatch(tr.setMeta("inputType", "historyRedo"))),
             disabled: editor => redoDepth(editor.currentView.state) === 0,
-            order: 30
+            order: 31
         },
     ]
 })

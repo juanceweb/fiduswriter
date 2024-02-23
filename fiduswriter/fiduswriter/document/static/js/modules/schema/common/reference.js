@@ -98,9 +98,6 @@ export const video = {
         },
         desc: {
             default: null
-        },
-        urlVideo: {
-            default: null
         }
     },
     inclusive: false,
@@ -131,9 +128,46 @@ export const video = {
     }
 }
 
+<<<<<<< HEAD
 // this.menuButton = document.createElement("button")
 // this.menuButton.classList.add("figure-menu-btn")
 // this.menuButton.innerHTML = "<span class=\"dot-menu-icon\"><i class=\"fa fa-ellipsis-v\"></i></span>"
+=======
+export const citaTool = {
+    group: "block",
+    content: "blockquote+",
+    attrs: {
+
+        cita: {
+            default: null
+        },
+        citaCorta: {
+            default: null
+        }
+    },
+    inclusive: false,
+    parseDOM: [
+        {
+            getAttrs(dom) {
+                return {
+                    cita: dom.getAttribute("cita"),
+                    citaCorta: dom.getAttribute("citaCorta")
+                }
+            }
+        }
+    ],
+    toDOM(node) {
+        const attrs = { id: node.attrs.id, class: "audiovisual-borde" }
+        const attrsText = {class: "audiovisual-text", readonly: "true" }
+        const attrsDel = {class:"remove-article-part", onclick: "newAlert(event)"}
+        const attrs_namespace = {class: "tool-namespace"}
+        const attrs_span = {class: "tool-namespace-span"}
+        addTracks(node, attrs)
+
+        return ["strong", {class:'class_cita'} , 0 ]
+    }
+}
+>>>>>>> 904659ede6652a67deb8521f0f86a9889ad92310
 
 export const audio = {
     group: "block",

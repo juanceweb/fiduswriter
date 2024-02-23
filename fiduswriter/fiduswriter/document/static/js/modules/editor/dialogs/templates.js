@@ -199,9 +199,9 @@ export const videoDialogTemplate = (urlVideo, titulo, desc) =>
 
 export const audioDialogTemplate = () =>
     `<div>
-        <p class="audio-etiqueta">Titulo</p><p><input class="audio-titulo"/></p>
-        <p class="audio-etiqueta">Iframe Audio </p><p><input class="audio-url"/></p>
-        <p class="audio-etiqueta">Descripción</p><p><input class="audio-desc"/></p>
+        <p class="etiqueta">Titulo</p><p><input class="audio-titulo"/></p>
+        <p class="etiqueta">Iframe Audio </p><p><input class="audio-url"/></p>
+        <p class="etiqueta">Descripción</p><p><input class="audio-desc"/></p>
     </div>`
 
 export const HyperlinkDialogTemplate = () =>
@@ -210,7 +210,48 @@ export const HyperlinkDialogTemplate = () =>
 
 export const InteractivoDialogTemplate = () =>
     `<div title="URL Interactivo">
-        <p><input class="interactivo-field"/></p>
+        <p class="etiqueta">Iframe Actividad</p>
+        <input class="interactivo-field"/>
+    </div>`
+
+export const CitaToolDialogTemplate = () =>
+    `<div title="URL Interactivo">
+        <p class="etiqueta">Cita Larga</p>
+        <input class="cita-input"/>
+        <p class = "cita-ejemplo">Apellido, N. (año). Título del trabajo. Editorial.</p>
+        <select name="apa" id="select_apa" class="cita-select">
+          <option value='Apellido, N. (año). Título del trabajo. Editorial.'>Libro impreso</option>
+          <option value='Apellido, N. (año). Título del trabajo. Editorial. DOI o URL'>Libro en línea</option>
+          <option value='Apellido, N. (Ed.). (año). Título del trabajo. Editorial.'>Libro con editor</option>
+          <option value='Apellido Autor, N. (año). Título del capítulo o entrada. En N. Apellido Editor (Ed.), Título del libro (xx ed., Vol. xx, pp. xxx-xxx). Editorial.'>Capítulo de libro</option>
+          <option value='Apellido, A., Apellido, B. y Apellido, C.  (año). Título del artículo. Nombre de la revista, volumen(número), página-página. '>Publicaciones periódicas impresas</option>
+          <option value='Apellido, A., Apellido, B. y Apellido, C. (año). Título del artículo específico. Título de la Revista, Volumen(número de la revista), número de página inicio-número de página fin. URL'>Publicaciones periódicas en línea</option>
+          <option value='Apellido, N. (fecha de publicación). Titular del artículo. Nombre del periódico en cursiva.'>Artículo de periódico impreso</option>
+          <option value='Apellido, N. (fecha de publicación). Titular del artículo. Nombre del periódico en cursiva. URL'>Artículo de periódico en línea</option>
+          <option value='Apellido, N. (año). Título de la tesis [Tesis de doctorado, Nombre de la institución que otorgó el título]. Nombre de la base de datos. URL.'>Tesis en línea</option>
+          <option value='Apellido, A., Apellido, B. y Apellido, C. (fecha de publicación). Título del artículo de la página web. Nombre del sitio web. URL'>Páginas web</option>
+          <option value='Apellido, N. (Director). (año). Título [Película]. Productor.'>Películas</option>
+          <option value='Apellido, N. (fecha de publicación). Título del artículo en el blog. Nombre del Blog. URL'>Blog</option>
+          <option value='Apellido, N. (fecha de publicación). Veinte primeras palabras [Comentario en la entrada “Título de la entrada”]. Nombre del Blog. URL'>Comentario en blog</option>
+          <option value='Nombre del autor. [Nombre de usuario en Youtube] (fecha). Título del video [Video]. Youtube. URL'>Youtube</option>
+          <option value='Usuario. (dd/mm/aaaa). Veinte primeras palabras. [tuit]. Twitter. htpp://twitter.com/usuario'>Twitter</option>
+          <option value='Nombre de usuario. (dd/mm/aaaa). Veinte primeras palabras. [Actualización Facebook]. URL'>Post de Facebook</option>
+          <option value='Apellido, N. (rol en la publicación). (2015-presente). Título del podcast. URL. '>Podcast</option>
+          <option value='Apellido, N. (rol en la publicación). (2015-presente). Título del episodio (Número del episodio) [Episodio de podcast]. En Título del podcast. URL.'>Episodio de podcast</option>
+          <option value='Número y año de la ley. Asunto. Fecha de promulgación. Número en el Diario Oficial.'>Leyes</option>
+          <option value='Nombre oficial de la Constitución [abreviación]. Artículo específico citado. Fecha de promulgación (País).'>Constitución política</option>
+          <option value='Título oficial del Código [abreviación]. Número y año de la ley a que corresponde. Artículo(s) citado(s). Fecha de promulgación (País).'>Códigos</option>
+        </select>
+        <p class="etiqueta">Cita Corta</p>
+        <input class="cita-corta-input"/>
+        <p class = "cita-corta-ejemplo">a</p>
+        <select name="apa" id="select_apa_corto" class="cita-corta-select">
+          <option value='a'>uno</option>
+          <option value='b'>dos</option>
+          <option value='c'>tres</option>
+          <option value='d'>cuatro</option>
+          <option value='e'>cinco</option>
+        </select>
     </div>`
 
 

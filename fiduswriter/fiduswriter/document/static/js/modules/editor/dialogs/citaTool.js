@@ -1,14 +1,11 @@
-import {InteractivoDialogTemplate} from "./templates"
+import {CitaToolDialogTemplate} from "./templates"
 import {Dialog} from "../../common"
-import {wrapInList} from "prosemirror-schema-list"
-import {sub, sup, subChars, supChars} from "./subsup"
-import {Schema} from "prosemirror-model"
 
 
 /**
  * Class to work with formula dialog
  */
-export class InteractivoDialog {
+export class CitaToolDialog {
     constructor(editor) {
         this.editor = editor
         this.node = this.editor.currentView.state.selection.node
@@ -21,33 +18,31 @@ export class InteractivoDialog {
 
         //initialize dialog and open it
         this.dialog = new Dialog({
-            body: InteractivoDialogTemplate(),
-            height: 95,
-            width: 600,
-            buttons: [{
+            body: CitaToolDialogTemplate(),
+            height: 390,
+            width: 820,
+            buttons: [
+                    {
                     text: this.equationSelected ? gettext("Update") : gettext("Insert"),
                     classes: "fw-dark insert-math",
                     click: () => {
 
-                        var parser = new DOMParser();
-                        let htmlString = this.dialog.dialogEl.querySelector("input.interactivo-field").value;
-                        var doc = parser.parseFromString(htmlString, 'text/html');
-                        var elementoIframe = doc.getElementsByTagName('iframe')
-                        let urlInteractivo = elementoIframe[0]['src']
+                        let cita = this.dialog.dialogEl.querySelector("input.cita-input").value;
+                        let citaCorta = this.dialog.dialogEl.querySelector("input.cita-corta-input").value;
+
                         const view = this.editor.currentView,
                         posFrom = view.state.selection.from,
                         tr = view.state.tr
                         let posTo = view.state.selection.to
 
-                            const markType = view.state.schema.marks.interactivo.create({
-                            urlInteractivo
+                            const markType = view.state.schema.marks.citaTool.create({
+                            cita,citaCorta
                         })
 
-                        tr.insertText(urlInteractivo, posFrom, posTo)
+                        tr.insertText(citaCorta, posFrom, posTo)
                         posTo = tr.mapping.map(posFrom, 1)
                         markType.attrs ={
-
-                            urlInteractivo,
+                            cita,citaCorta
                         }
                         tr.addMark(
                             posFrom,
@@ -55,6 +50,7 @@ export class InteractivoDialog {
                             markType
                         )
                         view.dispatch(tr)
+
                         view.focus()
                         this.dialog.close()
                         //return
@@ -64,15 +60,18 @@ export class InteractivoDialog {
                     type: "cancel"
                 }
             ],
-            title: "Interactivo",
-            beforeClose: () => {
-                if (this.mathField) {
-                    this.mathField = false
-                }
-            },
-            classes: "math",
+            title: "Cita Corta",
+            beforeClose: () => {},
             onClose: () => this.editor.currentView.focus()
         })
         this.dialog.open()
+        document.getElementById('select_apa').addEventListener('change', function() {
+            let ejemplo = document.getElementsByClassName('cita-ejemplo')
+            ejemplo[0].innerHTML = this.value
+        });
+        document.getElementById('select_apa_corto').addEventListener('change', function() {
+            let ejemplo = document.getElementsByClassName('cita-corta-ejemplo')
+            ejemplo[0].innerHTML = this.value
+        });
     }
 }
