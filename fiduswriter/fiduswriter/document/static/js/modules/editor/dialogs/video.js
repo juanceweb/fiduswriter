@@ -15,10 +15,19 @@ export class VideoDialog {
 
     init() {
         //get selected node
+        let urlVideo = ""
+        let titulo = ""
+        let desc = ""
+
+        if (typeof this.node !== 'undefined') {
+            urlVideo = this.node.attrs.urlVideo
+            titulo = this.node.attrs.titulo
+            desc = this.node.attrs.desc
+        }
 
         //initialize dialog and open it
         this.dialog = new Dialog({
-            body: videoDialogTemplate(),
+            body: videoDialogTemplate(urlVideo, titulo, desc),
             height:250,
             width: 600,
             buttons: [{
@@ -26,9 +35,9 @@ export class VideoDialog {
                 classes: "fw-dark insert-math",
                 click: () => {
 
-                    let urlVideo = this.dialog.dialogEl.querySelector("input.video-url").value.replace('https://www.youtube.com/watch?v=', '');
-                    let titulo = this.dialog.dialogEl.querySelector("input.video-titulo").value;
-                    let desc = this.dialog.dialogEl.querySelector("input.video-desc").value;
+                    urlVideo = this.dialog.dialogEl.querySelector("input.video-url").value.replace('https://www.youtube.com/watch?v=', '');
+                    titulo = this.dialog.di.alogEl.querySelector("input.video-titulo").value;
+                    desc = this.dialog.dialogEl.querySelector("input.video-desc").value;
                     let id = "video-" + urlVideo 
 
                     const view = this.editor.currentView,
@@ -36,25 +45,30 @@ export class VideoDialog {
                     let posTo = view.state.selection.to
                     const tr = view.state.tr
 
-                    const markType = view.state.schema.marks.video.create({
-                        desc
-                    })
+                    const nodeVideo = view.state.schema.nodes["video"].create({id: id, urlVideo: urlVideo, titulo: titulo, desc : desc})
 
-                    tr.insertText(desc, posFrom, posTo)
-                    posTo = tr.mapping.map(posFrom, 1)
-                    markType.attrs = {
-                        id,
-                        desc,
-                        urlVideo,
-                        titulo
+                    tr.replaceSelectionWith(nodeVideo)
 
-                    }
+                    // const markType = view.state.schema.marks.video.create({
+                    //     desc
+                    // })
 
-                    tr.addMark(
-                        posFrom,
-                        posTo,
-                        markType
-                    )
+                    // tr.insertText(desc, posFrom, posTo)
+                    // posTo = tr.mapping.map(posFrom, 1)
+                    
+                    // markType.attrs = {
+                    //     id,
+                    //     desc,
+                    //     urlVideo,
+                    //     titulo
+
+                    // }
+
+                    // tr.addMark(
+                    //     posFrom,
+                    //     posTo,
+                    //     markType
+                    // )
                     view.dispatch(tr)
                     view.focus()
                     this.dialog.close()
@@ -74,6 +88,7 @@ export class VideoDialog {
             classes: "math",
             onClose: () => this.editor.currentView.focus()
         })
+
         this.dialog.open()
     }
 }

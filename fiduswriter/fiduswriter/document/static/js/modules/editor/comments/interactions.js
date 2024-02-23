@@ -305,7 +305,6 @@ export class ModCommentInteractions {
 
     updateComment({id, comment, isMajor, isMedium, isLow}) {
         // Save the change to a comment and mark that the document has been changed
-        console.log("update")
         if (id === "-1") {
             const referrer = getCommentDuringCreationDecoration(this.mod.store.commentDuringCreation.view.state)
             // This is a new comment. We need to get an ID for it if it has content.

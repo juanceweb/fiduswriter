@@ -119,6 +119,7 @@ const specNodes = OrderedMap.from({
     lectura_recomendada,
     recurso_web,
     para_ampliar,
+    video,
     leer_con_atencion
 })
 
@@ -136,7 +137,6 @@ const spec = {
         deletion,
         insertion,
         format_change,
-        video,
         audio,
         interactivo
     })

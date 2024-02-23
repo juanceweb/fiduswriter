@@ -224,19 +224,30 @@ export class FigureDialog {
         } else {
             content.push(captionNode)
         }
-        const tr = this.editor.currentView.state.tr.replaceSelectionWith(
-            this.editor.currentView.state.schema.nodes["figure"].createAndFill(
-                {
-                    aligned: this.aligned,
-                    width: this.width,
-                    category: this.category,
-                    caption: this.caption,
-                    id: this.insideFigure ? this.node.attrs.id : randomFigureId()
-                },
-                content
-            ),
-            false
+
+        const para = this.editor.currentView.state.schema.nodes["paragraph"].create()
+
+
+        const view = this.editor.currentView,
+        posFrom = view.state.selection.from
+
+        let tr = this.editor.currentView.state.tr.insert(posFrom, para)
+
+        this.editor.currentView.dispatch(tr)
+
+        const node = this.editor.currentView.state.schema.nodes["figure"].createAndFill(
+            {
+                aligned: this.aligned,
+                width: this.width,
+                category: this.category,
+                caption: this.caption,
+                id: this.insideFigure ? this.node.attrs.id : randomFigureId()
+            },
+            content
         )
+
+        tr = this.editor.currentView.state.tr.replaceSelectionWith(node)
+
         this.editor.currentView.dispatch(tr)
 
         this.dialog.close()

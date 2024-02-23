@@ -190,11 +190,11 @@ export const mathDialogTemplate = () =>
         <p><span class="math-field" type="text" name="math" ></span></p>
     </div>`
 
-export const videoDialogTemplate = () =>
+export const videoDialogTemplate = (urlVideo, titulo, desc) =>
     `<div>
-        <p class="video-etiqueta">Titulo</p><p><input class="video-titulo"/></p>
-        <p class="video-etiqueta">Url Video</p><p><input class="video-url"/></p>
-        <p class="video-etiqueta">Descripción</p><p><input class="video-desc"/></p>
+        <p class="video-etiqueta">Titulo</p><p><input class="video-titulo"/ value="${titulo}"></p>
+        <p class="video-etiqueta">Url Video</p><p><input class="video-url"/ value="${urlVideo}"></p>
+        <p class="video-etiqueta">Descripción</p><p><input class="video-desc"/ value="${desc}"></p>
     </div>`
 
 export const audioDialogTemplate = () =>

@@ -54,44 +54,50 @@ export class PartView {
         this.node = node
         this.view = view
         this.getPos = getPos
-        this.dom = document.createElement("section")
-        this.dom.classList.add("article-part")
-        this.dom.classList.add(`article-${this.node.type.name}`)
-        this.dom.classList.add(`${this.node.attrs.title.toLowerCase()}`)
-        this.dom.classList.add('border-section')
+        let title_len = this.node.attrs.title.length
 
-        let div = document.createElement("div")
-        let span = document.createElement("span")
+        if (title_len !== 0){
 
-        div.classList.add("section-namespace")
-        span.classList.add("section-namespace-span")
-        span.textContent = this.node.attrs.title.toUpperCase()
+            this.dom = document.createElement("section")
+            this.dom.classList.add("article-part")
+            this.dom.classList.add(`article-${this.node.type.name}`)
+            
+            this.dom.classList.add(`${this.node.attrs.title.toLowerCase()}`)
+            this.dom.classList.add('border-section')
 
-        if (this.node.attrs.title.toLowerCase() == "apartado" && this.node.attrs.hidden != true) {
-            apartado++
-            subapartado = 0
-            span.textContent += " *" + apartado
-        }
-
-        if (this.node.attrs.title.toLowerCase() == "subapartado"  && this.node.attrs.hidden != true) {
-            subapartado++
-            span.textContent += " *" + apartado + "." + subapartado
-        }
-
-        div.appendChild(span)
-
-        this.dom.appendChild(div)
-
-        if (node.attrs.hidden) {
-            this.dom.dataset.hidden = true
-        }
-
-        if (node.attrs.deleted) {
-            this.contentDOM = this.dom.appendChild(document.createElement("div"))
-            addDeletedPartWidget(this.dom, view, getPos)
-        } else {
-            this.contentDOM = this.dom
-        }
+            let div = document.createElement("div")
+            let span = document.createElement("span")
+    
+            div.classList.add("section-namespace")
+            span.classList.add("section-namespace-span")
+            span.textContent = this.node.attrs.title.toUpperCase()
+    
+            if (this.node.attrs.title.toLowerCase() == "apartado" && this.node.attrs.hidden != true) {
+                apartado++
+                subapartado = 0
+                span.textContent += " *" + apartado
+            }
+    
+            if (this.node.attrs.title.toLowerCase() == "subapartado"  && this.node.attrs.hidden != true) {
+                subapartado++
+                span.textContent += " *" + apartado + "." + subapartado
+            }
+    
+            div.appendChild(span)
+    
+            this.dom.appendChild(div)
+    
+            if (node.attrs.hidden) {
+                this.dom.dataset.hidden = true
+            }
+    
+            if (node.attrs.deleted) {
+                this.contentDOM = this.dom.appendChild(document.createElement("div"))
+                addDeletedPartWidget(this.dom, view, getPos)
+            } else {
+                this.contentDOM = this.dom
+            }
+        } 
     }
 
     stopEvent() {

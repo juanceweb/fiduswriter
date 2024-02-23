@@ -85,6 +85,10 @@ export {
 }
     from "./figure"
 export {
+    audiovisualPlugin
+}
+    from "./audiovisual"
+export {
     tagInputPlugin,
     TagsPartView
 }

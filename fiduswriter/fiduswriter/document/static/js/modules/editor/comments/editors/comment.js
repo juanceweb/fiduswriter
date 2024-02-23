@@ -20,8 +20,6 @@ export class CommentEditor {
         this.text = text
         this.options = options
 
-        console.log(options)
-
         this.isMajor = this.options.isMajor
         this.isMedium = this.options.isMedium
         this.isLow = this.options.isLow
@@ -203,7 +201,7 @@ export class CommentEditor {
 
     submit() {
         const comment = this.view.state.doc.toJSON().content
-        console.log("submit")
+
         if (comment?.length > 0) {
             this.mod.interactions.updateComment({id: this.id, comment, isMajor: this.isMajor, isMedium: this.isMedium, isLow: this.isLow})
             this.sendNotifications()

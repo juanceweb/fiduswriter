@@ -79,6 +79,7 @@ import {
     selectionMenuModel,
     tableMenuModel,
     figureMenuModel,
+    AudiovisualMenuModel,
     toolbarModel,
     figureWidthMenuModel
 } from "./menus"
@@ -112,6 +113,7 @@ import {
     settingsPlugin,
     tablePlugin,
     figurePlugin,
+    audiovisualPlugin,
     tocRenderPlugin,
     toolbarPlugin,
     trackPlugin,
@@ -174,6 +176,7 @@ export class Editor {
             selectionMenuModel: selectionMenuModel(),
             imageEditModel: imageEditModel(),
             tableMenuModel: tableMenuModel(),
+            audiovisualMenuModel: AudiovisualMenuModel(),
             figureMenuModel: figureMenuModel(),
             toolbarModel: toolbarModel(),
             figureWidthMenuModel: figureWidthMenuModel()
@@ -213,6 +216,7 @@ export class Editor {
             [tablePlugin, () => ({editor: this})],
             [orderedListMenuPlugin, () => ({editor: this})],
             [figurePlugin, () => ({editor: this})],
+            [audiovisualPlugin, () => ({editor: this})],
             [tocRenderPlugin, () => ({editor: this})],
             [searchPlugin]
         ]

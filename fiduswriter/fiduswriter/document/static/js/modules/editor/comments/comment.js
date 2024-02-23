@@ -27,6 +27,5 @@ export class Comment {
         this.isLow = isLow
         this.resolved = resolved // Whether comment is marked as resolved.
         this.hidden = hidden
-        console.log(this)
     }
 }

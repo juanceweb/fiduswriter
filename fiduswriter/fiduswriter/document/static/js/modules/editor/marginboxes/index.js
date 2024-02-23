@@ -23,8 +23,8 @@ export class ModMarginboxes {
         }
         this.commentColors = {
             isMajor: "#f4c9d9",
-            isMedium: "f3c9d9",
-            isLow: "f1c9d9",
+            isMedium: "#f9e79f",
+            isLow: "#d1f2eb",
             marker: "#f9f9f9",
             active: "#fffacf"
         }
@@ -565,6 +565,12 @@ export class ModMarginboxes {
                 } else if (comment.isMajor) {
                     this.activeCommentStyle +=
                         `#paper-editable .comment[data-id="${comment.id}"] {background-color: ${this.commentColors.isMajor};}`
+                } else if (comment.isMedium) {
+                    this.activeCommentStyle +=
+                        `#paper-editable .comment[data-id="${comment.id}"] {background-color: ${this.commentColors.isMedium};}`
+                } else if (comment.isLow) {
+                    this.activeCommentStyle +=
+                        `#paper-editable .comment[data-id="${comment.id}"] {background-color: ${this.commentColors.isLow};}`
                 } else {
                     this.activeCommentStyle +=
                         `#paper-editable .comment[data-id="${comment.id}"] {background-color: ${this.commentColors.marker};}`

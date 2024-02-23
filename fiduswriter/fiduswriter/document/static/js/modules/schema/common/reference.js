@@ -50,8 +50,6 @@ export const hyperlink = {
     ],
     toDOM(node) {
 
-        console.log(node.type.name)
-
         const {href, title} = node.attrs
         const attrs = title || href.charAt(0) !== "#" ? {href, title} : {href, title: gettext("Missing target"), class: "missing-target"}
         return ["a", attrs, 0 ]
@@ -78,8 +76,6 @@ export const link = {
         }
     ],
     toDOM(node) {
-
-        console.log(node.type.name)
 
         const {href, title} = node.attrs
         const attrs = title || href.charAt(0) !== "#" ? {href, title} : {href, title: gettext("Missing target"), class: "missing-target"}
@@ -124,16 +120,20 @@ export const video = {
     toDOM(node) {
 
         const attrs = {id: node.attrs.id, class: "audiovisual-borde"}
-        const attrsText = {class: "audiovisual-text", readonly: "true" }
+        const attrsText = {class: "audiovisual-text"}
         const attrsVideo = {width:"300", height:"200", src:"https://www.youtube.com/embed/"+node.attrs.urlVideo}
-        const attrsDel = {class:"remove-article-part", onclick: "newAlert(event)"}
+        const attrsDel = {class:"audiovisual-menu-btn", onclick: "newAlert(event)"}
         const attrs_namespace = {class: "tool-namespace"}
-        const attrs_span = {class: "tool-namespace-span", readonly: "true"}
+        const attrs_span = {class: "tool-namespace-span"}
         addTracks(node, attrs)
 
-        return ["div", attrs , ["div", attrs_namespace, ["span", attrs_span, "AUDIOVISUAL"] ], ["p", attrsText, node.attrs.titulo ] , ["iframe", attrsVideo, 0] , ["p", attrsText, node.attrs.desc], ["div", attrsDel, ["i", {class: "fa fa-trash-alt"}] ] ]
+        return ["div", attrs , ["div", attrs_namespace, ["span", attrs_span, "AUDIOVISUAL"] ], ["p", attrsText, node.attrs.titulo ] , ["iframe", attrsVideo, 0] , ["p", attrsText, node.attrs.desc] ]
     }
 }
+
+// this.menuButton = document.createElement("button")
+// this.menuButton.classList.add("figure-menu-btn")
+// this.menuButton.innerHTML = "<span class=\"dot-menu-icon\"><i class=\"fa fa-ellipsis-v\"></i></span>"
 
 export const audio = {
     group: "block",
