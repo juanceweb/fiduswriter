@@ -128,11 +128,6 @@ export const video = {
     }
 }
 
-<<<<<<< HEAD
-// this.menuButton = document.createElement("button")
-// this.menuButton.classList.add("figure-menu-btn")
-// this.menuButton.innerHTML = "<span class=\"dot-menu-icon\"><i class=\"fa fa-ellipsis-v\"></i></span>"
-=======
 export const citaTool = {
     group: "block",
     content: "blockquote+",
@@ -167,7 +162,6 @@ export const citaTool = {
         return ["strong", {class:'class_cita'} , 0 ]
     }
 }
->>>>>>> 904659ede6652a67deb8521f0f86a9889ad92310
 
 export const audio = {
     group: "block",
