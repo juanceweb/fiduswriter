@@ -244,13 +244,14 @@ export const CitaToolDialogTemplate = () =>
         </select>
         <p class="etiqueta">Cita Corta</p>
         <input class="cita-corta-input"/>
-        <p class = "cita-corta-ejemplo">a</p>
+        <p class = "cita-corta-ejemplo">(Apellido, año)</p>
         <select name="apa" id="select_apa_corto" class="cita-corta-select">
-          <option value='a'>uno</option>
-          <option value='b'>dos</option>
-          <option value='c'>tres</option>
-          <option value='d'>cuatro</option>
-          <option value='e'>cinco</option>
+          <option value='(Apellido, año)'>Un/a Autor/a</option>
+          <option value='(Apellido, Apellido, año)'>Dos Autores/as.</option>
+          <option value='(Apellido et al., año)'>Tres o más Autores/as</option>
+          <option value='(Apellido, año: pág.) '>Un/a Autor/a y es cita directa</option>
+          <option value='(Apellido, Apellido, año: pág.) '>Dos Autores/as y es cita directa</option>
+          <option value='(Apellido et al., año: pág.-pág.)'>Tres o más Autores/as y es cita directa</option>
         </select>
     </div>`
 
