@@ -447,6 +447,7 @@ export const toolbarModel = () => ({
             },
             order: 7
         },
+        /*
         {
             type: "button",
             title: gettext("Blockquote"),
@@ -468,6 +469,8 @@ export const toolbarModel = () => ({
             },
             order: 8
         },
+        */
+
         {
             type: "button",
             title: gettext("Footnote"),
@@ -491,6 +494,7 @@ export const toolbarModel = () => ({
             },
             order: 9
         },
+        /*
         {
             type: "button",
             title: gettext("Horizontal line"),
@@ -514,6 +518,7 @@ export const toolbarModel = () => ({
             },
             order: 10
         },
+         */
         {
             type: "button",
             title: gettext("Math"),
