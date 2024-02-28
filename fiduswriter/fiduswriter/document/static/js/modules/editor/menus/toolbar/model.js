@@ -310,6 +310,22 @@ export const toolbarModel = () => ({
         },
         {
             type: "button",
+            title: gettext("Undo"),
+            icon: "undo",
+            action: editor => undo(editor.currentView.state, tr => editor.currentView.dispatch(tr.setMeta("inputType", "historyUndo"))),
+            disabled: editor => undoDepth(editor.currentView.state) === 0,
+            order: 8
+        },
+        {
+            type: "button",
+            title: gettext("Redo"),
+            icon: "redo",
+            action: editor => redo(editor.currentView.state, tr => editor.currentView.dispatch(tr.setMeta("inputType", "historyRedo"))),
+            disabled: editor => redoDepth(editor.currentView.state) === 0,
+            order: 9
+        },
+        {
+            type: "button",
             title: gettext("Strong"),
             icon: "bold",
             action: editor => {
@@ -469,8 +485,6 @@ export const toolbarModel = () => ({
             },
             order: 8
         },
-        */
-
         {
             type: "button",
             title: gettext("Footnote"),
@@ -486,7 +500,7 @@ export const toolbarModel = () => ({
                 if (
                     READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
                     COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
-                    editor.view !== editor.currentView || // we don't allow footnotes in footnotes
+                    editor.view !== editor.currentView ||  we don't allow footnotes in footnotes
                     elementDisabled(editor, "footnote")
                 ) {
                     return true
@@ -494,7 +508,6 @@ export const toolbarModel = () => ({
             },
             order: 9
         },
-        /*
         {
             type: "button",
             title: gettext("Horizontal line"),
@@ -666,7 +679,7 @@ export const toolbarModel = () => ({
             id: "link",
             type: "button",
             title: gettext("Pastilla"),
-            icon: "link",
+            icon: "indent",
             action: editor => {
                 const dialog = new LinkDialog(editor)
                 dialog.init()
@@ -687,6 +700,7 @@ export const toolbarModel = () => ({
             selected: editor => editor.currentView.state.selection.$head.marks().some(mark => mark.type.name === "link"),
             order: 16
         },
+        /*
         {
             type: "button",
             title: gettext("Cita"),
@@ -713,6 +727,7 @@ export const toolbarModel = () => ({
             },
             order: 17
         },
+        */
         {
             type: "button",
             title: "Ejemplo",
@@ -935,7 +950,7 @@ export const toolbarModel = () => ({
         {
             type: "button",
             title: "Cita Corta",
-            icon: "quote-left",
+            icon: "book",
             action: editor => {
                 const dialog = new CitaToolDialog(editor)
                 dialog.init()
@@ -955,7 +970,7 @@ export const toolbarModel = () => ({
         {
             type: "button",
             title: "Cita",
-            icon: "comment",
+            icon: "quote-left",
             action: editor => {
                 const node = editor.currentView.state.schema.nodes["cita"]
                 const command = wrapIn(node)
@@ -974,22 +989,6 @@ export const toolbarModel = () => ({
                 }
             },
             order: 29
-        },
-        {
-            type: "button",
-            title: gettext("Undo"),
-            icon: "undo",
-            action: editor => undo(editor.currentView.state, tr => editor.currentView.dispatch(tr.setMeta("inputType", "historyUndo"))),
-            disabled: editor => undoDepth(editor.currentView.state) === 0,
-            order: 30
-        },
-        {
-            type: "button",
-            title: gettext("Redo"),
-            icon: "redo",
-            action: editor => redo(editor.currentView.state, tr => editor.currentView.dispatch(tr.setMeta("inputType", "historyRedo"))),
-            disabled: editor => redoDepth(editor.currentView.state) === 0,
-            order: 31
-        },
+        }
     ]
 })
