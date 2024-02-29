@@ -34,30 +34,17 @@ export class AudioDialog {
                     let urlAudio = fragment.firstChild['src']
                     let titulo = this.dialog.dialogEl.querySelector("input.audio-titulo").value;
                     let desc = this.dialog.dialogEl.querySelector("input.audio-desc").value;
+                    let id = "audio-" + urlAudio
 
-                    const view = this.editor.currentView,
-                        posFrom = view.state.selection.from
-                    let posTo = view.state.selection.to
+                    const view = this.editor.currentView
+                    const posFrom = view.state.selection.from
                     const tr = view.state.tr
 
-                    const markType = view.state.schema.marks.audio.create({
-                        desc
-                    })
+                    const nodeAudio = view.state.schema.nodes["audio"].create({id: id, urlAudio: urlAudio, titulo: titulo, desc : desc})
+                    const nodePara = view.state.schema.nodes["paragraph"].create()
 
-                    tr.insertText(desc, posFrom, posTo)
-                    posTo = tr.mapping.map(posFrom, 1)
-                    markType.attrs = {
-                        desc,
-                        urlAudio,
-                        titulo
-
-                    }
-
-                    tr.addMark(
-                        posFrom,
-                        posTo,
-                        markType
-                    )
+                    tr.insert(posFrom, nodePara).replaceSelectionWith(nodeAudio, false)
+                  
                     view.dispatch(tr)
                     view.focus()
                     this.dialog.close()

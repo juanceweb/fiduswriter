@@ -36,39 +36,19 @@ export class VideoDialog {
                 click: () => {
 
                     urlVideo = this.dialog.dialogEl.querySelector("input.video-url").value.replace('https://www.youtube.com/watch?v=', '');
-                    titulo = this.dialog.di.alogEl.querySelector("input.video-titulo").value;
+                    titulo = this.dialog.dialogEl.querySelector("input.video-titulo").value;
                     desc = this.dialog.dialogEl.querySelector("input.video-desc").value;
                     let id = "video-" + urlVideo 
 
-                    const view = this.editor.currentView,
-                        posFrom = view.state.selection.from
-                    let posTo = view.state.selection.to
+                    const view = this.editor.currentView
+                    const posFrom = view.state.selection.from
                     const tr = view.state.tr
 
                     const nodeVideo = view.state.schema.nodes["video"].create({id: id, urlVideo: urlVideo, titulo: titulo, desc : desc})
+                    const nodePara = view.state.schema.nodes["paragraph"].create()
 
-                    tr.replaceSelectionWith(nodeVideo)
+                    tr.insert(posFrom, nodePara).replaceSelectionWith(nodeVideo)
 
-                    // const markType = view.state.schema.marks.video.create({
-                    //     desc
-                    // })
-
-                    // tr.insertText(desc, posFrom, posTo)
-                    // posTo = tr.mapping.map(posFrom, 1)
-                    
-                    // markType.attrs = {
-                    //     id,
-                    //     desc,
-                    //     urlVideo,
-                    //     titulo
-
-                    // }
-
-                    // tr.addMark(
-                    //     posFrom,
-                    //     posTo,
-                    //     markType
-                    // )
                     view.dispatch(tr)
                     view.focus()
                     this.dialog.close()

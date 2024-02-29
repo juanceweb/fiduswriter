@@ -1103,6 +1103,19 @@ html[hc='a5'] #toolbar {
     font-weight: bold;
 }
 
+.audiovisual-menu-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--cs-1-icon);
+}
+
+.remove-article-part:hover {
+    color: var(--cs-1-hover);
+}
+
 .remove-article-part {
     position: absolute;
     top: 5px;

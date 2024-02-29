@@ -16,19 +16,19 @@ export const AudiovisualMenuModel = () => ({
             },
             //disabled: editor => !(editor.currentView.state.selection.node?.type.name === "audiovisual") || editor.currentView.state.selection.node?.attrs.track?.find(track => track.type === "deletion")
         },
-    //     {
-    //         title: gettext("Delete figure"),
-    //         type: "action",
-    //         icon: "trash-alt",
-    //         tooltip: gettext("Delete the figure"),
-    //         order: 2,
-    //         action: editor => {
-    //             const tr = editor.currentView.state.tr
-    //             tr.deleteSelection()
-    //             editor.currentView.dispatch(tr)
-    //         },
-    //         disabled: editor => !(editor.currentView.state.selection.node?.type.name === "figure") || editor.currentView.state.selection.node?.attrs.track?.find(track => track.type === "deletion")
-    //     }
+        {
+            title: gettext("Delete"),
+            type: "action",
+            icon: "trash-alt",
+            tooltip: gettext("Delete the figure"),
+            order: 2,
+            action: editor => {
+                const tr = editor.currentView.state.tr
+                tr.deleteSelection()
+                editor.currentView.dispatch(tr)
+            },
+            //disabled: editor => !(editor.currentView.state.selection.node?.type.name === "figure") || editor.currentView.state.selection.node?.attrs.track?.find(track => track.type === "deletion")
+        }
     ]
 })
 

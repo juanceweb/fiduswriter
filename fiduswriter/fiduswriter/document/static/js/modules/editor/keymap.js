@@ -48,7 +48,29 @@ export function setBlockType(nodeType, attrs = {}) {
 
 export const buildEditorKeymap = schema => {
     const editorKeymap = {
-        "Backspace": (state, dispatch, view) => backspace(state, tr => dispatch(addInputType(tr, "deleteContentBackward")), view),
+        "Backspace": (state, dispatch, view) => {
+            const { $from, $to } = state.selection
+
+            const nodeActual = $from.doc.nodeAt($from.pos)
+
+            const posParent = $from.pos - $from.parentOffset - $from.depth
+            const nodeParent = $from.doc.nodeAt(posParent)
+
+            if (nodeParent != null && $from.parentOffset === 0) {
+                if (nodeParent.type.name === "video") {
+                    return true
+                }
+                else if (nodeParent.type.name === "audio") {
+                    return true
+                }
+                else if (nodeParent.isTextblock && nodeParent.nodeSize === 2) {
+                    view.dispatch(view.state.tr.delete($from.pos - nodeParent.nodeSize, $to.pos));
+                    return true
+                }
+            }
+
+            backspace(state, tr => dispatch(addInputType(tr, "deleteContentBackward")), view)
+        },
         "Mod-z": (state, dispatch, view) => undo(state, tr => dispatch(addInputType(tr, "historyUndo")), view),
         "Shift-Mod-z": (state, dispatch, view) => redo(state, tr => dispatch(addInputType(tr, "historyRedo")), view),
         "Shift-Ctrl-0": setBlockType(schema.nodes.paragraph),
