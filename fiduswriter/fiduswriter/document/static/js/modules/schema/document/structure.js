@@ -308,8 +308,10 @@ export const title = {
         tag: "div.article-title"
     }],
     toDOM(_node) {
-        return ["div", {
-            class: "article-part article-title"
-        }, 0]
+        const attrs = {id: _node.attrs.id, class: "article-part article-richtext_part material border-section article-deleted"}
+        const attrs_namespace = {class: "section-namespace"}
+        const attrs_span = {class: "section-namespace-span", readonly: "true"}
+        return ['div', attrs, ["div", attrs_namespace, ["span", attrs_span, "MATERIAL"] ], ["div", {class: "article-part article-title"}, 0] ]
+
     }
 }

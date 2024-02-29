@@ -198,8 +198,6 @@ table {
 .article-title {
     font-size: 30px !important;
     padding-bottom: 5px;
-    border-bottom: 10px solid var(--main-background-color); /* Ancho y color del borde */
-    margin-bottom: 10px;
 }
 
 .article .table-of-contents h1,

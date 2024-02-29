@@ -288,6 +288,7 @@ export class DocumentOverview {
         contentsEl.appendChild(tableEl)
 
         if (this.path !== "/") {
+            console.log("atencion")
             const headerEl = document.createElement("h1")
             headerEl.innerHTML = escapeText(this.path)
             contentsEl.insertBefore(headerEl, tableEl)
