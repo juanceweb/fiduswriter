@@ -193,26 +193,29 @@ export const mathDialogTemplate = () =>
 export const videoDialogTemplate = () =>
     `<div>
         <p class="etiqueta">Titulo</p><p><input class="video-titulo"/></p>
-        <p class="etiqueta">Url Video</p><p><input class="video-url"/></p>
+        <p class="etiqueta">Url Video youtube</p><p><input class="video-url"/></p>
         <p class="etiqueta">Descripción</p><p><input class="video-desc"/></p>
+        <p class="etiqueta">Fuente</p><p><input class="video-fuente"/></p>
     </div>`
 
 export const audioDialogTemplate = () =>
     `<div>
         <p class="etiqueta">Titulo</p><p><input class="audio-titulo"/></p>
-        <p class="etiqueta">Iframe Audio </p><p><input class="audio-url"/></p>
+        <p class="etiqueta">Iframe Audio ivoox (compartir -> reproductor -> Versión normal) </p><p><input class="audio-url"/></p>
         <p class="etiqueta">Descripción</p><p><input class="audio-desc"/></p>
+        <p class="etiqueta">Fuente</p><p><input class="audio-fuente"/></p>
+    </div>`
+
+export const InteractivoDialogTemplate = () =>
+    `<div title="URL Interactivo">
+        <p class="etiqueta">Titulo</p><p><input class="interactivo-titulo"/></p>
+        <p class="etiqueta">Iframe Actividad </p><p class="etiqueta_br">https://genial.ly/es/: compartir -> insertar  -> iframe</p><p class="etiqueta_br"> https://h5p.org/: embed -> iframe</p><input class="interactivo-field"/>
+        <p class="etiqueta">Descripción</p><p><input class="interactivo-desc"/></p>
+        <p class="etiqueta">Fuente</p><p><input class="interactivo-fuente"/></p>
     </div>`
 
 export const HyperlinkDialogTemplate = () =>
         `<input class="link-title" type="text" value="" placeholder="${gettext("Link")}"/>`
-
-
-export const InteractivoDialogTemplate = () =>
-    `<div title="URL Interactivo">
-        <p class="etiqueta">Iframe Actividad</p>
-        <input class="interactivo-field"/>
-    </div>`
 
 export const CitaToolDialogTemplate = () =>
     `<div title="URL Interactivo">

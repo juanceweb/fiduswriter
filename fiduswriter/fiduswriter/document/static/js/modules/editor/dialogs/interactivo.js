@@ -22,7 +22,7 @@ export class InteractivoDialog {
         //initialize dialog and open it
         this.dialog = new Dialog({
             body: InteractivoDialogTemplate(),
-            height: 95,
+            height: 350,
             width: 600,
             buttons: [{
                     text: this.equationSelected ? gettext("Update") : gettext("Insert"),
@@ -31,16 +31,26 @@ export class InteractivoDialog {
 
                         var parser = new DOMParser();
                         let htmlString = this.dialog.dialogEl.querySelector("input.interactivo-field").value;
-                        var doc = parser.parseFromString(htmlString, 'text/html');
-                        var elementoIframe = doc.getElementsByTagName('iframe')
-                        let urlInteractivo = elementoIframe[0]['src']
+                        let urlInteractivo = ""
+                        if(htmlString != ""){
+                            var doc = parser.parseFromString(htmlString, 'text/html');
+                            var elementoIframe = doc.getElementsByTagName('iframe')
+                            urlInteractivo = elementoIframe[0]['src']
+                        }
+
+                        let titulo = this.dialog.dialogEl.querySelector("input.interactivo-titulo").value;
+                        let desc = this.dialog.dialogEl.querySelector("input.interactivo-desc").value;
+                        let fuente = this.dialog.dialogEl.querySelector("input.interactivo-fuente").value;
                         const view = this.editor.currentView,
                         posFrom = view.state.selection.from,
                         tr = view.state.tr
                         let posTo = view.state.selection.to
 
                             const markType = view.state.schema.marks.interactivo.create({
-                            urlInteractivo
+                                urlInteractivo,
+                                titulo,
+                                desc,
+                                fuente
                         })
 
                         tr.insertText(urlInteractivo, posFrom, posTo)
@@ -48,6 +58,9 @@ export class InteractivoDialog {
                         markType.attrs ={
 
                             urlInteractivo,
+                            titulo,
+                            desc,
+                            fuente
                         }
                         tr.addMark(
                             posFrom,

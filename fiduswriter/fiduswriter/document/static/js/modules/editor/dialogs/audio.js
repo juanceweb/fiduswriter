@@ -19,7 +19,7 @@ export class AudioDialog {
         //initialize dialog and open it
         this.dialog = new Dialog({
             body: audioDialogTemplate(),
-            height:250,
+            height:350,
             width: 600,
             buttons: [{
                 text: this.equationSelected ? gettext("Update") : gettext("Insert"),
@@ -27,13 +27,15 @@ export class AudioDialog {
                 click: () => {
 
                     var htmlString = this.dialog.dialogEl.querySelector("input.audio-url").value
-
-                    // Crear un rango y un fragmento contextual
-                    var range = document.createRange();
-                    var fragment = range.createContextualFragment(htmlString);
-                    let urlAudio = fragment.firstChild['src']
+                    let urlAudio = ""
+                    if(htmlString!="") {
+                        var range = document.createRange();
+                        var fragment = range.createContextualFragment(htmlString);
+                        urlAudio = fragment.firstChild['src']
+                    }
                     let titulo = this.dialog.dialogEl.querySelector("input.audio-titulo").value;
                     let desc = this.dialog.dialogEl.querySelector("input.audio-desc").value;
+                    let fuente = this.dialog.dialogEl.querySelector("input.audio-fuente").value;
 
                     const view = this.editor.currentView,
                         posFrom = view.state.selection.from
@@ -49,8 +51,8 @@ export class AudioDialog {
                     markType.attrs = {
                         desc,
                         urlAudio,
-                        titulo
-
+                        titulo,
+                        fuente
                     }
 
                     tr.addMark(

@@ -19,7 +19,7 @@ export class VideoDialog {
         //initialize dialog and open it
         this.dialog = new Dialog({
             body: videoDialogTemplate(),
-            height:250,
+            height:350,
             width: 600,
             buttons: [{
                 text: this.equationSelected ? gettext("Update") : gettext("Insert"),
@@ -29,6 +29,7 @@ export class VideoDialog {
                     let urlVideo = this.dialog.dialogEl.querySelector("input.video-url").value.replace('https://www.youtube.com/watch?v=', '');
                     let titulo = this.dialog.dialogEl.querySelector("input.video-titulo").value;
                     let desc = this.dialog.dialogEl.querySelector("input.video-desc").value;
+                    let fuente = this.dialog.dialogEl.querySelector("input.video-fuente").value;
                     let id = "video-" + urlVideo 
 
                     const view = this.editor.currentView,
@@ -46,6 +47,7 @@ export class VideoDialog {
                         id,
                         desc,
                         urlVideo,
+                        fuente,
                         titulo
 
                     }
