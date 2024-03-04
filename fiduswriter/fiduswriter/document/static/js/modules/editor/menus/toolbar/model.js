@@ -116,7 +116,9 @@ export const toolbarModel = () => ({
                 }
             },
             action: editor => {
+
                 editor.menu.headerbarModel.open = !editor.menu.headerbarModel.open
+
                 if (editor.menu.headerView) {
                     editor.menu.headerView.update()
                 }
@@ -164,7 +166,7 @@ export const toolbarModel = () => ({
             order: 1
 
         },
-        {
+        /*{
             type: "menu",
             show: editor => {
                 if (
@@ -307,6 +309,271 @@ export const toolbarModel = () => ({
                 }
             ],
             order: 2
+        },*/
+        {
+            type: "menu",
+            show: editor => {
+                const startElement = editor.currentView.state.selection.$anchor.parent,
+                    endElement = editor.currentView.state.selection.$head.parent
+                 if (editor.currentView.state.selection.$anchor.node(2).attrs.title === 'cuerpo') {
+                    const blockNodeType = startElement.type.name
+                    return BLOCK_LABELS[blockNodeType] ? BLOCK_LABELS[blockNodeType] : ""
+                }
+                 return"audio visual"
+
+            },
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    elementDisabled(editor, "bullet_list")
+                ) {
+                    return true
+                }
+            },
+            content: [
+                {
+                    title: "Video",
+                    action: editor => {
+                        const dialog = new VideoDialog(editor)
+                        dialog.init()
+                    },
+                    order: 0
+                },
+                {
+                    title: "Imagen",
+                    action: editor => {
+                        const dialog = new FigureDialog(editor)
+                        dialog.init()
+                        return false
+                    },
+                    order: 1
+                },
+                                {
+                    title: "Audio",
+                    action: editor => {
+                        const dialog = new AudioDialog(editor)
+                        dialog.init()
+                    },
+                    order: 2
+                },
+                {
+                    title: "Actividad Interactiva",
+                    action: editor => {
+                        const dialog = new InteractivoDialog(editor)
+                        dialog.init()
+                    },
+                    order: 3
+                },
+                {
+                    title: "Matematica",
+                    action: editor => {
+                        const dialog = new MathDialog(editor)
+                        dialog.init()
+                    },
+                    available: editor => elementAvailable(editor, "equation"),
+                    disabled: editor => {
+                        if (
+                            READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                            COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                            elementDisabled(editor, "equation") ||
+                            !["text", "node"].includes(editor.currentView.state.selection.jsonID) ||
+                            (
+                                editor.currentView.state.selection.jsonID === "node" &&
+                                editor.currentView.state.selection.node.type.name !== "equation"
+                            )
+                        ) {
+                            return true
+                        }
+                    },
+                    order: 4
+                },
+            ],
+            order: 3
+        },
+        {
+            type: "menu",
+            show: editor => {
+                const startElement = editor.currentView.state.selection.$anchor.parent,
+                    endElement = editor.currentView.state.selection.$head.parent
+                 if (editor.currentView.state.selection.$anchor.node(2).attrs.title === 'cuerpo') {
+                    const blockNodeType = startElement.type.name
+                    return BLOCK_LABELS[blockNodeType] ? BLOCK_LABELS[blockNodeType] : ""
+                }
+                 return"Recursos"
+
+            },
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    elementDisabled(editor, "bullet_list")
+                ) {
+                    return true
+                }
+            },
+            content: [
+                {
+                    title: "Leer con atención",
+                    action: editor => {
+                        const node = editor.currentView.state.schema.nodes["leer_con_atencion"]
+                        const command = wrapIn(node)
+                        command(editor.currentView.state, tr =>{
+                            editor.currentView.dispatch(tr)
+                        } )
+                    },
+                    order: 0
+                },
+                {
+                    title: "Para reflexionar",
+                    action: editor => {
+                        const node = editor.currentView.state.schema.nodes["para_reflexionar"]
+                        const command = wrapIn(node)
+                        command(editor.currentView.state, tr =>{
+                            editor.currentView.dispatch(tr)
+                        } )
+                    },
+                    order: 1
+                },
+                                {
+                    title: "Texto Aparte",
+                    action: editor => {
+                        const node = editor.currentView.state.schema.nodes["texto_aparte"]
+                        const command = wrapIn(node)
+                        command(editor.currentView.state, tr =>{
+                            editor.currentView.dispatch(tr)
+                        } )
+                    },
+                    order: 2
+                },
+                {
+                    title: "Ejemplo",
+                    action: editor => {
+                        const node = editor.currentView.state.schema.nodes["ejemplo"]
+                        const command = wrapIn(node)
+                        command(editor.currentView.state, tr =>{
+                            editor.currentView.dispatch(tr)
+                        } )
+                    },
+                    order: 3
+                },
+                {
+                    title: "Para Ampliar",
+                    action: editor => {
+                        const node = editor.currentView.state.schema.nodes["para_ampliar"]
+                        const command = wrapIn(node)
+                        command(editor.currentView.state, tr =>{
+                            editor.currentView.dispatch(tr)
+                        } )
+                    },
+                    order: 4
+                },
+                {
+                    title: "Actividades",
+                    action: editor => {
+                        const node = editor.currentView.state.schema.nodes["actividades"]
+                        const command = wrapIn(node)
+                        command(editor.currentView.state, tr =>{
+                            editor.currentView.dispatch(tr)
+                        } )
+                    },
+                    order: 5
+                },
+                {
+                    title: "Recurso Web",
+                    action: editor => {
+                        const node = editor.currentView.state.schema.nodes["recurso_web"]
+                        const command = wrapIn(node)
+                        command(editor.currentView.state, tr =>{
+                            editor.currentView.dispatch(tr)
+                        } )
+                    },
+                    order: 6
+                },
+                {
+                    title: "Lectura Obligatoria",
+                    action: editor => {
+                        const node = editor.currentView.state.schema.nodes["lectura_obligatoria"]
+                        const command = wrapIn(node)
+                        command(editor.currentView.state, tr =>{
+                            editor.currentView.dispatch(tr)
+                        } )
+                    },
+                    order: 7
+                },
+                {
+                    title: "Lectura Recomendada",
+                    action: editor => {
+                        const node = editor.currentView.state.schema.nodes["lectura_recomendada"]
+                        const command = wrapIn(node)
+                        command(editor.currentView.state, tr =>{
+                            editor.currentView.dispatch(tr)
+                        } )
+                    },
+                    order: 8
+                },
+                {
+                    title: "Recurso Cita",
+                    action: editor => {
+                        const node = editor.currentView.state.schema.nodes["cita"]
+                        const command = wrapIn(node)
+                        command(editor.currentView.state, tr =>{
+                            editor.currentView.dispatch(tr)
+                        } )
+                    },
+                    order: 9
+                }
+            ],
+            order: 3
+        },
+        {
+            type: "menu",
+            show: editor => {
+                const startElement = editor.currentView.state.selection.$anchor.parent,
+                    endElement = editor.currentView.state.selection.$head.parent
+                 if (editor.currentView.state.selection.$anchor.node(2).attrs.title === 'cuerpo') {
+                    const blockNodeType = startElement.type.name
+                    return BLOCK_LABELS[blockNodeType] ? BLOCK_LABELS[blockNodeType] : ""
+                }
+                 return"Utilidades"
+
+            },
+            disabled: editor => {
+                if (
+                    READ_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    COMMENT_ONLY_ROLES.includes(editor.docInfo.access_rights) ||
+                    elementDisabled(editor, "bullet_list")
+                ) {
+                    return true
+                }
+            },
+            content: [
+                {
+                    title: "HyperLink",
+                    action: editor => {
+                        const dialog = new HyperLinkDialog(editor)
+                        dialog.init()
+                    },
+                    order: 0
+                },
+                {
+                    title: "Pastilla",
+                    action: editor => {
+                        const dialog = new LinkDialog(editor)
+                        dialog.init()
+                    },
+                    order: 1
+                },
+                {
+                    title: "Cita Corta",
+                    action: editor => {
+                        const dialog = new CitaToolDialog(editor)
+                        dialog.init()
+                    },
+                    order: 1
+                }
+            ],
+            order: 3
         },
         {
             type: "button",
@@ -532,6 +799,8 @@ export const toolbarModel = () => ({
             order: 10
         },
          */
+        ////////////////////////////////////////////////////////////////////////////////
+        /*
         {
             type: "button",
             title: gettext("Math"),
@@ -700,6 +969,9 @@ export const toolbarModel = () => ({
             selected: editor => editor.currentView.state.selection.$head.marks().some(mark => mark.type.name === "link"),
             order: 16
         },
+
+        */
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /*
         {
             type: "button",
@@ -728,6 +1000,8 @@ export const toolbarModel = () => ({
             order: 17
         },
         */
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        /*
         {
             type: "button",
             title: "Ejemplo",
@@ -989,6 +1263,6 @@ export const toolbarModel = () => ({
                 }
             },
             order: 29
-        }
+        }*/
     ]
 })
