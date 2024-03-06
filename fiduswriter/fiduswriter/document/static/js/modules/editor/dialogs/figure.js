@@ -227,7 +227,6 @@ export class FigureDialog {
 
         const para = this.editor.currentView.state.schema.nodes["paragraph"].create()
 
-
         const view = this.editor.currentView,
         posFrom = view.state.selection.from
 

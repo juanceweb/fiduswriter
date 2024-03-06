@@ -32,7 +32,17 @@ const createHeading = level => ({
     toDOM(node) {
         const attrs = {id: node.attrs.id}
         addTracks(node, attrs)
-        return [`h${level}`, attrs, 0]
+
+        if (node.attrs.id == "H7367051") {
+            const attrs_namespace = {class: "section-namespace-unidad"}
+            const attrs_span = {class: "section-namespace-span-unidad", readonly: "true"}
+            attrs.class = "espacio-unidad";
+            return ["div", ["div", attrs_namespace, ["span", attrs_span, "UNIDAD"] ], ["h1", attrs, 0 ] ] 
+       
+        }
+        else {
+            return [`h${level}`, attrs, 0]
+        }
     }
 })
 

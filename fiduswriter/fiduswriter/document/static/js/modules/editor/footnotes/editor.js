@@ -17,6 +17,8 @@ import {
     clipboardPlugin,
     figurePlugin,
     audiovisualPlugin,
+    audioPlugin,
+    interactivoPlugin,
     getFootnoteMarkerContents,
     linksPlugin,
     marginboxesPlugin,
@@ -59,6 +61,8 @@ export class ModFootnoteEditor {
             [marginboxesPlugin, () => ({editor: this.mod.editor})],
             [searchPlugin],
             [audiovisualPlugin, () => ({editor: this.mod.editor})],
+            [audioPlugin, () => ({editor: this.mod.editor})],
+            [interactivoPlugin, () => ({editor: this.mod.editor})],
             [figurePlugin, () => ({editor: this.mod.editor})],
         ]
     }

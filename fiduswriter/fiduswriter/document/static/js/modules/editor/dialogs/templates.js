@@ -190,29 +190,35 @@ export const mathDialogTemplate = () =>
         <p><span class="math-field" type="text" name="math" ></span></p>
     </div>`
 
-export const videoDialogTemplate = (urlVideo, titulo, desc) =>
+export const videoDialogTemplate = (urlVideo, titulo, desc, fuente) =>
     `<div>
         <p class="video-etiqueta">Titulo</p><p><input class="video-titulo"/ value="${titulo}"></p>
+        <p class="video-etiqueta">Descripción</p><textarea class="video-desc"/>${desc}</textarea>
         <p class="video-etiqueta">Url Video</p><p><input class="video-url"/ value="${urlVideo}"></p>
-        <p class="video-etiqueta">Descripción</p><p><input class="video-desc"/ value="${desc}"></p>
+        <p class="video-etiqueta">Fuente</p><p><input class="video-fuente"/ value="${fuente}"></p>
     </div>`
 
-export const audioDialogTemplate = () =>
+export const audioDialogTemplate = (urlAudio, titulo, desc, fuente) =>
     `<div>
-        <p class="etiqueta">Titulo</p><p><input class="audio-titulo"/></p>
-        <p class="etiqueta">Iframe Audio </p><p><input class="audio-url"/></p>
-        <p class="etiqueta">Descripción</p><p><input class="audio-desc"/></p>
+        <p class="etiqueta">Titulo</p><p><input class="audio-titulo"/ value="${titulo}"></p>
+        <p class="etiqueta">Descripción</p><textarea class="audio-desc"/>${desc}</textarea>
+        <p class="etiqueta">Iframe Audio ivoox (compartir -> reproductor -> Versión normal) </p><p><input class="audio-url"/ value="${urlAudio}"></p>
+        <p class="etiqueta">Fuente</p><p><input class="audio-fuente"/ value="${fuente}"></p>
+    </div>`
+
+export const InteractivoDialogTemplate = (urlInteractivo, titulo, desc, fuente) =>
+    `<div title="URL Interactivo">
+        <p class="etiqueta">Titulo</p><p><input class="interactivo-titulo"/ value="${titulo}"></p>
+        <p class="etiqueta">Descripción</p><textarea class="interactivo-desc"/>${desc}</textarea>
+        <p class="etiqueta_br">Iframe Actividad </p>
+        <p class="etiqueta_br">https://genial.ly/es/: compartir -> insertar  -> iframe</p>
+        <p class="etiqueta_br"> https://h5p.org/: embed -> iframe</p>
+        <p><input class="interactivo-field"/ value= "${encodeURIComponent(urlInteractivo)}"></p>
+        <p class="etiqueta">Fuente</p><p><input class="interactivo-fuente"/ value="${fuente}"></p>
     </div>`
 
 export const HyperlinkDialogTemplate = () =>
         `<input class="link-title" type="text" value="" placeholder="${gettext("Link")}"/>`
-
-
-export const InteractivoDialogTemplate = () =>
-    `<div title="URL Interactivo">
-        <p class="etiqueta">Iframe Actividad</p>
-        <input class="interactivo-field"/>
-    </div>`
 
 export const CitaToolDialogTemplate = () =>
     `<div title="URL Interactivo">

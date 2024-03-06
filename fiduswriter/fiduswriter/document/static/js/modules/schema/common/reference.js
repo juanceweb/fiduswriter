@@ -98,6 +98,9 @@ export const video = {
         },
         desc: {
             default: null
+        },
+        fuente:{
+            default: null
         }
     },
     inclusive: false,
@@ -108,7 +111,8 @@ export const video = {
                     id: dom.id,
                     desc: dom.getAttribute("desc"),
                     urlVideo: dom.getAttribute("urlVideo"),
-                    titulo: dom.getAttribute("titulo")
+                    titulo: dom.getAttribute("titulo"),
+                    fuente:dom.getAttribute("fuente")
 
                 }
             }
@@ -119,12 +123,11 @@ export const video = {
         const attrs = {id: node.attrs.id, class: "audiovisual-borde"}
         const attrsText = {class: "audiovisual-text"}
         const attrsVideo = {width:"300", height:"200", src:"https://www.youtube.com/embed/"+node.attrs.urlVideo}
-        const attrsDel = {class:"audiovisual-menu-btn", onclick: "newAlert(event)"}
         const attrs_namespace = {class: "tool-namespace"}
         const attrs_span = {class: "tool-namespace-span"}
         addTracks(node, attrs)
 
-        return ["div", attrs , ["div", attrs_namespace, ["span", attrs_span, "AUDIOVISUAL"] ], ["p", attrsText, node.attrs.titulo ] , ["iframe", attrsVideo, 0] , ["p", attrsText, node.attrs.desc] ]
+        return ["div", attrs , ["div", attrs_namespace, ["span", attrs_span, "AUDIOVISUAL"] ], ["p", attrsText, node.attrs.titulo ], ["p", attrsText, node.attrs.desc], ["iframe", attrsVideo, 0], ["p", attrsText, node.attrs.fuente] ]
     }
 }
 
@@ -175,6 +178,12 @@ export const audio = {
         },
         urlAudio: {
             default: null
+        },
+        fuente:{
+            default: null
+        },
+        iframe: {
+            default: null
         }
     },
     inclusive: false,
@@ -184,7 +193,9 @@ export const audio = {
                 return {
                     desc: dom.getAttribute("desc"),
                     urlAudio: dom.getAttribute("urlAudio"),
-                    titulo: dom.getAttribute("titulo")
+                    titulo: dom.getAttribute("titulo"),
+                    fuente: dom.getAttribute("fuente"),
+                    iframe: dom.getAttribute("iframe")
 
                 }
             }
@@ -193,13 +204,12 @@ export const audio = {
     toDOM(node) {
         const attrs = {id: node.attrs.id, class: "audiovisual-borde"}
         const attrsText = {class: "audiovisual-text", readonly: "true" }
-        const attrsAudio = {frameBorder:'0', allowFullScreen:'', scrolling:'no', height:'150', style:'width:95%;', src:node.attrs.urlAudio ,loading:'lazy'}
-        const attrsDel = {class:"remove-article-part", onclick: "newAlert(event)"}
+        const attrsAudio = {frameBorder:'0', allowFullScreen:'', scrolling:'no', height:'200', style:'width:95%;', src:node.attrs.urlAudio ,loading:'lazy'}
         const attrs_namespace = {class: "tool-namespace"}
         const attrs_span = {class: "tool-namespace-span", readonly: "true"}
         addTracks(node, attrs)
 
-        return ["div", attrs , ["div", attrs_namespace, ["span", attrs_span, "AUDIO"] ], ["p", attrsText, node.attrs.titulo ] , ["iframe", attrsAudio, 0] , ["p", attrsText, node.attrs.desc], ["div", attrsDel, ["i", {class: "fa fa-trash-alt"}] ] ]
+        return ["div", attrs , ["div", attrs_namespace, ["span", attrs_span, "AUDIO"] ], ["p", attrsText, node.attrs.titulo ], ["p", attrsText, node.attrs.desc], ["iframe", attrsAudio, 0], ["p", attrsText, node.attrs.fuente] ]
     }
 }
 
@@ -211,8 +221,19 @@ export const interactivo = {
     group: "block",
     content: "blockquote+",
     attrs: {
-
+        titulo: {
+            default: null
+        },
         urlInteractivo: {
+            default: null
+        },
+        desc: {
+            default: null
+        },
+        fuente:{
+            default: null
+        },
+        iframe: {
             default: null
         }
     },
@@ -221,8 +242,11 @@ export const interactivo = {
         {
             getAttrs(dom) {
                 return {
-
-                    urlInteractivo: dom.getAttribute("urlInteractivo")
+                    urlInteractivo: dom.getAttribute("urlInteractivo"),
+                    desc: dom.getAttribute("desc"),
+                    titulo: dom.getAttribute("titulo"),
+                    fuente: dom.getAttribute("fuente"),
+                    iframe: dom.getAttribute("iframe")
                 }
             }
         }
@@ -230,13 +254,12 @@ export const interactivo = {
     toDOM(node) {
         const attrs = { id: node.attrs.id, class: "audiovisual-borde" }
         const attrsText = {class: "audiovisual-text", readonly: "true" }
-        const attrsInteractivo = {frameBorder:'0', allowFullScreen:'', scrolling:'no', width:"300", height:"200", src: node.attrs.urlInteractivo ,loading:'lazy'}
-        const attrsDel = {class:"remove-article-part", onclick: "newAlert(event)"}
+        const attrsInteractivo = {frameBorder:'0', allowFullScreen:'', scrolling:'no', width:"300", height:"200", src: node.attrs.urlInteractivo , loading:'lazy'}
         const attrs_namespace = {class: "tool-namespace"}
         const attrs_span = {class: "tool-namespace-span", readonly: "true"}
         addTracks(node, attrs)
 
-        return ["div", attrs , ["div", attrs_namespace, ["span", attrs_span, "INTERACTIVO"] ], ["p", attrsText, "" ] , ["iframe", attrsInteractivo, 0] , ["p", attrsText, ""], ["div", attrsDel, ["i", {class: "fa fa-trash-alt"}] ] ]
+        return ["div", attrs , ["div", attrs_namespace, ["span", attrs_span, "INTERACTIVO"] ], ["p", attrsText, "" ] , ["p", attrsText, node.attrs.titulo ], ["p", attrsText, node.attrs.desc], ["iframe", attrsInteractivo, 0], ["p", attrsText, node.attrs.fuente] ]
     }
 }
 

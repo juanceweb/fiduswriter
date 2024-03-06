@@ -115,6 +115,7 @@ export class PartView {
     }
 
     stopEvent() {
+        console.log("stop")
         return false
     }
 }

@@ -1,16 +1,16 @@
 import {V} from "../../dialogs"
 import {figureMenuAction} from "./utils"
-import { VideoDialog } from "../../dialogs"
+import { InteractivoDialog } from "../../dialogs"
 
-export const AudiovisualMenuModel = () => ({
+export const InteractivoMenuModel = () => ({
     content: [
         {
             title: `${gettext("Editar")}`,
             type: "action",
-            tooltip: gettext("Editar la informacion del audiovisual."),
+            tooltip: gettext("Editar la informacion del interactivo."),
             order: 1,
             action: editor => {
-                const dialog = new VideoDialog(editor)
+                const dialog = new InteractivoDialog(editor)
                 dialog.init()
                 return false
             },
@@ -20,7 +20,7 @@ export const AudiovisualMenuModel = () => ({
             title: gettext("Delete"),
             type: "action",
             icon: "trash-alt",
-            tooltip: gettext("Delete the video"),
+            tooltip: gettext("Delete the interactivo"),
             order: 2,
             action: editor => {
                 const tr = editor.currentView.state.tr

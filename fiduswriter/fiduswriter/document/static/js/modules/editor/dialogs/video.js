@@ -18,41 +18,50 @@ export class VideoDialog {
         let urlVideo = ""
         let titulo = ""
         let desc = ""
+        let fuente = ""
 
         if (typeof this.node !== 'undefined') {
             urlVideo = this.node.attrs.urlVideo
             titulo = this.node.attrs.titulo
             desc = this.node.attrs.desc
+            fuente = this.node.attrs.fuente
         }
 
         //initialize dialog and open it
         this.dialog = new Dialog({
-            body: videoDialogTemplate(urlVideo, titulo, desc),
-            height:250,
+            body: videoDialogTemplate(urlVideo, titulo, desc, fuente),
+            height:350,
             width: 600,
             buttons: [{
                 text: this.equationSelected ? gettext("Update") : gettext("Insert"),
                 classes: "fw-dark insert-math",
                 click: () => {
 
-                    urlVideo = this.dialog.dialogEl.querySelector("input.video-url").value.replace('https://www.youtube.com/watch?v=', '');
-                    titulo = this.dialog.dialogEl.querySelector("input.video-titulo").value;
-                    desc = this.dialog.dialogEl.querySelector("input.video-desc").value;
+                    urlVideo = this.dialog.dialogEl.querySelector("input.video-url").value.replace('https://www.youtube.com/watch?v=', '')
+                    titulo = this.dialog.dialogEl.querySelector("input.video-titulo").value
+                    desc = this.dialog.dialogEl.querySelector("textarea.video-desc").value
+                    fuente = this.dialog.dialogEl.querySelector("input.video-fuente").value
                     let id = "video-" + urlVideo 
 
                     const view = this.editor.currentView
                     const posFrom = view.state.selection.from
                     const tr = view.state.tr
 
-                    const nodeVideo = view.state.schema.nodes["video"].create({id: id, urlVideo: urlVideo, titulo: titulo, desc : desc})
+                    const nodeVideo = view.state.schema.nodes["video"].create({id: id, urlVideo: urlVideo, titulo: titulo, desc : desc, fuente: fuente})
                     const nodePara = view.state.schema.nodes["paragraph"].create()
 
-                    tr.insert(posFrom, nodePara).replaceSelectionWith(nodeVideo)
+                    console.log(nodePara)
+
+                    if (typeof this.node !== 'undefined') {
+                        tr.replaceSelectionWith(nodeVideo)
+                    }
+                    else {
+                        tr.insert(posFrom, nodePara).insert(posFrom, nodeVideo)
+                    }
 
                     view.dispatch(tr)
                     view.focus()
                     this.dialog.close()
-                    //return
                 }
             },
                 {

@@ -15,35 +15,53 @@ export class AudioDialog {
 
     init() {
         //get selected node
+        let urlAudio = ""
+        let titulo = ""
+        let desc = ""
+        let fuente = ""
+        let iframe = ""
+
+        if (typeof this.node !== 'undefined') {
+            urlAudio = this.node.attrs.iframe
+            titulo = this.node.attrs.titulo
+            desc = this.node.attrs.desc
+            fuente = this.node.attrs.fuente
+        }
 
         //initialize dialog and open it
         this.dialog = new Dialog({
-            body: audioDialogTemplate(),
-            height:250,
+            body: audioDialogTemplate(urlAudio, titulo, desc, fuente),
+            height:350,
             width: 600,
             buttons: [{
                 text: this.equationSelected ? gettext("Update") : gettext("Insert"),
                 classes: "fw-dark insert-math",
                 click: () => {
 
-                    var htmlString = this.dialog.dialogEl.querySelector("input.audio-url").value
-
-                    // Crear un rango y un fragmento contextual
-                    var range = document.createRange();
-                    var fragment = range.createContextualFragment(htmlString);
-                    let urlAudio = fragment.firstChild['src']
-                    let titulo = this.dialog.dialogEl.querySelector("input.audio-titulo").value;
-                    let desc = this.dialog.dialogEl.querySelector("input.audio-desc").value;
+                    iframe = this.dialog.dialogEl.querySelector("input.audio-url").value
+                    if(iframe != "") {
+                        let range = document.createRange();
+                        let fragment = range.createContextualFragment(iframe)
+                        urlAudio = fragment.firstChild['src']
+                    }
+                    titulo = this.dialog.dialogEl.querySelector("input.audio-titulo").value;
+                    desc = this.dialog.dialogEl.querySelector("textarea.audio-desc").value;
+                    fuente = this.dialog.dialogEl.querySelector("input.audio-fuente").value;
                     let id = "audio-" + urlAudio
 
                     const view = this.editor.currentView
                     const posFrom = view.state.selection.from
                     const tr = view.state.tr
 
-                    const nodeAudio = view.state.schema.nodes["audio"].create({id: id, urlAudio: urlAudio, titulo: titulo, desc : desc})
+                    const nodeAudio = view.state.schema.nodes["audio"].create({id: id, urlAudio: urlAudio, titulo: titulo, desc : desc, fuente: fuente, iframe: iframe})
                     const nodePara = view.state.schema.nodes["paragraph"].create()
 
-                    tr.insert(posFrom, nodePara).replaceSelectionWith(nodeAudio, false)
+                    if (typeof this.node !== 'undefined') {
+                        tr.replaceSelectionWith(nodeAudio)
+                    }
+                    else {
+                        tr.insert(posFrom, nodePara).insert(posFrom, nodeAudio)
+                    }
                   
                     view.dispatch(tr)
                     view.focus()

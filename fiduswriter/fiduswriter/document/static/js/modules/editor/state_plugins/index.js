@@ -89,6 +89,14 @@ export {
 }
     from "./audiovisual"
 export {
+    audioPlugin
+    }
+    from "./audio"
+export {
+    interactivoPlugin
+    }
+    from "./interactivo"
+export {
     tagInputPlugin,
     TagsPartView
 }

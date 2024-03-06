@@ -142,6 +142,7 @@ export class DocumentTemplateDesigner {
                             optional = el.querySelector(".optional option:checked") ? el.querySelector(".optional option:checked").value : false,
                             attrs = {id, title},
                             node = {type, attrs}
+
                         if (help) {
                             attrs.help = help
                         }

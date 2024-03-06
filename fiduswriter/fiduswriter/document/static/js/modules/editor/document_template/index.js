@@ -48,7 +48,7 @@ export class ModDocumentTemplate {
             title: gettext("Optional sections"),
             type: "menu",
             tooltip: gettext("Choose which optional sections to enable."),
-            order: 0,
+            order: 6,
             disabled: editor => editor.docInfo.access_rights !== "write",
             content: hideableDocParts.map(([node, index]) => ({
                 title: node.attrs.title,
@@ -131,9 +131,9 @@ export class ModDocumentTemplate {
                 },
             }))
         }
-        const settingsMenu = this.editor.menu.headerbarModel.content.find(menu => menu.id === "settings")
+        const settingsMenu = this.editor.menu.headerbarModel
         settingsMenu.content = settingsMenu.content.filter(item => item.id !== "metadata")
-        settingsMenu.content.unshift(metadataMenu)
+        settingsMenu.content.push(metadataMenu)
     }
 
     showSafariErrorMessage() {

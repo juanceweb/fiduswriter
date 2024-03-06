@@ -51,7 +51,7 @@ export const buildEditorKeymap = schema => {
         "Backspace": (state, dispatch, view) => {
             const { $from, $to } = state.selection
 
-            const nodeActual = $from.doc.nodeAt($from.pos)
+            console.log(state)
 
             const posParent = $from.pos - $from.parentOffset - $from.depth
             const nodeParent = $from.doc.nodeAt(posParent)
@@ -61,6 +61,9 @@ export const buildEditorKeymap = schema => {
                     return true
                 }
                 else if (nodeParent.type.name === "audio") {
+                    return true
+                }
+                else if (nodeParent.type.name === "interactivo") {
                     return true
                 }
                 else if (nodeParent.isTextblock && nodeParent.nodeSize === 2) {

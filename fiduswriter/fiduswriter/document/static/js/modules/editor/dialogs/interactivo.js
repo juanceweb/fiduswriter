@@ -18,42 +18,57 @@ export class InteractivoDialog {
 
     init() {
         //get selected node
+        let urlInteractivo = ""
+        let titulo = ""
+        let desc = ""
+        let fuente = ""
+        let iframe = ""
+
+        if (typeof this.node !== 'undefined') {
+            urlInteractivo = this.node.attrs.iframe
+            titulo = this.node.attrs.titulo
+            desc = this.node.attrs.desc
+            fuente = this.node.attrs.fuente
+        }
 
         //initialize dialog and open it
         this.dialog = new Dialog({
-            body: InteractivoDialogTemplate(),
-            height: 95,
+            body: InteractivoDialogTemplate(urlInteractivo, titulo, desc, fuente),
+            height: 350,
             width: 600,
             buttons: [{
                     text: this.equationSelected ? gettext("Update") : gettext("Insert"),
                     classes: "fw-dark insert-math",
                     click: () => {
 
-                        var parser = new DOMParser();
-                        let htmlString = this.dialog.dialogEl.querySelector("input.interactivo-field").value;
-                        var doc = parser.parseFromString(htmlString, 'text/html');
-                        var elementoIframe = doc.getElementsByTagName('iframe')
-                        let urlInteractivo = elementoIframe[0]['src']
+                        let parser = new DOMParser();
+                        iframe = this.dialog.dialogEl.querySelector("input.interactivo-field").value;
+                        console.log(iframe)
+                        if(iframe != ""){
+                            var doc = parser.parseFromString(iframe, 'text/html');
+                            var elementoIframe = doc.getElementsByTagName('iframe')
+                            urlInteractivo = elementoIframe[0]['src']
+                        }
+
+                        titulo = this.dialog.dialogEl.querySelector("input.interactivo-titulo").value;
+                        desc = this.dialog.dialogEl.querySelector("textarea.interactivo-desc").value;
+                        fuente = this.dialog.dialogEl.querySelector("input.interactivo-fuente").value;
+                        let id = "interactivo-" + urlInteractivo
+
                         const view = this.editor.currentView,
                         posFrom = view.state.selection.from,
                         tr = view.state.tr
-                        let posTo = view.state.selection.to
-
-                            const markType = view.state.schema.marks.interactivo.create({
-                            urlInteractivo
-                        })
-
-                        tr.insertText(urlInteractivo, posFrom, posTo)
-                        posTo = tr.mapping.map(posFrom, 1)
-                        markType.attrs ={
-
-                            urlInteractivo,
+               
+                        const nodeInteractivo = view.state.schema.nodes["interactivo"].create({id: id, urlInteractivo: urlInteractivo, titulo: titulo, desc : desc, fuente: fuente, iframe: iframe})
+                        const nodePara = view.state.schema.nodes["paragraph"].create()
+    
+                        if (typeof this.node !== 'undefined') {
+                            tr.replaceSelectionWith(nodeInteractivo)
                         }
-                        tr.addMark(
-                            posFrom,
-                            posTo,
-                            markType
-                        )
+                        else {
+                            tr.insert(posFrom, nodePara).insert(posFrom, nodeInteractivo)
+                        }
+                  
                         view.dispatch(tr)
                         view.focus()
                         this.dialog.close()

@@ -2,10 +2,10 @@ import {Plugin, PluginKey, NodeSelection} from "prosemirror-state"
 import {DOMSerializer} from "prosemirror-model"
 import {ContentMenu} from "../../common"
 
-const key = new PluginKey("audiovisualMenu")
+const key = new PluginKey("audioMenu")
 
 
-class AudiovisualView {
+class AudioView {
     constructor(node, view, getPos, options) {
 
         this.node = node
@@ -13,7 +13,7 @@ class AudiovisualView {
         this.getPos = getPos
         this.options = options
         this.dom = document.createElement("div")
-        this.dom.classList.add("audiovisual")
+        this.dom.classList.add("audio")
         this.serializer = DOMSerializer.fromSchema(node.type.schema)
         const contentDOM = this.serializer.serializeNode(this.node)
         contentDOM.classList.forEach(className => this.dom.classList.add(className))
@@ -37,7 +37,7 @@ class AudiovisualView {
                 tr.setSelection(new NodeSelection($pos))
                 this.view.dispatch(tr)
                 const contentMenu = new ContentMenu({
-                    menu: this.options.editor.menu.audiovisualMenuModel,
+                    menu: this.options.editor.menu.audioMenuModel,
                     width: 280,
                     page: this.options.editor,
                     menuPos: {X: parseInt(event.pageX) + 20, Y: parseInt(event.pageY) - 100},
@@ -56,14 +56,14 @@ class AudiovisualView {
 }
 
 
-export const audiovisualPlugin = function(options) {
+export const audioPlugin = function(options) {
     return new Plugin({
         key,
         state: {
             init(_config, _state) {
                 if (options.editor.docInfo.access_rights === "write") {
-                    this.spec.props.nodeViews["video"] =
-                        (node, view, getPos) => new AudiovisualView(node, view, getPos, options)
+                    this.spec.props.nodeViews["audio"] =
+                        (node, view, getPos) => new AudioView(node, view, getPos, options)
                 }
                 return {}
             },
