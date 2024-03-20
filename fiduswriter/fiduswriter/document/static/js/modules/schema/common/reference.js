@@ -101,6 +101,9 @@ export const video = {
         },
         fuente:{
             default: null
+        },
+        alt:{
+            alt: null
         }
     },
     inclusive: false,
@@ -112,7 +115,8 @@ export const video = {
                     desc: dom.getAttribute("desc"),
                     urlVideo: dom.getAttribute("urlVideo"),
                     titulo: dom.getAttribute("titulo"),
-                    fuente:dom.getAttribute("fuente")
+                    fuente: dom.getAttribute("fuente"),
+                    alt: dom.getAttribute("alt")
 
                 }
             }
@@ -156,10 +160,6 @@ export const citaTool = {
     ],
     toDOM(node) {
         const attrs = { id: node.attrs.id, class: "audiovisual-borde" }
-        const attrsText = {class: "audiovisual-text", readonly: "true" }
-        const attrsDel = {class:"remove-article-part", onclick: "newAlert(event)"}
-        const attrs_namespace = {class: "tool-namespace"}
-        const attrs_span = {class: "tool-namespace-span"}
         addTracks(node, attrs)
 
         return ["strong", {class:'class_cita'} , 0 ]
@@ -184,6 +184,9 @@ export const audio = {
         },
         iframe: {
             default: null
+        },
+        alt: {
+            alt: null
         }
     },
     inclusive: false,
@@ -195,7 +198,8 @@ export const audio = {
                     urlAudio: dom.getAttribute("urlAudio"),
                     titulo: dom.getAttribute("titulo"),
                     fuente: dom.getAttribute("fuente"),
-                    iframe: dom.getAttribute("iframe")
+                    iframe: dom.getAttribute("iframe"),
+                    alt: dom.getAttribute("alt")
 
                 }
             }
@@ -235,6 +239,9 @@ export const interactivo = {
         },
         iframe: {
             default: null
+        },
+        alt: {
+            alt: null
         }
     },
     inclusive: false,
@@ -246,7 +253,8 @@ export const interactivo = {
                     desc: dom.getAttribute("desc"),
                     titulo: dom.getAttribute("titulo"),
                     fuente: dom.getAttribute("fuente"),
-                    iframe: dom.getAttribute("iframe")
+                    iframe: dom.getAttribute("iframe"),
+                    alt: dom.getAttribute("alt")
                 }
             }
         }

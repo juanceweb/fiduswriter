@@ -17,7 +17,13 @@ body.editor header {
 }
 
 .image-alt {
-    height: 80%;
+    background-color: var(--cs-white-background);
+    width: 92%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: solid 1px var(--cs-white-border);
+    cursor: text;
+    position: relative;
     border: 1px solid #ccc;
 }
 
@@ -601,7 +607,7 @@ span.delete {
 }
 
 
-.video-titulo, .video-url, .video-desc, .video-fuente, .audio-titulo, .audio-url, .audio-desc, .audio-fuente, .hyperlink-link, .interactivo-field, .interactivo-titulo, .interactivo-desc, .interactivo-fuente {
+.video-titulo, .video-url, .video-desc, .video-fuente, .video-alt, .audio-titulo, .audio-url, .audio-desc, .audio-fuente, .audio-alt, .hyperlink-link, .interactivo-field, .interactivo-titulo, .interactivo-desc, .interactivo-fuente, .interactivo-alt {
     background-color: var(--cs-white-background);
     margin: 9px 10px 7px;
     padding-left: 5px;
@@ -948,6 +954,7 @@ html[hc='a5'] #toolbar {
 .article-part.border-section {
     border: 2px solid #a2a4b1 !important;
     border-radius: 5px;
+    margin-bottom: 8px;
 }
 
 
@@ -982,6 +989,13 @@ html[hc='a5'] #toolbar {
 
 .espacio-unidad {
     margin-left: 10px !important;
+}
+
+.espacio-unidad span {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 700;
+    line-height: 1.25em;
+    font-size: 36px;
 }
 
 .tool-namespace {

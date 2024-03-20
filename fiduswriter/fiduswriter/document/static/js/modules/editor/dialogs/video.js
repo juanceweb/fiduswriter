@@ -19,17 +19,19 @@ export class VideoDialog {
         let titulo = ""
         let desc = ""
         let fuente = ""
+        let alt = ""
 
         if (typeof this.node !== 'undefined') {
             urlVideo = this.node.attrs.urlVideo
             titulo = this.node.attrs.titulo
             desc = this.node.attrs.desc
             fuente = this.node.attrs.fuente
+            alt = this.node.attrs.alt
         }
 
         //initialize dialog and open it
         this.dialog = new Dialog({
-            body: videoDialogTemplate(urlVideo, titulo, desc, fuente),
+            body: videoDialogTemplate(urlVideo, titulo, desc, fuente, alt),
             height:350,
             width: 600,
             buttons: [{
@@ -41,16 +43,15 @@ export class VideoDialog {
                     titulo = this.dialog.dialogEl.querySelector("input.video-titulo").value
                     desc = this.dialog.dialogEl.querySelector("textarea.video-desc").value
                     fuente = this.dialog.dialogEl.querySelector("input.video-fuente").value
+                    alt = this.dialog.dialogEl.querySelector("input.video-alt").value
                     let id = "video-" + urlVideo 
 
                     const view = this.editor.currentView
                     const posFrom = view.state.selection.from
                     const tr = view.state.tr
 
-                    const nodeVideo = view.state.schema.nodes["video"].create({id: id, urlVideo: urlVideo, titulo: titulo, desc : desc, fuente: fuente})
+                    const nodeVideo = view.state.schema.nodes["video"].create({id: id, urlVideo: urlVideo, titulo: titulo, desc : desc, fuente: fuente, alt: alt})
                     const nodePara = view.state.schema.nodes["paragraph"].create()
-
-                    console.log(nodePara)
 
                     if (typeof this.node !== 'undefined') {
                         tr.replaceSelectionWith(nodeVideo)

@@ -190,30 +190,33 @@ export const mathDialogTemplate = () =>
         <p><span class="math-field" type="text" name="math" ></span></p>
     </div>`
 
-export const videoDialogTemplate = (urlVideo, titulo, desc, fuente) =>
+export const videoDialogTemplate = (urlVideo, titulo, desc, fuente, alt) =>
     `<div>
         <p class="video-etiqueta">Titulo</p><p><input class="video-titulo"/ value="${titulo}"></p>
         <p class="video-etiqueta">Descripción</p><textarea class="video-desc"/>${desc}</textarea>
         <p class="video-etiqueta">Url Video</p><p><input class="video-url"/ value="${urlVideo}"></p>
+        <p class="video-etiqueta">Alt</p><p><input class="video-alt"/ value="${alt}"></p>
         <p class="video-etiqueta">Fuente</p><p><input class="video-fuente"/ value="${fuente}"></p>
     </div>`
 
-export const audioDialogTemplate = (urlAudio, titulo, desc, fuente) =>
+export const audioDialogTemplate = (urlAudio, titulo, desc, fuente, alt) =>
     `<div>
         <p class="etiqueta">Titulo</p><p><input class="audio-titulo"/ value="${titulo}"></p>
         <p class="etiqueta">Descripción</p><textarea class="audio-desc"/>${desc}</textarea>
         <p class="etiqueta">Iframe Audio ivoox (compartir -> reproductor -> Versión normal) </p><p><input class="audio-url"/ value="${urlAudio}"></p>
+        <p class="etiqueta">Alt</p><p><input class="audio-alt"/ value="${alt}"></p>
         <p class="etiqueta">Fuente</p><p><input class="audio-fuente"/ value="${fuente}"></p>
     </div>`
 
-export const InteractivoDialogTemplate = (urlInteractivo, titulo, desc, fuente) =>
+export const InteractivoDialogTemplate = (urlInteractivo, titulo, desc, fuente, alt) =>
     `<div title="URL Interactivo">
         <p class="etiqueta">Titulo</p><p><input class="interactivo-titulo"/ value="${titulo}"></p>
         <p class="etiqueta">Descripción</p><textarea class="interactivo-desc"/>${desc}</textarea>
         <p class="etiqueta_br">Iframe Actividad </p>
         <p class="etiqueta_br">https://genial.ly/es/: compartir -> insertar  -> iframe</p>
         <p class="etiqueta_br"> https://h5p.org/: embed -> iframe</p>
-        <p><input class="interactivo-field"/ value= "${encodeURIComponent(urlInteractivo)}"></p>
+        <p><textarea class="interactivo-field">${urlInteractivo}</textarea></p>
+        <p class="etiqueta">Alt</p><p><input class="interactivo-alt"/ value="${alt}"></p>
         <p class="etiqueta">Fuente</p><p><input class="interactivo-fuente"/ value="${fuente}"></p>
     </div>`
 
@@ -360,7 +363,7 @@ export const configureFigureTemplate = ({language}) =>
                     <tr>
                         <th><h4 class="fw-tablerow-title">${gettext("Alt")}</h4></th>
                         <td>
-                            <input class="image-alt" style="width: 91%"></input>
+                            <input class="image-alt"></input>
                         </td>
                     </tr>
                     

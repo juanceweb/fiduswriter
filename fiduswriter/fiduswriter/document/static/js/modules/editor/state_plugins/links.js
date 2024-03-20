@@ -508,8 +508,6 @@ ${
                 }
             })
 
-            console.log("pase de old a new")
-
             const newTr = newState.tr.setMeta("fixIds", true)
 
             newState.doc.descendants((node, pos) => {

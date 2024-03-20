@@ -37,7 +37,7 @@ const createHeading = level => ({
             const attrs_namespace = {class: "section-namespace-unidad"}
             const attrs_span = {class: "section-namespace-span-unidad", readonly: "true"}
             attrs.class = "espacio-unidad";
-            return ["div", ["div", attrs_namespace, ["span", attrs_span, "UNIDAD"] ], ["h1", attrs, 0 ] ] 
+            return ["section", ["div", attrs_namespace, ["span", attrs_span, "UNIDAD"] ], ["p", attrs, 0 ] ] 
        
         }
         else {

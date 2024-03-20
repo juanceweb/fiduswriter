@@ -315,11 +315,17 @@ export const toolbarModel = () => ({
             show: editor => {
                 const startElement = editor.currentView.state.selection.$anchor.parent,
                     endElement = editor.currentView.state.selection.$head.parent
-                 if (editor.currentView.state.selection.$anchor.node(2).attrs.title === 'cuerpo') {
+   
+                if (editor.currentView.state.selection.$anchor.node(2) == undefined) {
+                    return"AUDIOVISUAL"
+                }
+                
+                if (editor.currentView.state.selection.$anchor.node(2).attrs.title === 'cuerpo') {
                     const blockNodeType = startElement.type.name
                     return BLOCK_LABELS[blockNodeType] ? BLOCK_LABELS[blockNodeType] : ""
                 }
-                 return"audio visual"
+                
+                return"AUDIOVISUAL"
 
             },
             disabled: editor => {
@@ -396,11 +402,17 @@ export const toolbarModel = () => ({
             show: editor => {
                 const startElement = editor.currentView.state.selection.$anchor.parent,
                     endElement = editor.currentView.state.selection.$head.parent
-                 if (editor.currentView.state.selection.$anchor.node(2).attrs.title === 'cuerpo') {
+
+                if (editor.currentView.state.selection.$anchor.node(2) == undefined) {
+                    return"RECURSOS"
+                }
+
+                if (editor.currentView.state.selection.$anchor.node(2).attrs.title === 'cuerpo') {
                     const blockNodeType = startElement.type.name
                     return BLOCK_LABELS[blockNodeType] ? BLOCK_LABELS[blockNodeType] : ""
                 }
-                 return"Recursos"
+
+                return"RECURSOS"
 
             },
             disabled: editor => {
@@ -531,11 +543,17 @@ export const toolbarModel = () => ({
             show: editor => {
                 const startElement = editor.currentView.state.selection.$anchor.parent,
                     endElement = editor.currentView.state.selection.$head.parent
-                 if (editor.currentView.state.selection.$anchor.node(2).attrs.title === 'cuerpo') {
+
+                if (editor.currentView.state.selection.$anchor.node(2) == undefined) {
+                    return"UTILIDADES"
+                }
+                
+                if (editor.currentView.state.selection.$anchor.node(2).attrs.title === 'cuerpo') {
                     const blockNodeType = startElement.type.name
                     return BLOCK_LABELS[blockNodeType] ? BLOCK_LABELS[blockNodeType] : ""
                 }
-                 return"Utilidades"
+
+                return"UTILIDADES"
 
             },
             disabled: editor => {

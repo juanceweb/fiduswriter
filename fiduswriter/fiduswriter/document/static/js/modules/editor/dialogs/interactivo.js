@@ -23,17 +23,20 @@ export class InteractivoDialog {
         let desc = ""
         let fuente = ""
         let iframe = ""
+        let alt = ""
 
         if (typeof this.node !== 'undefined') {
+            console.log(this.node.attrs.iframe)
             urlInteractivo = this.node.attrs.iframe
             titulo = this.node.attrs.titulo
             desc = this.node.attrs.desc
             fuente = this.node.attrs.fuente
+            alt = this.node.attrs.alt
         }
 
         //initialize dialog and open it
         this.dialog = new Dialog({
-            body: InteractivoDialogTemplate(urlInteractivo, titulo, desc, fuente),
+            body: InteractivoDialogTemplate(urlInteractivo, titulo, desc, fuente, alt),
             height: 350,
             width: 600,
             buttons: [{
@@ -42,8 +45,8 @@ export class InteractivoDialog {
                     click: () => {
 
                         let parser = new DOMParser();
-                        iframe = this.dialog.dialogEl.querySelector("input.interactivo-field").value;
-                        console.log(iframe)
+                        iframe = this.dialog.dialogEl.querySelector("textarea.interactivo-field").value;
+
                         if(iframe != ""){
                             var doc = parser.parseFromString(iframe, 'text/html');
                             var elementoIframe = doc.getElementsByTagName('iframe')
@@ -53,13 +56,14 @@ export class InteractivoDialog {
                         titulo = this.dialog.dialogEl.querySelector("input.interactivo-titulo").value;
                         desc = this.dialog.dialogEl.querySelector("textarea.interactivo-desc").value;
                         fuente = this.dialog.dialogEl.querySelector("input.interactivo-fuente").value;
+                        alt = this.dialog.dialogEl.querySelector("input.interactivo-alt").value;
                         let id = "interactivo-" + urlInteractivo
 
                         const view = this.editor.currentView,
                         posFrom = view.state.selection.from,
                         tr = view.state.tr
                
-                        const nodeInteractivo = view.state.schema.nodes["interactivo"].create({id: id, urlInteractivo: urlInteractivo, titulo: titulo, desc : desc, fuente: fuente, iframe: iframe})
+                        const nodeInteractivo = view.state.schema.nodes["interactivo"].create({id: id, urlInteractivo: urlInteractivo, titulo: titulo, desc : desc, fuente: fuente, iframe: iframe, alt: alt})
                         const nodePara = view.state.schema.nodes["paragraph"].create()
     
                         if (typeof this.node !== 'undefined') {

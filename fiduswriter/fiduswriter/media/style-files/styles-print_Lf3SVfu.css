@@ -1,0 +1,31 @@
+.bloque-icon {
+    display: none;
+}
+
+#menu {
+    display: none;
+}
+#header {
+    position:relative;
+    top:0;
+}
+
+.tooltip {
+    display: none;
+}
+.bloque {
+    display:block;  
+    height:fit-content;
+}
+body {
+    width: 960px !important;
+}
+.fuente {
+    font-size: 1em;
+}
+table > tbody > tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+li > p{
+    margin-bottom: 0;
+}

@@ -51,8 +51,6 @@ export const buildEditorKeymap = schema => {
         "Backspace": (state, dispatch, view) => {
             const { $from, $to } = state.selection
 
-            console.log(state)
-
             const posParent = $from.pos - $from.parentOffset - $from.depth
             const nodeParent = $from.doc.nodeAt(posParent)
 

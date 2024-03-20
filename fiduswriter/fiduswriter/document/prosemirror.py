@@ -40,6 +40,7 @@ def to_mini_json(node):
     # Adapted from https://github.com/ProseMirror/prosemirror-model/blob/
     # 6d970507cd0da48653d3b72f2731a71a144a364b/src/node.js#L340-L351
     obj = {"type": node.type.name}
+
     if node.type.name == "article":
         obj["attrs"] = deepcopy(node.attrs)
     else:

@@ -71,7 +71,7 @@ export class PartView {
         this.dom = document.createElement("section")
         this.dom.classList.add("article-part")
         this.dom.classList.add(`article-${this.node.type.name}`)
-        
+
         this.dom.classList.add(`${this.node.attrs.title.toLowerCase()}`)
         this.dom.classList.add('border-section')
 
@@ -115,7 +115,6 @@ export class PartView {
     }
 
     stopEvent() {
-        console.log("stop")
         return false
     }
 }

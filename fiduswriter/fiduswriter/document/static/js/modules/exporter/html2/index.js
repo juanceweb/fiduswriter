@@ -113,7 +113,7 @@ export class HTMLExporter {
             }
             else if (type == "woff") {
                 this.httpFiles.push({
-                    filename: `assets/${element[1]}`,
+                    filename: `assets/fonts/${element[1]}`,
                     url: element[0]
                 })
             }

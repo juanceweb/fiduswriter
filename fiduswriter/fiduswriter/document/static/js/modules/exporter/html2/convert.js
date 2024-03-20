@@ -48,6 +48,7 @@ export class HTMLExporterConvert {
         this.actividades_num = 0
         this.pastillaNum = 0
         this.pastillaDom = ''
+        this.lastelement = false
     }
 
     init(docContent) {
@@ -223,8 +224,72 @@ export class HTMLExporterConvert {
             // end = "</div>" + end
             break
         case "heading_part":
-            // Ignore - we deal with the heading inside
-            break
+
+            if (node.content) {
+
+                if (node.attrs.title == "Unidad"){
+
+                    this.numeracion = this.obtenerNumeroTitulo(node, options)
+                    
+                    start += "<h3 class='index-color' id='unidad-title'>"
+                    end = "</h3>" + end
+                    break
+                }
+                else if (node.attrs.title == "Objetivos") {
+
+                    start += `<h4 class="inicio-unidad" id="${node.attrs.id}" ${ node.attrs.language ? ` lang="${node.attrs.language}"` : ""}>`
+                    end = "</h4>" + end
+                    break
+                }
+                else if (node.attrs.title == "Introduccion") {
+
+                    start += `<h4 class="introduccion-unidad" id="${node.attrs.id}" ${ node.attrs.language ? ` lang="${node.attrs.language}"` : ""}>`
+                    end = "</h4>" + end
+                    break
+                }
+                else if (node.attrs.title == "Subtitulo-1"){
+
+                    start += "<h6><strong>"
+                    end = "</strong></h6>" + end
+                    break
+                }
+                else if (node.attrs.title == "Apartado") {
+
+                    start += `<div class="spy apartado" id="${node.attrs.id}" ${ node.attrs.language ? ` lang="${node.attrs.language}"` : ""}>`
+                    
+                    this.apartado_num++
+                    this.subapartado_num = 0
+                    this.actividades_num = 0
+                    
+                    let apartado = this.numeracion + "." + this.apartado_num + "."       
+                    
+                    start += `<h4><span class="index-color">${apartado}</span>`
+                    end = "</h4></div>" + end
+                    break
+                }
+
+                else if  (node.attrs.title == "Subapartado") {
+
+                    start += `<div class="spy subapartado" id="${node.attrs.id}" ${ node.attrs.language ? ` lang="${node.attrs.language}"` : ""}>`
+                    
+                    this.subapartado_num++
+                    
+                    let subapartado = this.numeracion + "." + this.apartado_num + "." + this.subapartado_num + "."
+                    
+                    start += `<h5><span class="index-color">${subapartado}</span>`
+                    end = "</h5></div>" + end
+                    break
+
+                }
+                else {
+                    break
+                }
+            }
+            else {
+                break
+            }
+            //     // Ignore - we deal with the heading inside
+            // break
         case "contributor":
             // Ignore - we deal with contributors_part instead.
             break
@@ -285,121 +350,18 @@ export class HTMLExporterConvert {
         case "richtext_part":
             if (node.content) {
 
-                if (node.attrs.title == "Titulo"){
-
-                    this.numeracion = this.obtenerNumeroTitulo(node, options)
-                    
-                    start += "<div class=\"article-part article-title\" id=\"unidad-title\">"
-                    end = "</div>" + end
-                    break
-                }
-                else if (node.attrs.title == "Objetivos") {
-
-                    start += `<div class="inicio-unidad" id="${node.attrs.id}" ${ node.attrs.language ? ` lang="${node.attrs.language}"` : ""}>`
-                    end = "</div>" + end
-                    break
-                }
-                else if (node.attrs.title == "Introduccion") {
-
-                    start += `<div class="introduccion-unidad" id="${node.attrs.id}" ${ node.attrs.language ? ` lang="${node.attrs.language}"` : ""}>`
-                    end = "</div>" + end
-                    break
-                }
-                else if (node.attrs.title == "Subtitulo-1") {
-
-                    start += `<div  class="sub-negrita" id="${node.attrs.id}" ${ node.attrs.language ? ` lang="${node.attrs.language}"` : ""}>`
-                    end = "</div>" + end
-                    break
-                }
-                else if (node.attrs.title == "Subtitulo-2") {
-
-                    start += `<div class="sub-negrita-cursiva" id="${node.attrs.id}" ${ node.attrs.language ? ` lang="${node.attrs.language}"` : ""}>`
-                    end = "</div>" + end
-                    break
-                }
-                else if (node.attrs.title == "Subtitulo-3") {
-
-                    start += `<div class="sub-blanquita-cursiva" id="${node.attrs.id}" ${ node.attrs.language ? ` lang="${node.attrs.language}"` : ""}>`
-                    end = "</div>" + end
-                    break
-                }
-                else if (node.attrs.title == "Cuerpo") {
+                if (node.attrs.title == "Cuerpo") {
                     start += `<div class="bloque-texto" id="${node.attrs.id}" ${ node.attrs.language ? ` lang="${node.attrs.language}"` : ""}>`
                     end = "</div>" + end
                     break
                 }
-                else if (node.attrs.title == "Apartado") {
-
-                    start += `<div class="spy apartado" id="${node.attrs.id}" ${ node.attrs.language ? ` lang="${node.attrs.language}"` : ""}>`
-                    
-                    this.apartado_num++
-
-                    this.subapartado_num = 0
-                    this.actividades_num = 0
-
-                    let apartado = this.numeracion + "." + this.apartado_num
-                    
-                    let span = `<span class="index-color">${apartado}</span>`
-
-                    if (node.content) {
-                        node.content.forEach(child => {
-                            content += this.walkJson(child, options)
-                        })
-                    }
-
-                    let posicionh4 = content.indexOf("<h4>") + "<h4>".length;
-
-                    let contentMod= (
-                    content.slice(0, posicionh4) +
-                    span +
-                    " " +
-                    content.slice(posicionh4)
-                    );
-
-                    content = contentMod
-
-                    end = "</div>" + end
-                    break
-                }
-
-                else if  (node.attrs.title == "Subapartado") {
-
-                    start += `<div class="spy subapartado" id="${node.attrs.id}" ${ node.attrs.language ? ` lang="${node.attrs.language}"` : ""}>`
-
-                    this.subapartado_num++
-
-                    let subapartado = this.numeracion + "." + this.apartado_num + "." + this.subapartado_num 
-                    
-                    let span = `<span class="index-color">${subapartado}</span>`
-
-                    if (node.content) {
-                        node.content.forEach(child => {
-                            content += this.walkJson(child, options)
-                        })
-                    }
-
-                    let posicionh5 = content.indexOf("<h5>") + "<h5>".length;
-
-                    let contentMod= (
-                    content.slice(0, posicionh5) +
-                    span +
-                    " " +
-                    content.slice(posicionh5)
-                    );
-
-                    content = contentMod
-
-                    end = "</div>" + end
-                    break
-
-                }
-
                 else {
                     start += `<div class="article-part article-richtext ${node.attrs.id}"${ node.attrs.language ? ` lang="${node.attrs.language}"` : ""}>`
                     end = "</div>" + end
                     break
                 }
-            } else {
+            } 
+            else {
                 break
             }
         case "table_of_contents":
@@ -412,7 +374,13 @@ export class HTMLExporterConvert {
             // table parts will simply show the table inside of them.
             break
         case "paragraph":
-            start += `<p id="p-${++this.parCounter}">`
+
+            if (this.lastelement == "leer_con_atencion") {
+                start += `<p id="p-${++this.parCounter}" class='tool_parrafo'>`
+            }
+            else {
+                start += `<p id="p-${++this.parCounter}" >`
+            }
             end = "</p>" + end
             break
         case "heading1":
@@ -421,9 +389,9 @@ export class HTMLExporterConvert {
         case "heading4":
         case "heading5":
         case "heading6": {
-            const level = parseInt(node.type.slice(-1))
-            start += `<h${level}>`
-            end = `</h${level}>` + end
+            // const level = parseInt(node.type.slice(-1))
+            // start += `<h${level}>`
+            // end = `</h${level}>` + end
             break
         }
         case "code_block":
@@ -456,7 +424,7 @@ export class HTMLExporterConvert {
 
         case "leer_con_atencion":
 
-            start += '<div id="" class="container-fluid bloque "><div class="row header-bloque">'
+            start += '<div class="container-fluid bloque "><div class="row header-bloque">'
             start += '<div class="col-12">'
             start += '<span class="icon bloque-icon" aria-hidden="true" aria-label="icono Leer con atenciónd">L</span>'
             start += '<span class="bloque-type-title"><b>Leer con Atención</b></span>'
@@ -465,7 +433,6 @@ export class HTMLExporterConvert {
             start += '<div class="bloque-content">'
            
             end = "</div></div></div>" + end
-
 
             this.id_tools++
 
@@ -589,6 +556,95 @@ export class HTMLExporterConvert {
 
             break  
 
+        case "video":
+
+            console.log(node.attrs)
+
+            start += '<div id="" class="container-fluid bloque "><div class="row header-bloque">'
+            start += '<div class="col-12">'
+            start += '<span class="icon bloque-icon" aria-hidden="true" aria-label="icono Audiovisual">E</span>'
+            start += '<span class="bloque-type-title"><b>Audiovisual</b></span>'
+            start += '<div class="bloque-collapse-button rotate" data-bs-toggle="collapse" href="#bloque-content-' + this.id_tools + '" role="button" aria-hidden="true" aria-label="Boton abrir" aria-expanded="false" aria-controls="bloque-content-'+ this.id_tools + '">+</div></div></div>'
+            start += '<div class="row collapse show" id="bloque-content-' + this.id_tools + '">'
+
+            if (node.attrs.titulo != "") {
+                start += '<p><strong>'+ node.attrs.titulo +'</strong></p>'
+            }
+
+            if (node.attrs.desc != "") {
+                start += '<p>' + node.attrs.desc + '</p>'
+            }
+            
+            end = "</div></div>" + end
+
+            this.id_tools++
+
+            content = '<p><div class="video-responsive"><iframe alt="' + node.attrs.alt + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" frameborder="0" height="315" src="https://www.youtube.com/embed/' + node.attrs.urlVideo + '" title="YouTube video player" width="560"></iframe></div></p>'
+
+            if (node.attrs.fuente != "") {
+                content += '<p><div class="fuente">Fuente: ' + node.attrs.fuente +'</div></p>'
+            }
+    
+            break
+
+        case "audio":
+
+            start += '<div id="" class="container-fluid bloque "><div class="row header-bloque">'
+            start += '<div class="col-12">'
+            start += '<span class="icon bloque-icon" aria-hidden="true" aria-label="icono Audio">S</span>'
+            start += '<span class="bloque-type-title"><b>Audio</b></span>'
+            start += '<div class="bloque-collapse-button rotate" data-bs-toggle="collapse" href="#bloque-content-' + this.id_tools + '" role="button" aria-hidden="true" aria-label="Boton abrir" aria-expanded="false" aria-controls="bloque-content-'+ this.id_tools + '">+</div></div></div>'
+            start += '<div class="row collapse show" id="bloque-content-' + this.id_tools + '">'
+
+            if (node.attrs.titulo != "") {
+                start += '<p><strong>'+ node.attrs.titulo +'</strong></p>'
+            }
+
+            if (node.attrs.desc != "") {
+                start += '<p>' + node.attrs.desc + '</p>'
+            }
+        
+            end = "</div></div>" + end
+
+            this.id_tools++
+
+            content = '<p><div class="audio-responsive"><iframe alt="' + node.attrs.alt + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" frameborder="0" height="315" src="' + node.attrs.urlAudio + '" title="Audio ivoox player" width="560"></iframe></div></p>'
+
+            if (node.attrs.fuente != "") {
+                content += '<p><div class="fuente">Fuente: ' + node.attrs.fuente +'</div></p>'
+            }
+
+            break
+
+        case "interactivo": 
+
+            start += '<div id="" class="container-fluid bloque "><div class="row header-bloque">'
+            start += '<div class="col-12">'
+            start += '<span class="icon bloque-icon" aria-hidden="true" aria-label="icono Interactivo">E</span>'
+            start += '<span class="bloque-type-title"><b>Interactivo</b></span>'
+            start += '<div class="bloque-collapse-button rotate" data-bs-toggle="collapse" href="#bloque-content-' + this.id_tools + '" role="button" aria-hidden="true" aria-label="Boton abrir" aria-expanded="false" aria-controls="bloque-content-'+ this.id_tools + '">+</div></div></div>'
+            start += '<div class="row collapse show" id="bloque-content-' + this.id_tools + '">'
+                
+            if (node.attrs.titulo != "") {
+                start += '<p><strong>'+ node.attrs.titulo +'</strong></p>'
+            }
+
+            if (node.attrs.desc != "") {
+                start += '<p>' + node.attrs.desc + '</p>'
+            }
+            
+            end = "</div></div>" + end
+
+            this.id_tools++
+
+            content = '<p><div class="video-responsive"><iframe alt="' + node.attrs.alt + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" frameborder="0" height="315" src="' + node.attrs.urlInteractivo + '" title="Interactivo player" width="560"></iframe></div></p>'
+
+            if (node.attrs.fuente != "") {
+                content += '<p><div class="fuente">Fuente: ' + node.attrs.fuente +'</div></p>'
+            }
+
+            break    
+
         case "ordered_list": {
             if (node.attrs.order == 1) {
                 start += `<ol id="list-${++this.listCounter}">`
@@ -624,7 +680,7 @@ export class HTMLExporterConvert {
             end = "</aside>" + end
             break
         case "text": {
-            let strong, em, underline, hyperlink, video, pastilla, audio, interactivo
+            let strong, em, underline, hyperlink, pastilla
             // Check for hyperlink, bold/strong, italic/em and underline
 
             if (node.marks) {
@@ -632,9 +688,6 @@ export class HTMLExporterConvert {
                 em = node.marks.find(mark => mark.type === "em")
                 underline = node.marks.find(mark => mark.type === "underline")
                 pastilla = node.marks.find(mark => mark.type === "link")
-                video = node.marks.find(mark => mark.type === "video")
-                audio = node.marks.find(mark => mark.type === "audio")
-                interactivo = node.marks.find(mark => mark.type ==="interactivo")
                 hyperlink = node.marks.find(mark => mark.type === "hyperlink")
             }
             if (em) {
@@ -660,82 +713,17 @@ export class HTMLExporterConvert {
                 end = '<a href="#" class="pastilla" id="openModal-' + this.pastillaNum + '" data-bs-toggle="modal" data-bs-target="#modalPastilla-' + this.pastillaNum + '"><span class="icon">N</span></a>'
 
                 this.pastillaDom += '<div class="modal fade" id="modalPastilla-' + this.pastillaNum + '" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">'
-
                 this.pastillaDom += '<div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header">'
-
                 this.pastillaDom += '<h3 class="modal-title" id="modalPastillaTitle-' + this.pastillaNum + '"><span class="icon">N</span><h5>Pastilla</h5></h3>'
-
                 this.pastillaDom += ' <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>'
-                     
                 this.pastillaDom += '<div class="modal-body"><div class="container">'
-                
                 this.pastillaDom += '<p>'+ pastilla.attrs.href +'</p>'
-
                 this.pastillaDom += '</div></div>'
-
                 this.pastillaDom += '<div class="modal-footer"><button class="btn btn-primary" id="modalPastilla' + this.pastillaNum + '" type="button" data-bs-dismiss="modal">Cerrar</button></div>'
-
                 this.pastillaDom += '</div></div></div>'
 
             }
             content += escapeText(node.text).normalize("NFC")
-            if (video) {
-
-                start += '<div id="" class="container-fluid bloque "><div class="row header-bloque">'
-                start += '<div class="col-12">'
-                start += '<span class="icon bloque-icon" aria-hidden="true" aria-label="icono Audiovisual">E</span>'
-                start += '<span class="bloque-type-title"><b>Audiovisual</b></span>'
-                start += '<div class="bloque-collapse-button rotate" data-bs-toggle="collapse" href="#bloque-content-' + this.id_tools + '" role="button" aria-hidden="true" aria-label="Boton abrir" aria-expanded="false" aria-controls="bloque-content-'+ this.id_tools + '">+</div></div></div>'
-                start += '<div class="row collapse show" id="bloque-content-' + this.id_tools + '">'
-                start += '<p><strong>'+ video.attrs.titulo +'</strong></p>'
-               
-                end = "</div></div>" + end
-    
-                this.id_tools++
-
-                content = '<p><div class="video-responsive"><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" frameborder="0" height="315" src="https://www.youtube.com/embed/' + video.attrs.urlVideo + '" title="YouTube video player" width="560"></iframe></div></p>'
-
-                content += '<p><div class="fuente">Fuente: ' + video.attrs.desc +'</div></p>'
-
-            }
-            if (audio) {
-
-                start += '<div id="" class="container-fluid bloque "><div class="row header-bloque">'
-                start += '<div class="col-12">'
-                start += '<span class="icon bloque-icon" aria-hidden="true" aria-label="icono Audio">S</span>'
-                start += '<span class="bloque-type-title"><b>Audio</b></span>'
-                start += '<div class="bloque-collapse-button rotate" data-bs-toggle="collapse" href="#bloque-content-' + this.id_tools + '" role="button" aria-hidden="true" aria-label="Boton abrir" aria-expanded="false" aria-controls="bloque-content-'+ this.id_tools + '">+</div></div></div>'
-                start += '<div class="row collapse show" id="bloque-content-' + this.id_tools + '">'
-                start += '<p><strong>'+ audio.attrs.titulo +'</strong></p>'
-               
-                end = "</div></div>" + end
-    
-                this.id_tools++
-
-                content = '<p><div class="audio-responsive"><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" frameborder="0" height="315" src="' + audio.attrs.urlAudio + '" title="Audio ivoox player" width="560"></iframe></div></p>'
-
-                content += '<p><div class="fuente">Fuente: ' + audio.attrs.desc +'</div></p>'
-            }
-
-            if (interactivo) {
-
-                start += '<div id="" class="container-fluid bloque "><div class="row header-bloque">'
-                start += '<div class="col-12">'
-                start += '<span class="icon bloque-icon" aria-hidden="true" aria-label="icono Interactivo">E</span>'
-                start += '<span class="bloque-type-title"><b>Interactivo</b></span>'
-                start += '<div class="bloque-collapse-button rotate" data-bs-toggle="collapse" href="#bloque-content-' + this.id_tools + '" role="button" aria-hidden="true" aria-label="Boton abrir" aria-expanded="false" aria-controls="bloque-content-'+ this.id_tools + '">+</div></div></div>'
-                start += '<div class="row collapse show" id="bloque-content-' + this.id_tools + '">'
-                start += '<p><strong>'+ "" +'</strong></p>'
-               
-                end = "</div></div>" + end
-    
-                this.id_tools++
-
-                content = '<p><div class="video-responsive"><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" frameborder="0" height="315" src="' + interactivo.attrs.urlInteractivo + '" title="Interactivo player" width="560"></iframe></div></p>'
-
-                content += '<p><div class="fuente">Fuente: ' + "" +'</div></p>'
-                
-            }
 
             break
         }
@@ -916,11 +904,13 @@ export class HTMLExporterConvert {
             this.pastillaDom = ""
         }
 
+        this.lastelement = node.type
+
         return start + content + end
     }
 
     assembleBody(docContent) {
-        return `<div id="body">${this.walkJson(docContent)}</div>`
+        return `<div id="main-content-unidad">${this.walkJson(docContent)}</div>`
     }
 
     assebleIndice(docContent) {
@@ -1062,17 +1052,17 @@ export class HTMLExporterConvert {
             title_content += this.walkJson(child, options)
         })
 
-        const regex = /<h3>(.*?)\./g;
-        let coincidencias;
-        const valoresEntreH3 = [];
+        const regex = /^\D*(\d+)\./
 
-        while ((coincidencias = regex.exec(title_content)) !== null) {
-        valoresEntreH3.push(coincidencias[1].trim());
-        }
+        const coincidencias = regex.exec(title_content);
 
-        if (valoresEntreH3.length ==1) {
-            return valoresEntreH3[0]
-        }
+        let numero = 0
+
+        if (coincidencias !== null) {
+            numero = coincidencias[1];
+        } 
+
+        return numero
     }
 
 }
